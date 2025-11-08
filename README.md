@@ -14,14 +14,14 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 - 📬 Contact form (HTML-based)  
 - ✨ Smooth reveal animations & glowing profile image  
 - 📱 Fully responsive across devices  
-- 🌐 Social media links (GitHub, Instagram, Threads, Linkedin, X)
+- 🌐 Social media links (GitHub, Instagram, Threads, Linkedin, TikTok)
 
 ## 📌 Features (V1)
 
 - 📖 Simple design
 - 🛠️ Projects showcase with course repos + side projects  
 - 📬 Contact form (HTML-based)  
-- 🌐 Social media links (GitHub, Instagram, Threads, Linkedin, X)
+- 🌐 Social media links (GitHub, Instagram, Threads, Linkedin, TikTOk)
 ---
 
 ## 🛠️ Tech Stack
