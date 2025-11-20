@@ -5,7 +5,7 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 ---
 ## 📌 Features (V3)
 
-- Coming soon summer 2026 redesign in react.js 
+- 
 
 ## 📌 Features (V2)
 
