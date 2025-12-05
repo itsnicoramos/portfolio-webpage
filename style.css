@@ -16,6 +16,12 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   transition: 0.4s ease;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 /* Sections */
@@ -32,6 +38,16 @@ section {
   justify-content: center;
   align-items: center;
   padding-top: 40px;
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(to right, #00eaff, #0077ff);
+  width: 0%;
+  z-index: 9999;
 }
 
 /* Fix hero being pushed down by navbar */
@@ -95,6 +111,13 @@ section {
 
 .nav-links li a:hover {
   color: #5cf7ef;
+}
+
+.navbar.nav-scrolled {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  transition: 0.3s ease;
 }
 
 /* Mobile Nav */
@@ -293,6 +316,20 @@ h2 {
   margin-top: 40px;
 }
 
+/* =========================================
+   CORSOR
+   ========================================= */
+  #cursor-glow {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(92,247,239,0.35), transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: opacity 0.2s ease;
+}
 /* =========================================
    REVEAL ANIMATION
    ========================================= */
