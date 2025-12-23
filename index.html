@@ -3,254 +3,854 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nico Ramos | Portfolio</title>
-  <meta name="description" content="Nico Ramos | Portfolio of a CS student &amp; aspiring tech entrepreneur" />
+  <title>Nico Ramos | Portfolio 2025</title>
+  <meta name="description" content="Nico Ramos | CS Student & Tech Entrepreneur" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00f5ff;
+      --secondary: #7c3aed;
+      --accent: #ec4899;
+      --dark: #0a0a0f;
+      --dark-light: #1a1a2e;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+      color: #e0e0e0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(0, 245, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Animated Background Grid */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(50px); }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      padding: 12px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 100px 20px 50px;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: #a0a0a0;
+      margin-bottom: 30px;
+      animation: fadeInUp 1s ease 0.2s backwards;
+    }
+
+    .hero-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 30px auto;
+      position: relative;
+      animation: fadeInUp 1s ease 0.4s backwards, float 6s ease-in-out infinite;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      z-index: -1;
+      animation: spin 8s linear infinite;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--dark);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.6s backwards;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--glass);
+      color: white;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 100px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 60px;
+      background: linear-gradient(135deg, white, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .about-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: all 0.3s;
+    }
+
+    .about-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 245, 255, 0.2);
+      border-color: var(--primary);
+    }
+
+    .about-card h3 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .about-card p {
+      line-height: 1.7;
+      color: #b0b0b0;
+    }
+
+    /* Carousel Container */
+    .carousel-container {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .carousel-hint {
+      text-align: center;
+      color: #808080;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .carousel-hint i {
+      color: var(--primary);
+      animation: slideHint 2s ease-in-out infinite;
+    }
+
+    @keyframes slideHint {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+
+    .carousel-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      border-radius: 20px;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--glass);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .carousel-wrapper::-webkit-scrollbar-track {
+      background: var(--glass);
+      border-radius: 10px;
+    }
+
+    .carousel-wrapper::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+    }
+
+    .carousel-wrapper::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 30px;
+      padding: 10px 5px;
+    }
+
+    .carousel-card {
+      min-width: 350px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .carousel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .carousel-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 245, 255, 0.3);
+      border-color: var(--primary);
+    }
+
+    .carousel-card h3 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .carousel-card .status {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(0, 245, 255, 0.1);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .carousel-card p {
+      color: #b0b0b0;
+      line-height: 1.7;
+      margin: 15px 0;
+    }
+
+    .carousel-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .carousel-card a:hover {
+      color: var(--primary);
+    }
+
+    .carousel-nav {
+      display: none;
+    }
+
+    .carousel-dots {
+      display: none;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .skill-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 25px;
+      transition: all 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 15px 40px rgba(0, 245, 255, 0.2);
+    }
+
+    .skill-card strong {
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    /* Social Links */
+    .social-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 60px;
+      height: 60px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.5rem;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px) scale(1.1);
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      color: #808080;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        width: calc(100% - 40px);
+        padding: 12px 20px;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--dark-light);
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .carousel-container {
+        padding: 40px 20px;
+      }
+
+      .carousel-card {
+        min-width: 280px;
+      }
+
+      .carousel-nav {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="scroll-progress"></div>
+  <div class="grid-bg"></div>
 
-  <!-- ===== Navbar ===== -->
-  <nav class="navbar reveal">
-    <div class="nav-container">
-      <div class="logo">NicoRamos™</div>
-      <button class="menu-toggle" id="menu-toggle">☰</button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#Certificate">Certificate</a></li>
-        <li><a href="https://linkedin.com/in/nico-ramos28" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-        <li><a href="https://github.com/itsnicoramos" target="_blank"><i class="fab fa-github"></i></a></li>
-        <li><a href="https://instagram.com/itsnicoramos__" target="_blank"><i class="fab fa-instagram"></i></a></li>
-        <li><a href="https://threads.net/itsnicoramos__" target="_blank"><i class="fab fa-threads"></i></a></li>
-        <li><a href="https://www.tiktok.com/@itsnicoramos_" target="_blank"><i class="fab fa-tiktok"></i></a>
-      </li>
-      </ul>
-    </div>
+  <!-- Navigation -->
+  <nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul id="nav-menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Connect</a></li>
+    </ul>
   </nav>
 
-  <!-- ===== Home ===== -->
-  <section id="home" class="home reveal">
-    <div class="home-wrapper">
-      <div class="home-text">
-        <h1 id="hero-title">Hi, I’m Nico</h1>
-        <p id="hero-subtitle">
-          A BSc Computer Science student at Vancouver Island University
-        </p>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Hi, I'm Nico </h1>
+      <p>BSc Computer Science Student at Vancouver Island University | Future Tech Founder</p>
+      <div class="hero-image">
+        <img src="img/profile.png" alt="Nico Ramos" />
       </div>
-      <div class="home-image">
-        <img src="img/profile.png" alt="Nico Ramos profile photo" width="200" />
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== About ===== -->
-<section id="about" class="about reveal">
-  <div class="about-wrapper">
-    <div class="about-heading">
-      <h2 class="hacker-glow">About Me</h2>
-    </div>
-
-    <div class="about-content">
-      <div class="card reveal">
-        <p>
-          Hi, I’m Nico. I am a <strong>Computer Science student at Vancouver Island University</strong> with 
-          a passion for creating real projects and improving my skills through consistent learning.
-        </p>
-        <p>
-          I focus on <strong>AI development, software engineering, and front-end web development</strong>. 
-          I am currently building an AI and social media platform as a personal long-term project, while also
-          completing academic coursework and improving my full-stack skills.
-        </p>
-        <p>
-          I believe in <strong>building in public</strong> and I share my progress on 
-          <a href="https://instagram.com/itsnicoramos__" target="_blank">Instagram</a>, 
-          <a href="https://github.com/itsnicoramos" target="_blank">GitHub</a>, 
-          <a href="https://linkedin.com/in/nico-ramos28" target="_blank">LinkedIn</a>, 
-          and <a href="https://www.tiktok.com/@itsnicoramos_" target="_blank">TikTok</a>.
-        </p>
-        <p>
-          My goal is to grow into a <strong>tech founder</strong> and build products that help people learn, 
-          create, and explore new ideas.
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
-  
-
-  <!-- ===== Projects ===== -->
-  <section id="projects" class="projects reveal">
-    <div class="projects-wrapper">
-      <div class="projects-heading">
-        <h2 class="hacker-glow">Projects</h2>
-      </div>
-      <div class="projects-content">
-        <ul>
-          <li>
-            <strong>💻 Portfolio Website</strong> Personal Web Resume<br />
-            🔗 <a href="https://itsnicoramos.github.io/portfolio-webpage/" target="_blank">Click Here</a>
-            <em>📌 Status: completed  with styling & mobile responsiveness </em>
-            <p>
-              Developed with HTML, CSS, JavaScript to showcase projects and practice responsive design. 
-               redesign of this webpage in react.js,
-               this website will feature future integration with <strong>ChatGPT</strong> 
-              bringing a live AI assistant directly to this webpage.
-            </p>
-          </li>
-          <li>
-            <strong>🚀 FusionAI </strong><br/>
-              <p>  🔗 A startup experimentation link will be provided soon </p>
-          </li>
-          <li>
-            <strong>🤖 Codename: Neurosky</strong><br />
-            🔗 <a href="https://github.com/itsnicoramos/AIAssistant" target="_blank">Click Here</a>
-            <em>
-              📌 Status: Experimental Python assistant, built while exploring supervised vs. unsupervised learning in AI/ML concepts during summer 2025 <strong>Private Repo for now.</strong>
-            </em>
-          </li>
-          <li>
-            <strong>🌐 CSCI 115 Web Development</strong><br />
-            🔗 <a href="https://itsnicoramos.github.io/csci115-project/" target="_blank">Click Here</a>
-            <em>📌 Status: Completed during Spring 2025 semester at Vancouver Island University</em>
-            <p>A course project demonstrating foundational web development skills using HTML, CSS, and JavaScript.</p>
-          </li>
-          <li>
-            <strong>🌐 MEDI 110 Introduction To Media Production </strong> <br>
-          🔗 <a href="https://itsnicoramos.github.io/MEDI110finalProject/" target="_blank">Click Here</a>
-          <em>📌  Status: Completed during Fall 2025 semester at Vancouver Island University </em>
-            <p>A storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design.</p>
-          </li>
-          <li>
-            <strong>🌐 CSCI 159 Computer Science 1 </strong><br />
-              🔗 <a href="https://github.com/itsnicoramos/csci159-labs" target="_blank">Click Here </a>
-                <em>📌  Status: Completed during Fall 2025 semester at Vancouver Island University </em>
-                <p>An intensive introduction to programming and computational logic, centered on C++.
-                  Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging, with a strong focus on thinking like a computer scientist rather than just writing syntax.
-                </p>
-          </li>
-          <li>
-            <strong>🌐 CSCI 161 Computer Science 2 </strong><br />
-            <p>Loading...</p>
-          </li>
-          <li>
-            <strong>🌐 CSCI 162 Topic in Computer Science   </strong><br />
-            <p>Loading...</p>
-          </li>
-        </ul>
+      <div class="cta-buttons">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-secondary">Let's Connect</a>
       </div>
     </div>
   </section>
 
-<!-- ===== Certificates ===== -->
-<section id="Certificate" class="certificates reveal">
-  <div class="certificates-wrapper">
-    <div class="certificates-heading">
-      <h2 class="hacker-glow">Certificates</h2>
-      <p>Courses I’ve completed or am working on updated as I grow my skills.</p>
-    </div>
-
-    <div class="certificates-content">
-      
-      <div class="card reveal">
-        <strong>Hands-on React: 25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit – Udemy</strong>
-        <p><em>📌Status:</em> In Progress </p>
-      </div>
-
-      <div class="card reveal">
-        <strong>React Project: Real-Time AI Chatbot with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok) - udemy</strong>
-        <p><em>📌Status:</em> In Progress </p>
-      </div>
-
-      <div class="card reveal">
-        <strong>Master MongoDB Development for Web & Mobile Apps. CRUD Operations, Indexes, Aggregation Framework All about MongoDB - udemy </strong>
-        <p><em>📌Status:</em> In Progress </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <!-- ===== Skills ===== -->
-  <section id="skills" class="skills reveal">
-    <div class="skills-wrapper">
-      <div class="skills-heading">
-        <h2 class="hacker-glow">Skills</h2>
-      </div>
-      <div class="skills-content">
-        <div class="card reveal">
-          <strong>Languages:</strong> C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>🎓 Education</h3>
+          <p>Computer Science student at Vancouver Island University, passionate about building real-world projects and learning through creation.</p>
         </div>
-
-      <div class="card reveal">
-          <strong>Frameworks & Libraries:</strong> React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js
-      </div>
-
-      <div class="card reveal">
-        <strong>Databases: </strong> MongoDB
-      </div>
-
-      <div class="card reveal">
-          <strong>Tools:</strong> Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
-      </div>
-
-      <div class="card reveal">
-          <strong>AI Skills:</strong> Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
-      </div>
-
-      <div class="card reveal">
-          <strong>Focus Areas:</strong> AI development, software engineering, full-stack web development, front-end engineering
-      </div>
-
-      <div class="card reveal">
-        <strong>Other:</strong> Content creation, building in public
-      </div>
+        <div class="about-card">
+          <h3>💻 Expertise</h3>
+          <p>Focused on AI development, software engineering, and full-stack web development. Currently building an AI and social media platform.</p>
+        </div>
+        <div class="about-card">
+          <h3>🚀 Entrepreneurship</h3>
+          <p>Aspiring tech founder dedicated to building products that help people learn, create, and explore new ideas. Building in public across social platforms.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Contact -> Social media  ===== -->
- <section id="contact" class="contact reveal">
-  <div class="contact-wrapper">
-    <div class="contact-heading">
-      <h2 class="hacker-glow">Let’s Connect</h2>
-      <p>Follow my journey or reach out through my socials 👇</p>
-    </div>
+  <!-- Projects Carousel -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="carousel-container">
+        <div class="carousel-nav prev" onclick="moveCarousel(-1)">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="projectsTrack">
+            
+            <div class="carousel-card">
+              <h3>💻 Portfolio Website</h3>
+              <span class="status">Completed</span>
+              <p>Personal web resume developed with HTML, CSS, and JavaScript. Features responsive design and smooth animations. Planning React.js redesign with ChatGPT integration.</p>
+              <a href="https://itsnicoramos.github.io/portfolio-webpage/" target="_blank">View Project →</a>
+            </div>
 
-    <ul class="social-links">
-      <li>
-        <a href="https://www.tiktok.com/@itsnicoramos_" target="_blank">
+            <div class="carousel-card">
+              <h3>🚀 FusionAI</h3>
+              <span class="status">In Development</span>
+              <p>A startup experimentation project focused on AI innovation. Building cutting-edge solutions for the future. Link coming soon.</p>
+            </div>
+
+            <div class="carousel-card">
+              <h3>🤖 Codename: Neurosky</h3>
+              <span class="status">Experimental</span>
+              <p>Experimental Python AI assistant built while exploring supervised vs. unsupervised learning in AI/ML concepts during summer 2025.</p>
+              <a href="https://github.com/itsnicoramos/AIAssistant" target="_blank">View on GitHub →</a>
+            </div>
+
+            <div class="carousel-card">
+              <h3>🌐 CSCI 115 Web Development</h3>
+              <span class="status">Completed</span>
+              <p>Course project demonstrating foundational web development skills using HTML, CSS, and JavaScript. Completed Spring 2025 at VIU.</p>
+              <a href="https://itsnicoramos.github.io/csci115-project/" target="_blank">View Project →</a>
+            </div>
+
+            <div class="carousel-card">
+              <h3> 🌐 MEDI 110 Media Production</h3>
+              <span class="status">Completed</span>
+              <p>Storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design. Completed Fall 2025 at VIU.</p>
+              <a href="https://itsnicoramos.github.io/MEDI110finalProject/" target="_blank">View Project →</a>
+            </div>
+
+            <div class="carousel-card">
+              <h3> 🌐 CSCI 159 Computer Science 1</h3>
+              <span class="status">Completed</span>
+              <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging.
+              Completed Fall  2025 at VIU.
+              </p>
+              <a href="https://github.com/itsnicoramos/csci159-labs" target="_blank">View on GitHub →</a>
+            </div>
+
+            <div class="carousel-card">
+              <h3> 🌐 CSCI 161 Computer Science 2</h3>
+              <span class="status">Loading</span>
+              <p>Loading</p>
+            </div>
+
+            <div class="carousel-card">
+              <h3> 🌐 CSCI 162 Topics in Computer Science</h3>
+              <span class="status">Loading</span>
+              <p>Loading</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="carousel-nav next" onclick="moveCarousel(1)">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="carousel-dots" id="projectsDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Carousel -->
+  <section id="certificates">
+    <div class="container">
+      <h2 class="section-title">Certificates & Learning</h2>
+      <div class="carousel-container">
+        <div class="carousel-nav prev" onclick="moveCertCarousel(-1)">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="certsTrack">
+            
+            <div class="carousel-card">
+              <h3>⚛️ Hands-on React</h3>
+              <span class="status">In Progress (Udemy)</span>
+              <p>25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit – Comprehensive full-stack React development course.</p>
+            </div>
+
+            <div class="carousel-card">
+              <h3>🤖 Real-Time AI Chatbot</h3>
+              <span class="status">In Progress (Udemy)</span>
+              <p>React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok). Building production-ready AI applications.</p>
+            </div>
+
+            <div class="carousel-card">
+              <h3>🍃 Master MongoDB</h3>
+              <span class="status">In Progress (Udemy)</span>
+              <p>Development for Web & Mobile Apps. CRUD Operations, Indexes, Aggregation Framework. Complete MongoDB mastery course.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="carousel-nav next" onclick="moveCertCarousel(1)">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="carousel-dots" id="certsDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <strong>Languages</strong>
+          <p>C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA</p>
+        </div>
+        <div class="skill-card">
+          <strong>Frameworks & Libraries</strong>
+          <p>React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js</p>
+        </div>
+        <div class="skill-card">
+          <strong>Databases</strong>
+          <p>MongoDB</p>
+        </div>
+        <div class="skill-card">
+          <strong>Tools & Platforms</strong>
+          <p>Git & GitHub, VS Code, Linux, Terminal, NPM, Vite</p>
+        </div>
+        <div class="skill-card">
+          <strong>AI & ML</strong>
+          <p>Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)</p>
+        </div>
+        <div class="skill-card">
+          <strong>Specializations</strong>
+          <p>AI development, software engineering, full-stack web development, front-end engineering, content creation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Let's Connect</h2>
+      <p style="text-align: center; color: #b0b0b0; margin-bottom: 40px;">
+        Follow my journey building in public
+      </p>
+      <div class="social-grid">
+        <a href="https://www.tiktok.com/@itsnicoramos_" target="_blank" class="social-link">
           <i class="fab fa-tiktok"></i>
         </a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/itsnicoramos__" target="_blank">
+        <a href="https://www.instagram.com/itsnicoramos__" target="_blank" class="social-link">
           <i class="fab fa-instagram"></i>
         </a>
-      </li>
-      <li><a href="https://threads.net/itsnicoramos__" target="_blank">
-        <i class="fab fa-threads"></i>
-      </a>
-    </li>
-      <li>
-        <a href="https://www.linkedin.com/in/nico-ramos28" target="_blank">
+        <a href="https://threads.net/itsnicoramos__" target="_blank" class="social-link">
+          <i class="fab fa-threads"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/nico-ramos28" target="_blank" class="social-link">
           <i class="fab fa-linkedin"></i>
         </a>
-      </li>
-    </ul>
-  </div>
-</section>
+        <a href="https://github.com/itsnicoramos" target="_blank" class="social-link">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <!-- ===== Footer ===== -->
-  <footer class="footer reveal">
-    <p>&copy; <span id="year">2025</span> NicoRamos™. All rights reserved.</p>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 NicoRamos™. All rights reserved.</p>
   </footer>
 
-  <div id="cursor-glow"></div>
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+
+    // Projects Carousel
+    let projectsCurrentIndex = 0;
+    const projectsTrack = document.getElementById('projectsTrack');
+    const projectCards = projectsTrack.querySelectorAll('.carousel-card');
+    const projectsDots = document.getElementById('projectsDots');
+
+    // Create dots for projects
+    projectCards.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      if (i === 0) dot.classList.add('active');
+      dot.onclick = () => goToSlide(i);
+      projectsDots.appendChild(dot);
+    });
+
+    function moveCarousel(direction) {
+      const cardWidth = projectCards[0].offsetWidth + 30; // width + gap
+      const maxIndex = projectCards.length - Math.floor(projectsTrack.parentElement.offsetWidth / cardWidth);
+      
+      projectsCurrentIndex += direction;
+      projectsCurrentIndex = Math.max(0, Math.min(projectsCurrentIndex, maxIndex));
+      
+      projectsTrack.style.transform = `translateX(-${projectsCurrentIndex * cardWidth}px)`;
+      updateDots(projectsDots, projectsCurrentIndex);
+    }
+
+    function goToSlide(index) {
+      const cardWidth = projectCards[0].offsetWidth + 30;
+      projectsCurrentIndex = index;
+      projectsTrack.style.transform = `translateX(-${projectsCurrentIndex * cardWidth}px)`;
+      updateDots(projectsDots, projectsCurrentIndex);
+    }
+
+    // Certificates Carousel
+    let certsCurrentIndex = 0;
+    const certsTrack = document.getElementById('certsTrack');
+    const certCards = certsTrack.querySelectorAll('.carousel-card');
+    const certsDots = document.getElementById('certsDots');
+
+    // Create dots for certificates
+    certCards.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      if (i === 0) dot.classList.add('active');
+      dot.onclick = () => goToCertSlide(i);
+      certsDots.appendChild(dot);
+    });
+
+    function moveCertCarousel(direction) {
+      const cardWidth = certCards[0].offsetWidth + 30;
+      const maxIndex = certCards.length - Math.floor(certsTrack.parentElement.offsetWidth / cardWidth);
+      
+      certsCurrentIndex += direction;
+      certsCurrentIndex = Math.max(0, Math.min(certsCurrentIndex, maxIndex));
+      
+      certsTrack.style.transform = `translateX(-${certsCurrentIndex * cardWidth}px)`;
+      updateDots(certsDots, certsCurrentIndex);
+    }
+
+    function goToCertSlide(index) {
+      const cardWidth = certCards[0].offsetWidth + 30;
+      certsCurrentIndex = index;
+      certsTrack.style.transform = `translateX(-${certsCurrentIndex * cardWidth}px
