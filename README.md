@@ -44,7 +44,7 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 - HTML5  
 - CSS3  
 - JavaScript  
-- Hosting: **GitHub Pages**  **Netlify**
+- Hosting: **GitHub Pages** and   **Netlify**
 
 ---
 
