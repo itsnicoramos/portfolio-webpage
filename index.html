@@ -84,6 +84,7 @@
       border-radius: 50px;
       padding: 12px 30px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      max-width: calc(100% - 40px);
     }
 
     nav ul {
@@ -317,27 +318,6 @@
       padding: 40px 20px;
     }
 
-    .carousel-hint {
-      text-align: center;
-      color: #808080;
-      font-size: 0.9rem;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .carousel-hint i {
-      color: var(--primary);
-      animation: slideHint 2s ease-in-out infinite;
-    }
-
-    @keyframes slideHint {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
-    }
-
     .carousel-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
@@ -434,14 +414,6 @@
       color: var(--primary);
     }
 
-    .carousel-nav {
-      display: none;
-    }
-
-    .carousel-dots {
-      display: none;
-    }
-
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -500,6 +472,260 @@
       box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
     }
 
+    /* AI Chat Styles */
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0, 245, 255, 0.4);
+      transition: all 0.3s;
+      z-index: 1000;
+      border: none;
+    }
+
+    .chat-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(0, 245, 255, 0.6);
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 380px;
+      max-width: calc(100vw - 40px);
+      height: 500px;
+      max-height: calc(100vh - 120px);
+      background: var(--dark-light);
+      border: 1px solid rgba(0, 245, 255, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .chat-window.active {
+      display: flex;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-header-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+    }
+
+    .chat-header-text h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .chat-header-text p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: var(--glass);
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .chat-welcome {
+      text-align: center;
+      color: #808080;
+      margin-top: 60px;
+    }
+
+    .chat-welcome i {
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .chat-welcome p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .message {
+      display: flex;
+      max-width: 80%;
+      animation: messageSlide 0.3s ease;
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.user {
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .message.assistant {
+      align-self: flex-start;
+    }
+
+    .message-content {
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.assistant .message-content {
+      background: var(--glass);
+      color: #e0e0e0;
+      border: 1px solid var(--glass-border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .loading-message {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      max-width: 80px;
+    }
+
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: loadingPulse 1.4s infinite;
+    }
+
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes loadingPulse {
+      0%, 60%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      30% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .chat-input-container {
+      padding: 16px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 12px 16px;
+      color: white;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--primary);
+    }
+
+    .chat-input::placeholder {
+      color: #808080;
+    }
+
+    .chat-send-btn {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-send-btn:hover:not(:disabled) {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 245, 255, 0.4);
+    }
+
+    .chat-send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     /* Footer */
     footer {
       text-align: center;
@@ -512,11 +738,6 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      nav {
-        width: calc(100% - 40px);
-        padding: 12px 20px;
-      }
-
       nav ul {
         display: none;
         flex-direction: column;
@@ -538,17 +759,13 @@
         display: block;
       }
 
-      .carousel-container {
-        padding: 40px 20px;
-      }
-
       .carousel-card {
         min-width: 280px;
       }
 
-      .carousel-nav {
-        width: 40px;
-        height: 40px;
+      .chat-window {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 120px);
       }
     }
   </style>
@@ -610,9 +827,6 @@
     <div class="container">
       <h2 class="section-title">Featured Projects</h2>
       <div class="carousel-container">
-        <div class="carousel-nav prev" onclick="moveCarousel(-1)">
-          <i class="fas fa-chevron-left"></i>
-        </div>
         <div class="carousel-wrapper">
           <div class="carousel-track" id="projectsTrack">
             
@@ -644,39 +858,33 @@
             </div>
 
             <div class="carousel-card">
-              <h3> 🌐 MEDI 110 Media Production</h3>
+              <h3>🌐 MEDI 110 Media Production</h3>
               <span class="status">Completed</span>
               <p>Storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design. Completed Fall 2025 at VIU.</p>
               <a href="https://itsnicoramos.github.io/MEDI110finalProject/" target="_blank">View Project →</a>
             </div>
 
             <div class="carousel-card">
-              <h3> 🌐 CSCI 159 Computer Science 1</h3>
+              <h3>🌐 CSCI 159 Computer Science 1</h3>
               <span class="status">Completed</span>
-              <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging.
-              Completed Fall  2025 at VIU.
-              </p>
+              <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging. Completed Fall 2025 at VIU.</p>
               <a href="https://github.com/itsnicoramos/csci159-labs" target="_blank">View on GitHub →</a>
             </div>
 
             <div class="carousel-card">
-              <h3> 🌐 CSCI 161 Computer Science 2</h3>
+              <h3>🌐 CSCI 161 Computer Science 2</h3>
               <span class="status">Loading</span>
               <p>Loading</p>
             </div>
 
             <div class="carousel-card">
-              <h3> 🌐 CSCI 162 Topics in Computer Science</h3>
+              <h3>🌐 CSCI 162 Topics in Computer Science</h3>
               <span class="status">Loading</span>
               <p>Loading</p>
             </div>
 
           </div>
         </div>
-        <div class="carousel-nav next" onclick="moveCarousel(1)">
-          <i class="fas fa-chevron-right"></i>
-        </div>
-        <div class="carousel-dots" id="projectsDots"></div>
       </div>
     </div>
   </section>
@@ -686,9 +894,6 @@
     <div class="container">
       <h2 class="section-title">Certificates & Learning</h2>
       <div class="carousel-container">
-        <div class="carousel-nav prev" onclick="moveCertCarousel(-1)">
-          <i class="fas fa-chevron-left"></i>
-        </div>
         <div class="carousel-wrapper">
           <div class="carousel-track" id="certsTrack">
             
@@ -712,10 +917,6 @@
 
           </div>
         </div>
-        <div class="carousel-nav next" onclick="moveCertCarousel(1)">
-          <i class="fas fa-chevron-right"></i>
-        </div>
-        <div class="carousel-dots" id="certsDots"></div>
       </div>
     </div>
   </section>
@@ -785,72 +986,240 @@
     <p>&copy; 2025 NicoRamos™. All rights reserved.</p>
   </footer>
 
+  <!-- AI Chat Button -->
+  <button class="chat-button" onclick="toggleChat()">
+    <i class="fas fa-comments" id="chatIcon"></i>
+  </button>
+
+  <!-- AI Chat Window -->
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-header-icon">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="chat-header-text">
+        <h3>Ask Something</h3>
+        <p>Powered by ChatGPT</p>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-welcome">
+        <i class="fas fa-comments"></i>
+        <p>Ask me anything about Nico's projects,<br>skills, or experience!</p>
+      </div>
+    </div>
+    <div class="chat-input-container">
+      <input 
+        type="text" 
+        class="chat-input" 
+        id="chatInput" 
+        placeholder="Ask about Nico's work..."
+        onkeypress="handleChatKeyPress(event)"
+      />
+      <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
   <script>
     // Mobile Menu Toggle
     function toggleMenu() {
       document.getElementById('nav-menu').classList.toggle('active');
     }
 
-    // Projects Carousel
-    let projectsCurrentIndex = 0;
-    const projectsTrack = document.getElementById('projectsTrack');
-    const projectCards = projectsTrack.querySelectorAll('.carousel-card');
-    const projectsDots = document.getElementById('projectsDots');
-
-    // Create dots for projects
-    projectCards.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot';
-      if (i === 0) dot.classList.add('active');
-      dot.onclick = () => goToSlide(i);
-      projectsDots.appendChild(dot);
-    });
-
-    function moveCarousel(direction) {
-      const cardWidth = projectCards[0].offsetWidth + 30; // width + gap
-      const maxIndex = projectCards.length - Math.floor(projectsTrack.parentElement.offsetWidth / cardWidth);
+    // AI Chat Toggle
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      const chatIcon = document.getElementById('chatIcon');
+      chatWindow.classList.toggle('active');
       
-      projectsCurrentIndex += direction;
-      projectsCurrentIndex = Math.max(0, Math.min(projectsCurrentIndex, maxIndex));
-      
-      projectsTrack.style.transform = `translateX(-${projectsCurrentIndex * cardWidth}px)`;
-      updateDots(projectsDots, projectsCurrentIndex);
+      if (chatWindow.classList.contains('active')) {
+        chatIcon.className = 'fas fa-times';
+      } else {
+        chatIcon.className = 'fas fa-comments';
+      }
     }
 
-    function goToSlide(index) {
-      const cardWidth = projectCards[0].offsetWidth + 30;
-      projectsCurrentIndex = index;
-      projectsTrack.style.transform = `translateX(-${projectsCurrentIndex * cardWidth}px)`;
-      updateDots(projectsDots, projectsCurrentIndex);
+    // Portfolio Context for AI
+    const portfolioContext = `
+You are an AI assistant for Nico Ramos's portfolio website. Here's information about Nico:
+
+ABOUT NICO:
+- Computer Science student at Vancouver Island University (VIU)
+- Future tech founder and aspiring entrepreneur
+- Building in public across social media platforms
+- Focused on AI development, software engineering, and full-stack web development
+- Currently building an AI and social media platform called FusionAI
+
+EDUCATION:
+- BSc Computer Science at Vancouver Island University
+- Passionate about building real-world projects and learning through creation
+
+PROJECTS:
+1. Portfolio Website (Completed)
+   - Personal web resume with HTML, CSS, JavaScript
+   - Responsive design and smooth animations
+   - Planning React.js redesign with ChatGPT integration
+   - Link: https://itsnicoramos.github.io/portfolio-webpage/
+
+2. FusionAI (In Development)
+   - Startup experimentation project focused on AI innovation
+   - Building cutting-edge solutions for the future
+   - Link coming soon
+
+3. Codename: Neurosky (Experimental)
+   - Experimental Python AI assistant
+   - Built while exploring supervised vs. unsupervised learning
+   - Created during summer 2025
+   - Link: https://github.com/itsnicoramos/AIAssistant
+
+4. CSCI 115 Web Development (Completed)
+   - Course project demonstrating foundational web development skills
+   - HTML, CSS, and JavaScript
+   - Completed Spring 2025 at VIU
+   - Link: https://itsnicoramos.github.io/csci115-project/
+
+5. MEDI 110 Media Production (Completed)
+   - Storytelling-based website showcasing Vancouver
+   - Photography, editing techniques, and responsive web design
+   - Completed Fall 2025 at VIU
+   - Link: https://itsnicoramos.github.io/MEDI110finalProject/
+
+6. CSCI 159 Computer Science 1 (Completed)
+   - Intensive intro to programming in C++
+   - Covered problem decomposition, conditionals, loops, functions, arrays, pointers, debugging
+   - Completed Fall 2025 at VIU
+   - Link: https://github.com/itsnicoramos/csci159-labs
+
+7. CSCI 161 Computer Science 2 (Loading)
+8. CSCI 162 Topics in Computer Science (Loading)
+
+CERTIFICATES & LEARNING:
+1. Hands-on React (In Progress - Udemy)
+   - 25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit
+   - Comprehensive full-stack React development course
+
+2. Real-Time AI Chatbot (In Progress - Udemy)
+   - React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok)
+   - Building production-ready AI applications
+
+3. Master MongoDB (In Progress - Udemy)
+   - Development for Web & Mobile Apps
+   - CRUD Operations, Indexes, Aggregation Framework
+
+TECHNICAL SKILLS:
+Languages: C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
+Frameworks: React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js
+Databases: MongoDB
+Tools: Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
+AI & ML: Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
+Specializations: AI development, software engineering, full-stack web development, front-end engineering, content creation
+
+SOCIAL LINKS:
+- TikTok: @itsnicoramos_
+- Instagram: @itsnicoramos__
+- Threads: @itsnicoramos__
+- LinkedIn: nico-ramos28
+- GitHub: itsnicoramos
+
+Answer questions about Nico's background, projects, skills, and experience. Be helpful, friendly, and conversational. If asked about something not in this context, politely mention that you don't have that specific information but can help with questions about Nico's portfolio.`;
+
+    // Chat functionality
+    let isLoading = false;
+
+    function handleChatKeyPress(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+      }
     }
 
-    // Certificates Carousel
-    let certsCurrentIndex = 0;
-    const certsTrack = document.getElementById('certsTrack');
-    const certCards = certsTrack.querySelectorAll('.carousel-card');
-    const certsDots = document.getElementById('certsDots');
+    function addMessage(role, content) {
+      const messagesDiv = document.getElementById('chatMessages');
+      const welcomeMsg = messagesDiv.querySelector('.chat-welcome');
+      if (welcomeMsg) {
+        welcomeMsg.remove();
+      }
 
-    // Create dots for certificates
-    certCards.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot';
-      if (i === 0) dot.classList.add('active');
-      dot.onclick = () => goToCertSlide(i);
-      certsDots.appendChild(dot);
-    });
-
-    function moveCertCarousel(direction) {
-      const cardWidth = certCards[0].offsetWidth + 30;
-      const maxIndex = certCards.length - Math.floor(certsTrack.parentElement.offsetWidth / cardWidth);
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${role}`;
       
-      certsCurrentIndex += direction;
-      certsCurrentIndex = Math.max(0, Math.min(certsCurrentIndex, maxIndex));
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'message-content';
+      contentDiv.textContent = content;
       
-      certsTrack.style.transform = `translateX(-${certsCurrentIndex * cardWidth}px)`;
-      updateDots(certsDots, certsCurrentIndex);
+      messageDiv.appendChild(contentDiv);
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    function goToCertSlide(index) {
-      const cardWidth = certCards[0].offsetWidth + 30;
-      certsCurrentIndex = index;
-      certsTrack.style.transform = `translateX(-${certsCurrentIndex * cardWidth}px
+    function showLoading() {
+      const messagesDiv = document.getElementById('chatMessages');
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'loading-message';
+      loadingDiv.id = 'loadingIndicator';
+      loadingDiv.innerHTML = '<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
+      messagesDiv.appendChild(loadingDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function hideLoading() {
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      if (loadingIndicator) {
+        loadingIndicator.remove();
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('sendBtn');
+      const userMessage = input.value.trim();
+
+      if (!userMessage || isLoading) return;
+
+      // Add user message
+      addMessage('user', userMessage);
+      input.value = '';
+      
+      // Disable input
+      isLoading = true;
+      sendBtn.disabled = true;
+      input.disabled = true;
+      showLoading();
+
+      try {
+        // Call your serverless function instead of OpenAI directly
+        const response = await fetch('/.netlify/functions/api', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            portfolioContext: portfolioContext
+          })
+        });
+
+        const data = await response.json();
+        hideLoading();
+        
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+          addMessage('assistant', data.choices[0].message.content);
+        } else {
+          addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error calling AI:', error);
+        hideLoading();
+        addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
+      } finally {
+        isLoading = false;
+        sendBtn.disabled = false;
+        input.disabled = false;
+        input.focus();
+      }
+    }
+  </script>
+</body>
+</html>
