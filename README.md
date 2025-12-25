@@ -5,8 +5,22 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 ---
 ## 📌 Features (V3)
 
-- 
-[🌐 View Portfolio Website with AI integration](https://itsnicoramos-website.netlify.app)
+- 🤖 **AI Assistant integrated into the UI**  
+  A built-in AI assistant that answers questions about my background, projects, skills, and what I’m currently building. Designed to guide visitors through the website rather than just display static information.
+
+- 🧠 **Context-aware, human-like responses**  
+  The assistant adapts its answers based on site content and visitor intent, acting as a helpful guide instead of a generic chatbot.
+
+- 🔐 **Secure API handling**  
+  AI requests are processed through a JavaScript backend layer to keep API keys protected and avoid exposing sensitive data on the client side.
+
+- ⚡ **Static-first architecture**  
+  Maintains fast load times and high performance while progressively enhancing the site with interactive JavaScript features.
+
+- 🎯 **Visitor-focused experience**  
+  Built to help recruiters, students, founders, professors, and other visitors quickly understand who I am and what I build.
+
+- [🌐 View Portfolio Website with AI integration](https://itsnicoramos-website.netlify.app)
 
 ## 📌 Features (V2)
 
@@ -30,7 +44,7 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 - HTML5  
 - CSS3  
 - JavaScript  
-- Hosting: **GitHub Pages**  
+- Hosting: **GitHub Pages**  **Netlify**
 
 ---
 
