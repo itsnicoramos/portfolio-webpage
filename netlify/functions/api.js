@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` // This reads from Netlify environment variables
       },
       body: JSON.stringify({
-        model: 'gpt-4.1-mini',
+        model: 'gpt-40-mini',
         messages: [
           {
             role: 'system',
