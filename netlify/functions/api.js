@@ -1,5 +1,4 @@
-// netlify/functions/api.js
-// This file handles secure communication between your website and OpenAI
+
 
 exports.handler = async (event, context) => {
   // Only allow POST requests
