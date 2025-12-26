@@ -669,30 +669,47 @@
       box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
     }
 
-    /* AI Chat Styles */
+    /* AI Chat Styles - Liquid Glass Toggle */
     .chat-button {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      width: 65px;
+      height: 65px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
       border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--primary);
       font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 8px 32px rgba(0, 245, 255, 0.4);
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       z-index: 1000;
-      border: none;
     }
 
     .chat-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 12px 40px rgba(0, 245, 255, 0.6);
+      transform: scale(1.1) translateY(-3px);
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 245, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+
+    .chat-button:active {
+      transform: scale(1.05);
+    }
+
+    .chat-button i {
+      text-shadow: 0 2px 10px rgba(0, 245, 255, 0.5);
     }
 
     .chat-window {
@@ -763,6 +780,36 @@
 
     .section-badge i {
       font-size: 10px;
+    }
+
+    /* Section change notification in chat */
+    .section-notification {
+      text-align: center;
+      font-size: 12px;
+      color: var(--primary);
+      background: rgba(0, 245, 255, 0.08);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 20px;
+      padding: 8px 16px;
+      margin: 8px auto;
+      max-width: 90%;
+      animation: notifSlide 0.3s ease;
+      transition: opacity 0.3s ease;
+    }
+
+    .section-notification i {
+      margin-right: 6px;
+    }
+
+    @keyframes notifSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .chat-messages {
@@ -1269,7 +1316,7 @@
           <div class="travel-card">
             <div class="travel-icon">📸</div>
             <h3>Visual Storyteller</h3>
-            <p>Capturing moments through photography and sharing travel experiences on social media. Every trip becomes content that connects and inspires others.</p>
+            <p>Capturing moments and sharing travel experiences on social media. Every trip becomes content that connects and inspires others.</p>
           </div>
           <div class="travel-card">
             <div class="travel-icon">🎯</div>
@@ -1343,7 +1390,7 @@
       <div class="chat-welcome" id="chatWelcome">
         <i class="fas fa-robot"></i>
         <h4>Hey there! 👋</h4>
-        <p>I'm Nico's AI assistant. Ask me anything about his work, skills, or journey!</p>
+        <p>I'm Nico's AI assistant. Ask me anything about his projects, skills, or journey!</p>
         <p style="font-size: 12px; color: #606060; margin-top: 10px;">Pro tip: I know which section you're viewing and can give you context-specific answers.</p>
         <div class="follow-up-questions" id="initialFollowUps">
           <button class="follow-up-btn" onclick="askFollowUp('Give me a quick summary of Nico')">
@@ -1352,11 +1399,8 @@
           <button class="follow-up-btn" onclick="askFollowUp('What projects has Nico built?')">
             💻 What projects has Nico built?
           </button>
-          <button class="follow-up-btn" onclick="askFollowUp('What\\'s his tech stack?')">
+          <button class="follow-up-btn" onclick="askFollowUp('What is his tech stack?')">
             🛠️ What's his tech stack?
-          </button>
-          <button class="follow-up-btn" onclick="askFollowUp('I\\'m a recruiter looking at Nico\\'s profile')">
-            👔 I'm a recruiter
           </button>
         </div>
       </div>
@@ -1399,42 +1443,50 @@
     // SECTION AWARENESS SYSTEM
     // ============================================
     let currentSection = 'home';
+    let lastNotifiedSection = 'home';
     
     const sectionData = {
       home: {
         label: 'Home',
         icon: 'fa-home',
-        context: 'The user is on the HOME/HERO section - the landing page introducing Nico.'
+        context: 'The user is on the HOME/HERO section - the landing page introducing Nico.',
+        greeting: '👋 You\'re at the top! Ask me anything about Nico.'
       },
       about: {
         label: 'About',
         icon: 'fa-user',
-        context: 'The user is viewing the ABOUT section - education, expertise, and entrepreneurship goals.'
+        context: 'The user is viewing the ABOUT section - education, expertise, and entrepreneurship goals.',
+        greeting: '📖 Checking out Nico\'s background? I can tell you more!'
       },
       projects: {
         label: 'Projects',
         icon: 'fa-code',
-        context: 'The user is browsing the PROJECTS section. Focus on: Portfolio Website, FusionAI startup, Neurosky AI assistant, and course projects (CSCI 115, MEDI 110, CSCI 159).'
+        context: 'The user is browsing the PROJECTS section. Focus on: Portfolio Website, FusionAI startup, Neurosky AI assistant, and course projects (CSCI 115, MEDI 110, CSCI 159).',
+        greeting: '💻 Nice, you\'re viewing projects! Want details on any of these?'
       },
       certificates: {
         label: 'Certificates',
         icon: 'fa-certificate',
-        context: 'The user is viewing CERTIFICATES & LEARNING - courses in progress: React, AI Chatbot, MongoDB on Udemy.'
+        context: 'The user is viewing CERTIFICATES & LEARNING - courses in progress: React, AI Chatbot, MongoDB on Udemy.',
+        greeting: '📚 Exploring what Nico\'s learning? Ask me about any course!'
       },
       skills: {
         label: 'Skills',
         icon: 'fa-tools',
-        context: 'The user is on the SKILLS section. Focus on tech stack: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB, and AI/ML with LLM APIs.'
+        context: 'The user is on the SKILLS section. Focus on tech stack: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB, and AI/ML with LLM APIs.',
+        greeting: '🛠️ Browsing the tech stack! Need specifics on any skill?'
       },
       travel: {
         label: 'Travel',
         icon: 'fa-plane',
-        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography, and how travel fuels creativity. Dream destinations: Japan, Switzerland, Silicon Valley.'
+        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography, and how travel fuels creativity. Dream destinations: Japan, Switzerland, Silicon Valley.',
+        greeting: '✈️ Beyond the code! Ask about Nico\'s travel adventures.'
       },
       contact: {
         label: 'Connect',
         icon: 'fa-link',
-        context: 'The user is on the CONTACT/CONNECT section - social links for TikTok, Instagram, Threads, LinkedIn, GitHub.'
+        context: 'The user is on the CONTACT/CONNECT section - social links for TikTok, Instagram, Threads, LinkedIn, GitHub.',
+        greeting: '🔗 Ready to connect? I can point you to the right platform!'
       }
     };
 
@@ -1466,7 +1518,39 @@
     // Update section on scroll
     window.addEventListener('scroll', () => {
       updateSectionBadge();
+      
+      // Show notification in chat when section changes (only if chat is open)
+      const chatWindow = document.getElementById('chatWindow');
+      if (chatWindow.classList.contains('active') && currentSection !== lastNotifiedSection) {
+        showSectionNotification(currentSection);
+        lastNotifiedSection = currentSection;
+      }
     });
+
+    function showSectionNotification(section) {
+      const messagesDiv = document.getElementById('chatMessages');
+      const welcomeMsg = document.getElementById('chatWelcome');
+      
+      // Don't show if welcome message is still visible (no conversation started)
+      if (welcomeMsg) return;
+      
+      const data = sectionData[section];
+      if (!data) return;
+      
+      // Create notification element
+      const notifDiv = document.createElement('div');
+      notifDiv.className = 'section-notification';
+      notifDiv.innerHTML = `<i class="fas ${data.icon}"></i> ${data.greeting}`;
+      
+      messagesDiv.appendChild(notifDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      
+      // Auto-fade after 4 seconds
+      setTimeout(() => {
+        notifDiv.style.opacity = '0';
+        setTimeout(() => notifDiv.remove(), 300);
+      }, 4000);
+    }
 
     // ============================================
     // USER INTENT & CONTEXT DETECTION
@@ -1625,11 +1709,11 @@ PROJECTS:
 • Portfolio Website - HTML/CSS/JS with AI assistant (this site!)
 • FusionAI - AI startup project (in dev)
 • Neurosky - Python AI assistant experiment
-• Course projects: CSCI 115, 159, MEDI 110
+• Courses from University: CSCI 115, 159, MEDI 110
 
 LEARNING: React (25+ projects), AI Chatbot dev, MongoDB (all Udemy)
 
-TRAVEL: Explorer who uses travel for creativity. Dream spots: Japan (tech), Switzerland (nature), Silicon Valley (startups).
+TRAVEL: Explorer who uses travel for creativity. Dream spots: Japan (tech), Switzerland (nature),SF Silicon Valley (startups).
 
 SOCIALS: TikTok @itsnicoramos_, Instagram @itsnicoramos__, LinkedIn nico-ramos28, GitHub itsnicoramos
 
