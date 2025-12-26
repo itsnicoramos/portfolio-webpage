@@ -441,6 +441,125 @@
       font-size: 1.1rem;
     }
 
+    /* Travel Section */
+    .travel-section {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+      border-radius: 30px;
+      padding: 60px 20px;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .travel-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300f5ff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .travel-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .travel-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+    }
+
+    .travel-header p {
+      color: #a0a0a0;
+      font-size: 1.1rem;
+    }
+
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .travel-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .travel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+    }
+
+    .travel-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(236, 72, 153, 0.2);
+      border-color: var(--accent);
+    }
+
+    .travel-card .travel-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .travel-card h3 {
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .travel-card p {
+      color: #b0b0b0;
+      line-height: 1.7;
+    }
+
+    .travel-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .travel-stat {
+      text-align: center;
+    }
+
+    .travel-stat .number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .travel-stat .label {
+      color: #a0a0a0;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
     /* Social Links */
     .social-grid {
       display: flex;
@@ -576,7 +695,7 @@
     .chat-welcome {
       text-align: center;
       color: #808080;
-      margin-top: 60px;
+      margin-top: 20px;
     }
 
     .chat-welcome i {
@@ -585,9 +704,41 @@
       margin-bottom: 16px;
     }
 
+    .chat-welcome h4 {
+      color: var(--primary);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
     .chat-welcome p {
       font-size: 14px;
       line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .follow-up-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .follow-up-btn {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #e0e0e0;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+    }
+
+    .follow-up-btn:hover {
+      background: rgba(0, 245, 255, 0.1);
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .message {
@@ -634,6 +785,30 @@
       color: #e0e0e0;
       border: 1px solid var(--glass-border);
       border-bottom-left-radius: 4px;
+    }
+
+    .assistant-follow-ups {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .assistant-follow-up-btn {
+      background: rgba(0, 245, 255, 0.05);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--primary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+    }
+
+    .assistant-follow-up-btn:hover {
+      background: rgba(0, 245, 255, 0.15);
+      border-color: var(--primary);
     }
 
     .loading-message {
@@ -767,6 +942,14 @@
         width: calc(100vw - 40px);
         height: calc(100vh - 120px);
       }
+
+      .travel-stats {
+        gap: 25px;
+      }
+
+      .travel-stat .number {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
@@ -834,7 +1017,7 @@
               <h3>💻 Portfolio Website</h3>
               <span class="status">Completed</span>
               <p>Personal web resume developed with HTML, CSS, and JavaScript Back End. Features responsive design and smooth animations and AI assistant integrated that guide user or any visitors.</p>
-              <a href="https://itsnicoramos.github.io/portfolio-webpage/" target="_blank">View Project →</a>
+              <a href="https://itsnicoramos-website.netlify.app" target="_blank">View Project →</a>
             </div>
 
             <div class="carousel-card">
@@ -951,6 +1134,38 @@
           <p>AI development, software engineering, full-stack web development, front-end engineering, content creation</p>
         </div>
       </div>
+
+      <!-- Travel Section - Beyond the Code -->
+      <div class="travel-section">
+        <div class="travel-header">
+          <h2>✈️ Beyond the Code</h2>
+          <p>Outside the terminal, exploring the world one destination at a time</p>
+        </div>
+        <div class="travel-grid">
+          <div class="travel-card">
+            <div class="travel-icon">🌏</div>
+            <h3>Explorer </h3>
+            <p>When I'm not coding, I'm exploring new cultures, cuisines, and perspectives. Travel fuels my creativity and broadens how I approach problem-solving in tech.</p>
+          </div>
+          <div class="travel-card">
+            <div class="travel-icon">📸</div>
+            <h3>Visual Storyteller</h3>
+            <p>Capturing moments through photography and sharing travel experiences on social media. Every trip becomes content that connects and inspires others.</p>
+          </div>
+          <div class="travel-card">
+            <div class="travel-icon">🎯</div>
+            <h3>Dream Destinations</h3>
+            <p>Japan for tech culture, Switzerland for nature, and Silicon Valley to connect with the startup ecosystem. Building a global perspective one trip at a time.</p>
+          </div>
+        </div>
+        <div class="travel-stats">
+
+          <div class="travel-stat">
+            <div class="number">∞</div>
+            <div class="label">Adventures Ahead</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1003,9 +1218,25 @@
       </div>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-welcome">
-        <i class="fas fa-comments"></i>
-        <p>Ask me anything about Nico </p>
+      <div class="chat-welcome" id="chatWelcome">
+        <i class="fas fa-robot"></i>
+        <h4>Hey there! 👋</h4>
+        <p>I'm Nico's AI assistant. I can tell you about his projects, skills, experience, and journey as a CS student & aspiring tech founder.</p>
+        <p style="font-size: 12px; color: #606060; margin-top: 10px;">Quick tip: Let me know if you're a recruiter, student, or founder — I'll tailor my responses for you!</p>
+        <div class="follow-up-questions" id="initialFollowUps">
+          <button class="follow-up-btn" onclick="askFollowUp('What projects has Nico built?')">
+            💻 What projects has Nico built?
+          </button>
+          <button class="follow-up-btn" onclick="askFollowUp('What are Nico\\'s technical skills?')">
+            🛠️ What are Nico's technical skills?
+          </button>
+          <button class="follow-up-btn" onclick="askFollowUp('Tell me about FusionAI startup')">
+            🚀 Tell me about FusionAI startup
+          </button>
+          <button class="follow-up-btn" onclick="askFollowUp('I\\'m a recruiter looking at Nico\\'s profile')">
+            👔 I'm a recruiter evaluating candidates
+          </button>
+        </div>
       </div>
     </div>
     <div class="chat-input-container">
@@ -1041,9 +1272,109 @@
       }
     }
 
+    // User intent detection
+    let detectedIntent = 'general'; // default
+    const conversationHistory = [];
+
+    function detectUserIntent(message) {
+      const lowerMsg = message.toLowerCase();
+      
+      // Recruiter signals
+      const recruiterKeywords = ['recruiter', 'hiring', 'position', 'job', 'candidate', 'resume', 'cv', 'interview', 'hr', 'talent', 'evaluate', 'evaluating', 'looking for', 'experience for', 'qualifications', 'employment'];
+      if (recruiterKeywords.some(kw => lowerMsg.includes(kw))) {
+        return 'recruiter';
+      }
+      
+      // Founder/Entrepreneur signals
+      const founderKeywords = ['founder', 'startup', 'investor', 'funding', 'co-founder', 'entrepreneur', 'venture', 'product', 'mvp', 'scale', 'business model', 'pitch', 'partnership', 'collaborate on startup'];
+      if (founderKeywords.some(kw => lowerMsg.includes(kw))) {
+        return 'founder';
+      }
+      
+      // Student signals
+      const studentKeywords = ['student', 'learning', 'beginner', 'how to start', 'advice', 'tips', 'course', 'study', 'university', 'college', 'school', 'homework', 'assignment', 'career advice'];
+      if (studentKeywords.some(kw => lowerMsg.includes(kw))) {
+        return 'student';
+      }
+      
+      return detectedIntent; // Keep previous intent if no new signals
+    }
+
+    function getIntentToneInstruction(intent) {
+      switch(intent) {
+        case 'recruiter':
+          return `
+TONE INSTRUCTION: The user appears to be a RECRUITER or hiring professional.
+- Be CONCISE and STRUCTURED in responses
+- Lead with key qualifications and achievements
+- Use bullet points for easy scanning
+- Highlight measurable outcomes and technical competencies
+- Be professional and direct
+- Focus on work experience, skills, and project outcomes
+- Avoid unnecessary elaboration`;
+        
+        case 'founder':
+          return `
+TONE INSTRUCTION: The user appears to be a FOUNDER, entrepreneur, or investor.
+- Be PRODUCT-FOCUSED and TECHNICAL
+- Discuss architecture decisions and tech stack choices
+- Highlight innovation, scalability, and problem-solving
+- Speak to startup mindset and building in public
+- Discuss FusionAI and entrepreneurial projects in depth
+- Use technical terminology appropriately
+- Focus on vision, execution capability, and growth potential`;
+        
+        case 'student':
+          return `
+TONE INSTRUCTION: The user appears to be a STUDENT or someone learning.
+- Be EXPLANATORY and ENCOURAGING
+- Break down technical concepts clearly
+- Share learning journey and tips
+- Be motivational and supportive
+- Relate experiences to learning paths
+- Offer actionable advice for beginners
+- Use relatable examples and analogies`;
+        
+        default:
+          return `
+TONE INSTRUCTION: General visitor - be friendly, approachable, and helpful.
+- Balance technical detail with accessibility
+- Be conversational and warm
+- Highlight interesting projects and experiences
+- Encourage further questions`;
+      }
+    }
+
+    function generateFollowUpSuggestions(intent, lastTopic) {
+      const suggestions = {
+        recruiter: [
+          "What's Nico's tech stack proficiency?",
+          "Any team collaboration experience?",
+          "What's his availability for opportunities?"
+        ],
+        founder: [
+          "What's the tech architecture of FusionAI?",
+          "How does Nico approach product development?",
+          "What's his experience with AI/ML implementation?"
+        ],
+        student: [
+          "How did Nico start learning to code?",
+          "Any tips for CS students?",
+          "What resources does he recommend?"
+        ],
+        general: [
+          "What's Nico currently working on?",
+          "Tell me about his entrepreneurial journey",
+          "What are his future goals?"
+        ]
+      };
+      
+      return suggestions[intent] || suggestions.general;
+    }
+
     // Portfolio Context for AI
     const portfolioContext = `
-You are an AI assistant for Nico Ramos's portfolio website. Here's information about Nico:
+You are an AI assistant for Nico Ramos's portfolio website. You adapt your communication style based on who you're talking to.
 
 ABOUT NICO:
 - Computer Science student at Vancouver Island University (VIU)
@@ -1060,7 +1391,7 @@ PROJECTS:
 1. Portfolio Website (Completed)
    - Personal web resume with HTML, CSS, JavaScript
    - Responsive design and smooth animations
-   - Planning React.js redesign with ChatGPT integration
+   - AI assistant integration for visitor guidance
    - Link: https://itsnicoramos.github.io/portfolio-webpage/
 
 2. FusionAI (In Development)
@@ -1116,6 +1447,14 @@ Tools: Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
 AI & ML: Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
 Specializations: AI development, software engineering, full-stack web development, front-end engineering, content creation
 
+BEYOND THE CODE - TRAVEL:
+- Explorer who loves experiencing new cultures, cuisines, and perspectives
+- Uses travel to fuel creativity and broaden problem-solving approaches
+- Visual storyteller capturing moments through photography
+- Dream destinations: Japan (tech culture), Switzerland (nature), Silicon Valley (startup ecosystem)
+- Has explored 3+ countries and 10+ cities
+- Shares travel experiences on social media
+
 SOCIAL LINKS:
 - TikTok: @itsnicoramos_
 - Instagram: @itsnicoramos__
@@ -1123,7 +1462,13 @@ SOCIAL LINKS:
 - LinkedIn: nico-ramos28
 - GitHub: itsnicoramos
 
-Answer questions about Nico's background, projects, skills, and experience. Be helpful, friendly, and conversational. If asked about something not in this context, politely mention that you don't have that specific information but can help with questions about Nico's portfolio.`;
+COMMUNICATION STYLE GUIDELINES:
+- If someone identifies as or seems like a RECRUITER: Be concise, structured, professional. Use bullet points. Highlight qualifications and achievements.
+- If someone identifies as or seems like a FOUNDER/ENTREPRENEUR: Be product-focused, technical. Discuss architecture, scalability, startup mindset.
+- If someone identifies as or seems like a STUDENT: Be explanatory, encouraging. Share learning tips, be motivational, use relatable examples.
+- For GENERAL visitors: Be friendly, approachable, conversational.
+
+Always end your responses naturally. If the conversation warrants it, you may suggest what else the user might want to know.`;
 
     // Chat functionality
     let isLoading = false;
@@ -1135,9 +1480,14 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
       }
     }
 
-    function addMessage(role, content) {
+    function askFollowUp(question) {
+      document.getElementById('chatInput').value = question;
+      sendMessage();
+    }
+
+    function addMessage(role, content, showFollowUps = false) {
       const messagesDiv = document.getElementById('chatMessages');
-      const welcomeMsg = messagesDiv.querySelector('.chat-welcome');
+      const welcomeMsg = document.getElementById('chatWelcome');
       if (welcomeMsg) {
         welcomeMsg.remove();
       }
@@ -1150,6 +1500,24 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
       contentDiv.textContent = content;
       
       messageDiv.appendChild(contentDiv);
+      
+      // Add follow-up suggestions for assistant messages
+      if (role === 'assistant' && showFollowUps) {
+        const followUps = generateFollowUpSuggestions(detectedIntent);
+        const followUpContainer = document.createElement('div');
+        followUpContainer.className = 'assistant-follow-ups';
+        
+        followUps.forEach(suggestion => {
+          const btn = document.createElement('button');
+          btn.className = 'assistant-follow-up-btn';
+          btn.textContent = suggestion;
+          btn.onclick = () => askFollowUp(suggestion);
+          followUpContainer.appendChild(btn);
+        });
+        
+        messageDiv.appendChild(followUpContainer);
+      }
+      
       messagesDiv.appendChild(messageDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
@@ -1178,6 +1546,12 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
 
       if (!userMessage || isLoading) return;
 
+      // Detect user intent from message
+      detectedIntent = detectUserIntent(userMessage);
+      
+      // Add to conversation history
+      conversationHistory.push({ role: 'user', content: userMessage });
+
       // Add user message
       addMessage('user', userMessage);
       input.value = '';
@@ -1189,6 +1563,10 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
       showLoading();
 
       try {
+        // Build the context with intent-aware tone
+        const toneInstruction = getIntentToneInstruction(detectedIntent);
+        const fullContext = portfolioContext + '\n\n' + toneInstruction;
+
         // Call your serverless function instead of OpenAI directly
         const response = await fetch('/.netlify/functions/api', {
           method: 'POST',
@@ -1197,7 +1575,7 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
           },
           body: JSON.stringify({
             message: userMessage,
-            portfolioContext: portfolioContext
+            portfolioContext: fullContext
           })
         });
 
@@ -1205,7 +1583,9 @@ Answer questions about Nico's background, projects, skills, and experience. Be h
         hideLoading();
         
         if (data.choices && data.choices[0] && data.choices[0].message) {
-          addMessage('assistant', data.choices[0].message.content);
+          const assistantMessage = data.choices[0].message.content;
+          conversationHistory.push({ role: 'assistant', content: assistantMessage });
+          addMessage('assistant', assistantMessage, true); // Show follow-ups
         } else {
           addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
         }
