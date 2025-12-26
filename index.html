@@ -560,6 +560,84 @@
       margin-top: 5px;
     }
 
+    /* Shorts Row - Video Embeds */
+    .shorts-row {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .short-card {
+      width: 280px;
+      height: 500px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .short-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(236, 72, 153, 0.2);
+      border-color: var(--accent);
+    }
+
+    .short-card iframe,
+    .short-card blockquote {
+      width: 100%;
+      height: 100%;
+      border: none;
+      margin: 0;
+    }
+
+    .short-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      color: #606060;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+    }
+
+    .short-placeholder i {
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .short-placeholder span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #a0a0a0;
+    }
+
+    .short-placeholder p {
+      font-size: 0.85rem;
+      color: #505050;
+      padding: 6px 16px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .short-card {
+        width: 100%;
+        max-width: 320px;
+        height: 450px;
+      }
+    }
+
     /* Social Links */
     .social-grid {
       display: flex;
@@ -670,6 +748,23 @@
       color: rgba(255, 255, 255, 0.8);
     }
 
+    /* Section indicator badge */
+    .section-badge {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .section-badge i {
+      font-size: 10px;
+    }
+
     .chat-messages {
       flex: 1;
       overflow-y: auto;
@@ -743,7 +838,7 @@
 
     .message {
       display: flex;
-      max-width: 80%;
+      max-width: 85%;
       animation: messageSlide 0.3s ease;
     }
 
@@ -950,6 +1045,10 @@
       .travel-stat .number {
         font-size: 2rem;
       }
+
+      .section-badge {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -1136,11 +1235,31 @@
       </div>
 
       <!-- Travel Section - Beyond the Code -->
-      <div class="travel-section">
+      <div class="travel-section" id="travel">
         <div class="travel-header">
           <h2>✈️ Beyond the Code</h2>
-          <p>Outside the terminal, exploring the world one destination at a time</p>
+          <p>Short-form travel clips I use to explore storytelling, perspective, and creativity outside of code.</p>
         </div>
+        
+        <!-- Video Shorts Row -->
+        <div class="shorts-row">
+          <!-- Instagram Reel - Replace REEL_CODE -->
+          <div class="short-card">
+            <div class="short-placeholder">
+              <i class="fab fa-instagram"></i>
+              <span>Instagram Reel</span>
+              <p>Coming Soon</p>
+            </div>
+            <!-- Uncomment and add your reel code when ready:
+            <blockquote class="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/reel/REEL_CODE/"
+              data-instgrm-version="14">
+            </blockquote>
+            -->
+          </div>
+        </div>
+
+        <!-- Original Travel Cards -->
         <div class="travel-grid">
           <div class="travel-card">
             <div class="travel-icon">🌏</div>
@@ -1159,7 +1278,6 @@
           </div>
         </div>
         <div class="travel-stats">
-
           <div class="travel-stat">
             <div class="number">∞</div>
             <div class="label">Adventures Ahead</div>
@@ -1216,25 +1334,29 @@
         <h3>AI Assistant</h3>
         <p>Powered by gpt-4o-mini</p>
       </div>
+      <div class="section-badge" id="sectionBadge">
+        <i class="fas fa-location-dot"></i>
+        <span id="sectionLabel">Home</span>
+      </div>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="chat-welcome" id="chatWelcome">
         <i class="fas fa-robot"></i>
         <h4>Hey there! 👋</h4>
-        <p>I'm Nico's AI assistant. I can tell you about his projects, skills, experience, and journey as a CS student & aspiring tech founder.</p>
-        <p style="font-size: 12px; color: #606060; margin-top: 10px;">Quick tip: Let me know if you're a recruiter, student, or founder — I'll tailor my responses for you!</p>
+        <p>I'm Nico's AI assistant. Ask me anything about his work, skills, or journey!</p>
+        <p style="font-size: 12px; color: #606060; margin-top: 10px;">Pro tip: I know which section you're viewing and can give you context-specific answers.</p>
         <div class="follow-up-questions" id="initialFollowUps">
+          <button class="follow-up-btn" onclick="askFollowUp('Give me a quick summary of Nico')">
+            ⚡ TL;DR about Nico
+          </button>
           <button class="follow-up-btn" onclick="askFollowUp('What projects has Nico built?')">
             💻 What projects has Nico built?
           </button>
-          <button class="follow-up-btn" onclick="askFollowUp('What are Nico\\'s technical skills?')">
-            🛠️ What are Nico's technical skills?
-          </button>
-          <button class="follow-up-btn" onclick="askFollowUp('Tell me about FusionAI startup')">
-            🚀 Tell me about FusionAI startup
+          <button class="follow-up-btn" onclick="askFollowUp('What\\'s his tech stack?')">
+            🛠️ What's his tech stack?
           </button>
           <button class="follow-up-btn" onclick="askFollowUp('I\\'m a recruiter looking at Nico\\'s profile')">
-            👔 I'm a recruiter evaluating candidates
+            👔 I'm a recruiter
           </button>
         </div>
       </div>
@@ -1267,17 +1389,98 @@
       
       if (chatWindow.classList.contains('active')) {
         chatIcon.className = 'fas fa-times';
+        updateSectionBadge(); // Update section when chat opens
       } else {
         chatIcon.className = 'fas fa-comments';
       }
     }
 
-    // User intent detection
-    let detectedIntent = 'general'; // default
+    // ============================================
+    // SECTION AWARENESS SYSTEM
+    // ============================================
+    let currentSection = 'home';
+    
+    const sectionData = {
+      home: {
+        label: 'Home',
+        icon: 'fa-home',
+        context: 'The user is on the HOME/HERO section - the landing page introducing Nico.'
+      },
+      about: {
+        label: 'About',
+        icon: 'fa-user',
+        context: 'The user is viewing the ABOUT section - education, expertise, and entrepreneurship goals.'
+      },
+      projects: {
+        label: 'Projects',
+        icon: 'fa-code',
+        context: 'The user is browsing the PROJECTS section. Focus on: Portfolio Website, FusionAI startup, Neurosky AI assistant, and course projects (CSCI 115, MEDI 110, CSCI 159).'
+      },
+      certificates: {
+        label: 'Certificates',
+        icon: 'fa-certificate',
+        context: 'The user is viewing CERTIFICATES & LEARNING - courses in progress: React, AI Chatbot, MongoDB on Udemy.'
+      },
+      skills: {
+        label: 'Skills',
+        icon: 'fa-tools',
+        context: 'The user is on the SKILLS section. Focus on tech stack: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB, and AI/ML with LLM APIs.'
+      },
+      travel: {
+        label: 'Travel',
+        icon: 'fa-plane',
+        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography, and how travel fuels creativity. Dream destinations: Japan, Switzerland, Silicon Valley.'
+      },
+      contact: {
+        label: 'Connect',
+        icon: 'fa-link',
+        context: 'The user is on the CONTACT/CONNECT section - social links for TikTok, Instagram, Threads, LinkedIn, GitHub.'
+      }
+    };
+
+    function detectCurrentSection() {
+      const sections = ['home', 'about', 'projects', 'certificates', 'skills', 'travel', 'contact'];
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPos) {
+          return sections[i];
+        }
+      }
+      return 'home';
+    }
+
+    function updateSectionBadge() {
+      currentSection = detectCurrentSection();
+      const badge = document.getElementById('sectionBadge');
+      const label = document.getElementById('sectionLabel');
+      const data = sectionData[currentSection];
+      
+      if (badge && label && data) {
+        label.textContent = data.label;
+        badge.querySelector('i').className = `fas ${data.icon}`;
+      }
+    }
+
+    // Update section on scroll
+    window.addEventListener('scroll', () => {
+      updateSectionBadge();
+    });
+
+    // ============================================
+    // USER INTENT & CONTEXT DETECTION
+    // ============================================
+    let detectedIntent = 'general';
     const conversationHistory = [];
 
     function detectUserIntent(message) {
       const lowerMsg = message.toLowerCase();
+      
+      // TL;DR detection
+      if (lowerMsg.includes('tldr') || lowerMsg.includes('tl;dr') || lowerMsg.includes('summary') || lowerMsg.includes('quick') || lowerMsg.includes('brief') || lowerMsg.includes('short')) {
+        return 'tldr';
+      }
       
       // Recruiter signals
       const recruiterKeywords = ['recruiter', 'hiring', 'position', 'job', 'candidate', 'resume', 'cv', 'interview', 'hr', 'talent', 'evaluate', 'evaluating', 'looking for', 'experience for', 'qualifications', 'employment'];
@@ -1297,180 +1500,150 @@
         return 'student';
       }
       
-      return detectedIntent; // Keep previous intent if no new signals
+      return detectedIntent === 'tldr' ? 'general' : detectedIntent;
     }
 
-    function getIntentToneInstruction(intent) {
-      switch(intent) {
-        case 'recruiter':
-          return `
-TONE INSTRUCTION: The user appears to be a RECRUITER or hiring professional.
-- Be CONCISE and STRUCTURED in responses
-- Lead with key qualifications and achievements
-- Use bullet points for easy scanning
-- Highlight measurable outcomes and technical competencies
-- Be professional and direct
-- Focus on work experience, skills, and project outcomes
-- Avoid unnecessary elaboration`;
+    function getIntentInstruction(intent) {
+      const instructions = {
+        tldr: `
+RESPONSE STYLE: TL;DR MODE - Be EXTREMELY brief.
+- Give a 1-2 sentence answer max
+- No fluff, just the key point
+- Think Twitter-length responses`,
         
-        case 'founder':
-          return `
-TONE INSTRUCTION: The user appears to be a FOUNDER, entrepreneur, or investor.
-- Be PRODUCT-FOCUSED and TECHNICAL
-- Discuss architecture decisions and tech stack choices
-- Highlight innovation, scalability, and problem-solving
-- Speak to startup mindset and building in public
-- Discuss FusionAI and entrepreneurial projects in depth
-- Use technical terminology appropriately
-- Focus on vision, execution capability, and growth potential`;
+        recruiter: `
+TONE: RECRUITER MODE - Professional & scannable.
+- Lead with key qualifications
+- Be concise, use short paragraphs
+- Focus on outcomes and skills`,
         
-        case 'student':
-          return `
-TONE INSTRUCTION: The user appears to be a STUDENT or someone learning.
-- Be EXPLANATORY and ENCOURAGING
-- Break down technical concepts clearly
-- Share learning journey and tips
-- Be motivational and supportive
-- Relate experiences to learning paths
-- Offer actionable advice for beginners
-- Use relatable examples and analogies`;
+        founder: `
+TONE: FOUNDER MODE - Product & tech focused.
+- Discuss architecture and decisions
+- Highlight innovation and vision
+- Speak to startup mindset`,
         
-        default:
-          return `
-TONE INSTRUCTION: General visitor - be friendly, approachable, and helpful.
-- Balance technical detail with accessibility
-- Be conversational and warm
-- Highlight interesting projects and experiences
-- Encourage further questions`;
-      }
-    }
-
-    function generateFollowUpSuggestions(intent, lastTopic) {
-      const suggestions = {
-        recruiter: [
-          "What's Nico's tech stack proficiency?",
-          "Any team collaboration experience?",
-          "What's his availability for opportunities?"
-        ],
-        founder: [
-          "What's the tech architecture of FusionAI?",
-          "How does Nico approach product development?",
-          "What's his experience with AI/ML implementation?"
-        ],
-        student: [
-          "How did Nico start learning to code?",
-          "Any tips for CS students?",
-          "What resources does he recommend?"
-        ],
-        general: [
-          "What's Nico currently working on?",
-          "Tell me about his entrepreneurial journey",
-          "What are his future goals?"
-        ]
+        student: `
+TONE: STUDENT MODE - Friendly & helpful.
+- Share learning tips
+- Be encouraging
+- Use relatable examples`,
+        
+        general: `
+TONE: CASUAL & CONVERSATIONAL.
+- Be friendly and natural
+- Keep responses short (2-3 sentences when possible)
+- Add personality, not corporate speak`
       };
       
-      return suggestions[intent] || suggestions.general;
+      return instructions[intent] || instructions.general;
     }
 
-    // Portfolio Context for AI
-    const portfolioContext = `
-You are an AI assistant for Nico Ramos's portfolio website. You adapt your communication style based on who you're talking to.
+    function getSectionContext() {
+      const data = sectionData[currentSection];
+      return data ? data.context : '';
+    }
 
-ABOUT NICO:
-- Computer Science student at Vancouver Island University (VIU)
-- Future tech founder and aspiring entrepreneur
-- Building in public across social media platforms
-- Focused on AI development, software engineering, and full-stack web development
-- Currently building an AI and social media platform called FusionAI
+    function generateFollowUpSuggestions(intent, section) {
+      // Section-specific follow-ups
+      const sectionFollowUps = {
+        projects: [
+          "Tell me more about FusionAI",
+          "What's the tech behind this portfolio?",
+          "Which project was most challenging?"
+        ],
+        skills: [
+          "What's his strongest language?",
+          "How does he use AI/ML?",
+          "What frameworks does he prefer?"
+        ],
+        travel: [
+          "How does travel influence his work?",
+          "What's his dream destination?",
+          "Does he share travel content?"
+        ],
+        about: [
+          "What's his entrepreneurial goal?",
+          "Why Vancouver Island University?",
+          "What drives him?"
+        ],
+        certificates: [
+          "What's he currently learning?",
+          "React or MongoDB - which one?",
+          "How does he approach learning?"
+        ]
+      };
 
-EDUCATION:
-- BSc Computer Science at Vancouver Island University
-- Passionate about building real-world projects and learning through creation
+      // Intent-specific follow-ups
+      const intentFollowUps = {
+        recruiter: [
+          "What's his availability?",
+          "Any team experience?",
+          "Key achievements?"
+        ],
+        founder: [
+          "Tell me about FusionAI's vision",
+          "What's his startup experience?",
+          "How does he approach product?"
+        ],
+        student: [
+          "Tips for CS students?",
+          "How did he start coding?",
+          "Best resources?"
+        ]
+      };
+
+      // Prioritize section context, then intent
+      if (sectionFollowUps[section]) {
+        return sectionFollowUps[section];
+      }
+      if (intentFollowUps[intent]) {
+        return intentFollowUps[intent];
+      }
+      
+      return [
+        "What's Nico working on now?",
+        "Tell me about his background",
+        "What makes him unique?"
+      ];
+    }
+
+    // ============================================
+    // PORTFOLIO CONTEXT (Compact version for API)
+    // ============================================
+    const portfolioContext = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN - think ChatGPT, Claude, or Gemini vibes. Keep responses SHORT (2-4 sentences usually) unless asked for detail.
+
+ABOUT NICO (quick facts):
+• CS student @ Vancouver Island University, aspiring tech founder
+• Building FusionAI (AI startup in development)
+• Skills: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB
+• AI focus: prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
+• Loves travel, photography, and visual storytelling
+• Building in public on social media
 
 PROJECTS:
-1. Portfolio Website (Completed)
-   - Personal web resume with HTML, CSS, JavaScript
-   - Responsive design and smooth animations
-   - AI assistant integration for visitor guidance
-   - Link: https://itsnicoramos.github.io/portfolio-webpage/
+• Portfolio Website - HTML/CSS/JS with AI assistant (this site!)
+• FusionAI - AI startup project (in dev)
+• Neurosky - Python AI assistant experiment
+• Course projects: CSCI 115, 159, MEDI 110
 
-2. FusionAI (In Development)
-   - Startup experimentation project focused on AI innovation
-   - Building cutting-edge solutions for the future
-   - Link coming soon
+LEARNING: React (25+ projects), AI Chatbot dev, MongoDB (all Udemy)
 
-3. Codename: Neurosky (Experimental)
-   - Experimental Python AI assistant
-   - Built while exploring supervised vs. unsupervised learning
-   - Created during summer 2025
-   - Link: https://github.com/itsnicoramos/AIAssistant
+TRAVEL: Explorer who uses travel for creativity. Dream spots: Japan (tech), Switzerland (nature), Silicon Valley (startups).
 
-4. CSCI 115 Web Development (Completed)
-   - Course project demonstrating foundational web development skills
-   - HTML, CSS, and JavaScript
-   - Completed Spring 2025 at VIU
-   - Link: https://itsnicoramos.github.io/csci115-project/
+SOCIALS: TikTok @itsnicoramos_, Instagram @itsnicoramos__, LinkedIn nico-ramos28, GitHub itsnicoramos
 
-5. MEDI 110 Media Production (Completed)
-   - Storytelling-based website showcasing Vancouver
-   - Photography, editing techniques, and responsive web design
-   - Completed Fall 2025 at VIU
-   - Link: https://itsnicoramos.github.io/MEDI110finalProject/
+RESPONSE RULES:
+1. Keep it SHORT - 2-4 sentences is ideal for most questions
+2. Sound human, not robotic - use casual language
+3. If asked for TL;DR/summary, give 1-2 sentences MAX
+4. Don't over-explain - answer the question and stop
+5. Use the section context to make answers relevant
+6. Add personality - you're friendly, not corporate`;
 
-6. CSCI 159 Computer Science 1 (Completed)
-   - Intensive intro to programming in C++
-   - Covered problem decomposition, conditionals, loops, functions, arrays, pointers, debugging
-   - Completed Fall 2025 at VIU
-   - Link: https://github.com/itsnicoramos/csci159-labs
-
-7. CSCI 161 Computer Science 2 (Loading)
-8. CSCI 162 Topics in Computer Science (Loading)
-
-CERTIFICATES & LEARNING:
-1. Hands-on React (In Progress - Udemy)
-   - 25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit
-   - Comprehensive full-stack React development course
-
-2. Real-Time AI Chatbot (In Progress - Udemy)
-   - React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok)
-   - Building production-ready AI applications
-
-3. Master MongoDB (In Progress - Udemy)
-   - Development for Web & Mobile Apps
-   - CRUD Operations, Indexes, Aggregation Framework
-
-TECHNICAL SKILLS:
-Languages: C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
-Frameworks: React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js
-Databases: MongoDB
-Tools: Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
-AI & ML: Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
-Specializations: AI development, software engineering, full-stack web development, front-end engineering, content creation
-
-BEYOND THE CODE - TRAVEL:
-- Explorer who loves experiencing new cultures, cuisines, and perspectives
-- Uses travel to fuel creativity and broaden problem-solving approaches
-- Visual storyteller capturing moments through photography
-- Dream destinations: Japan (tech culture), Switzerland (nature), Silicon Valley (startup ecosystem)
-- Has explored 3+ countries and 10+ cities
-- Shares travel experiences on social media
-
-SOCIAL LINKS:
-- TikTok: @itsnicoramos_
-- Instagram: @itsnicoramos__
-- Threads: @itsnicoramos__
-- LinkedIn: nico-ramos28
-- GitHub: itsnicoramos
-
-COMMUNICATION STYLE GUIDELINES:
-- If someone identifies as or seems like a RECRUITER: Be concise, structured, professional. Use bullet points. Highlight qualifications and achievements.
-- If someone identifies as or seems like a FOUNDER/ENTREPRENEUR: Be product-focused, technical. Discuss architecture, scalability, startup mindset.
-- If someone identifies as or seems like a STUDENT: Be explanatory, encouraging. Share learning tips, be motivational, use relatable examples.
-- For GENERAL visitors: Be friendly, approachable, conversational.
-
-Always end your responses naturally. If the conversation warrants it, you may suggest what else the user might want to know.`;
-
-    // Chat functionality
+    // ============================================
+    // CHAT FUNCTIONALITY
+    // ============================================
     let isLoading = false;
 
     function handleChatKeyPress(event) {
@@ -1503,7 +1676,7 @@ Always end your responses naturally. If the conversation warrants it, you may su
       
       // Add follow-up suggestions for assistant messages
       if (role === 'assistant' && showFollowUps) {
-        const followUps = generateFollowUpSuggestions(detectedIntent);
+        const followUps = generateFollowUpSuggestions(detectedIntent, currentSection);
         const followUpContainer = document.createElement('div');
         followUpContainer.className = 'assistant-follow-ups';
         
@@ -1546,6 +1719,9 @@ Always end your responses naturally. If the conversation warrants it, you may su
 
       if (!userMessage || isLoading) return;
 
+      // Update section context
+      updateSectionBadge();
+      
       // Detect user intent from message
       detectedIntent = detectUserIntent(userMessage);
       
@@ -1563,11 +1739,18 @@ Always end your responses naturally. If the conversation warrants it, you may su
       showLoading();
 
       try {
-        // Build the context with intent-aware tone
-        const toneInstruction = getIntentToneInstruction(detectedIntent);
-        const fullContext = portfolioContext + '\n\n' + toneInstruction;
+        // Build context with section awareness and intent
+        const sectionContext = getSectionContext();
+        const intentInstruction = getIntentInstruction(detectedIntent);
+        
+        const fullContext = `${portfolioContext}
 
-        // Call your serverless function instead of OpenAI directly
+CURRENT CONTEXT:
+${sectionContext}
+
+${intentInstruction}`;
+
+        // Call your serverless function
         const response = await fetch('/.netlify/functions/api', {
           method: 'POST',
           headers: {
@@ -1585,14 +1768,14 @@ Always end your responses naturally. If the conversation warrants it, you may su
         if (data.choices && data.choices[0] && data.choices[0].message) {
           const assistantMessage = data.choices[0].message.content;
           conversationHistory.push({ role: 'assistant', content: assistantMessage });
-          addMessage('assistant', assistantMessage, true); // Show follow-ups
+          addMessage('assistant', assistantMessage, true);
         } else {
-          addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
+          addMessage('assistant', 'Hmm, something went wrong. Try asking again?');
         }
       } catch (error) {
         console.error('Error calling AI:', error);
         hideLoading();
-        addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
+        addMessage('assistant', 'Oops! Hit a snag there. Mind trying again?');
       } finally {
         isLoading = false;
         sendBtn.disabled = false;
@@ -1600,6 +1783,12 @@ Always end your responses naturally. If the conversation warrants it, you may su
         input.focus();
       }
     }
+
+    // Initialize section badge on page load
+    document.addEventListener('DOMContentLoaded', updateSectionBadge);
   </script>
+
+  <!-- Instagram Embed Script (uncomment when adding reels) -->
+  <!-- <script async src="//www.instagram.com/embed.js"></script> -->
 </body>
 </html>
