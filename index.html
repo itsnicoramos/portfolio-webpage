@@ -414,6 +414,104 @@
       color: var(--primary);
     }
 
+    /* ============================================
+       FEATURED PROJECT CARDS - Portfolio & FusionAI
+       ============================================ */
+    .carousel-card.featured {
+      min-width: 380px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(0, 245, 255, 0.1) 100%);
+      border: 2px solid var(--primary);
+      position: relative;
+      overflow: visible;
+    }
+
+    .carousel-card.featured::before {
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .carousel-card.featured::after {
+      content: '⭐ FEATURED';
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    .carousel-card.featured:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 
+        0 25px 60px rgba(0, 245, 255, 0.3),
+        0 0 30px rgba(124, 58, 237, 0.2);
+      border-color: var(--accent);
+    }
+
+    .carousel-card.featured h3 {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .carousel-card.featured .status {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(124, 58, 237, 0.2));
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .carousel-card.featured p {
+      color: #c0c0c0;
+    }
+
+    /* Fusion AI special styling */
+    .carousel-card.featured.fusion {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(124, 58, 237, 0.15) 50%, rgba(0, 245, 255, 0.08) 100%);
+    }
+
+    .carousel-card.featured.fusion::after {
+      content: '🚀 STARTUP';
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+    }
+
+    /* Tech tags for featured projects */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .tech-tag {
+      background: rgba(0, 245, 255, 0.1);
+      border: 1px solid rgba(0, 245, 255, 0.3);
+      color: var(--primary);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .carousel-card.featured .tech-tag {
+      background: rgba(236, 72, 153, 0.1);
+      border-color: rgba(236, 72, 153, 0.3);
+      color: var(--accent);
+    }
+
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -1080,6 +1178,10 @@
         min-width: 280px;
       }
 
+      .carousel-card.featured {
+        min-width: 300px;
+      }
+
       .chat-window {
         width: calc(100vw - 40px);
         height: calc(100vh - 120px);
@@ -1137,11 +1239,16 @@
       <div class="about-grid">
         <div class="about-card">
           <h3>🎓 Education</h3>
-          <p>Computer Science student at Vancouver Island University, passionate about building real-world projects and learning through creation.</p>
+          <p>Computer Science student at Vancouver Island University,
+            I care most about user experience, trust, and long-term retention. I enjoy building systems where small design decisions compound over time, especially in social and AI-driven products.
+          </p>
         </div>
         <div class="about-card">
           <h3>💻 Expertise</h3>
-          <p>Focused on AI development, software engineering, and full-stack web development. Currently building an AI and social media platform.</p>
+          <p>
+            I'm building real products, not just class projects. Right now I'm working on Fusion, a video-first campus social app designed to test real engagement and retention, launching campus-by-campus starting with VIU.
+
+          </p>
         </div>
         <div class="about-card">
           <h3>🚀 Entrepreneurship</h3>
@@ -1159,17 +1266,34 @@
         <div class="carousel-wrapper">
           <div class="carousel-track" id="projectsTrack">
             
-            <div class="carousel-card">
+            <!-- FEATURED: Portfolio Website -->
+            <div class="carousel-card featured">
               <h3>💻 Portfolio Website</h3>
-              <span class="status">Completed</span>
-              <p>Personal web resume developed with HTML, CSS, and JavaScript Back End. Features responsive design and smooth animations and AI assistant integrated that guide user or any visitors.</p>
-              <a href="https://itsnicoramos-website.netlify.app" target="_blank">View Project →</a>
+              <span class="status">✨ Live & Active</span>
+              <p>Personal web resume with responsive design, smooth animations, and an AI assistant that guides visitors through Nico's work and journey. Built from scratch showcasing full-stack capabilities.</p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">AI Integration</span>
+              </div>
+              <p style="margin-top: 15px;"><a href="https://itsnicoramos-website.netlify.app" target="_blank">View Live webpage →</a></p>
             </div>
 
-            <div class="carousel-card">
+            <!-- FEATURED: FusionAI -->
+            <div class="carousel-card featured fusion">
               <h3>🚀 FusionAI</h3>
-              <span class="status">In Development</span>
-              <p>A startup experimentation project focused on AI innovation. Building cutting-edge solutions for the future. Link coming soon.</p>
+              <span class="status">🔥 In Development</span>
+              <p>Campus-first social app where students introduce themselves through short videos. Focused on authentic connections and real engagement metrics, 
+                making user first than the algorithm.
+                launching campus-by-campus starting with VIU.</p>
+              <div class="tech-tags">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Supabase</span>
+                <span class="tech-tag">AI/ML</span>
+                <span class="tech-tag">Video-First</span>
+              </div>
+              <p style="margin-top: 15px; color: var(--accent);">🔗 Link coming soon!</p>
             </div>
 
             <div class="carousel-card">
@@ -1401,8 +1525,8 @@
           <button class="follow-up-btn" onclick="askFollowUp('Give me a quick summary of Nico')">
             ⚡ TL;DR about Nico
           </button>
-          <button class="follow-up-btn" onclick="askFollowUp('What projects has Nico built?')">
-            💻 What projects has Nico built?
+          <button class="follow-up-btn" onclick="askFollowUp('Show me his projects')">
+            💻 Show me his projects
           </button>
           <button class="follow-up-btn" onclick="askFollowUp('What is his tech stack?')">
             🛠️ What's his tech stack?
@@ -1444,6 +1568,139 @@
     }
 
     // ============================================
+    // DEEP WEBSITE KNOWLEDGE BASE
+    // The AI learns from this structured data
+    // ============================================
+    const websiteKnowledge = {
+      // Section summaries for quick TL;DR responses
+      summaries: {
+        home: "Nico Ramos is a BSc Computer Science student at Vancouver Island University and an aspiring tech founder. He's passionate about building products that matter.",
+        about: "Nico focuses on user experience, trust, and long-term retention. He's building real products (not just class projects) like Fusion, a video-first campus social app. He builds in public and aspires to be a tech founder.",
+        projects: `Nico has built several projects:
+
+⭐ **Portfolio Website** (FEATURED) - His personal web resume with responsive design, smooth animations, and an AI assistant. Built with HTML, CSS, JavaScript, and AI integration. Live at itsnicoramos-website.netlify.app
+
+🚀 **FusionAI** (FEATURED STARTUP) - A campus-first social app where students introduce themselves through short videos. Focused on authentic connections over engagement hacks. Built with React, Supabase, and AI/ML. Launching campus-by-campus starting with VIU.
+
+🤖 **Neurosky** - Experimental Python AI assistant exploring supervised vs. unsupervised learning concepts.
+
+📚 **University Projects**: CSCI 115 (Web Dev), MEDI 110 (Media Production with Vancouver photography), CSCI 159 (C++ fundamentals)
+
+🔜 **Coming Soon**: CSCI 161 and CSCI 162`,
+
+        certificates: `Nico is currently learning through Udemy courses:
+
+⚛️ **Hands-on React** - 25+ projects covering Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, React Router 6, TanStack Query 5, Redux Toolkit
+
+🤖 **Real-Time AI Chatbot** - Multi-model API integration with ChatGPT, Gemini, Claude, DeepSeek, Grok
+
+🍃 **Master MongoDB** - CRUD operations, indexes, aggregation framework for web & mobile apps`,
+
+        skills: `Nico's technical skills include:
+
+**Languages**: C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
+
+**Frameworks**: React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js
+
+**Databases**: MongoDB
+
+**Tools**: Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
+
+**AI/ML**: Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
+
+**Specializations**: AI development, software engineering, full-stack web dev, front-end engineering, content creation`,
+
+        travel: `Beyond coding, Nico is an explorer and visual storyteller:
+
+🌏 **Explorer** - Uses travel to fuel creativity and broaden problem-solving perspectives
+
+📸 **Visual Storyteller** - Captures moments and shares travel experiences on social media
+
+🎯 **Dream Destinations**: Japan (tech culture), Switzerland (nature), Silicon Valley (startup ecosystem)
+
+He creates short-form travel clips to explore storytelling and creativity outside of code.`,
+
+        contact: `Connect with Nico on social media:
+
+• TikTok: @itsnicoramos_
+• Instagram: @itsnicoramos__
+• Threads: @itsnicoramos__
+• LinkedIn: nico-ramos28
+• GitHub: itsnicoramos
+
+He builds in public and shares his journey across these platforms.`
+      },
+
+      // Detailed project data
+      projects: {
+        portfolio: {
+          name: "Portfolio Website",
+          status: "Live & Active",
+          featured: true,
+          description: "Personal web resume with responsive design, smooth animations, and an AI assistant that guides visitors. Built from scratch showcasing full-stack capabilities.",
+          tech: ["HTML5", "CSS3", "JavaScript", "AI Integration"],
+          url: "https://itsnicoramos-website.netlify.app",
+          highlights: ["Custom AI chatbot", "Glassmorphism design", "Section-aware assistance", "Responsive layout"]
+        },
+        fusion: {
+          name: "FusionAI",
+          status: "In Development",
+          featured: true,
+          isStartup: true,
+          description: "Campus-first social app where students introduce themselves through short videos. Focused on authentic connections and real engagement metrics.",
+          tech: ["React", "Supabase", "AI/ML", "Video-First"],
+          highlights: ["Video-first content", "Campus-by-campus launch", "Starting with VIU", "Focus on retention over growth hacks"],
+          philosophy: "Testing what actually makes people post, return, and invite others - not growth hacks."
+        },
+        neurosky: {
+          name: "Codename: Neurosky",
+          status: "Experimental",
+          description: "Experimental Python AI assistant exploring supervised vs. unsupervised learning concepts.",
+          tech: ["Python", "AI/ML"],
+          url: "https://github.com/itsnicoramos/AIAssistant"
+        },
+        csci115: {
+          name: "CSCI 115 Web Development",
+          status: "Completed",
+          description: "Foundational web development project using HTML, CSS, and JavaScript. Spring 2025 at VIU.",
+          tech: ["HTML", "CSS", "JavaScript"],
+          url: "https://itsnicoramos.github.io/csci115-project/"
+        },
+        medi110: {
+          name: "MEDI 110 Media Production",
+          status: "Completed",
+          description: "Storytelling website showcasing Vancouver through photography, editing, and responsive design. Fall 2025 at VIU.",
+          tech: ["HTML", "CSS", "Photography", "Storytelling"],
+          url: "https://itsnicoramos.github.io/MEDI110finalProject/"
+        },
+        csci159: {
+          name: "CSCI 159 Computer Science 1",
+          status: "Completed",
+          description: "Intensive C++ programming course covering problem decomposition, conditionals, loops, functions, arrays, pointers, debugging. Fall 2025 at VIU.",
+          tech: ["C++"],
+          url: "https://github.com/itsnicoramos/csci159-labs"
+        }
+      },
+
+      // Quick facts for rapid responses
+      quickFacts: {
+        name: "Nico Ramos",
+        school: "Vancouver Island University",
+        degree: "BSc Computer Science",
+        goal: "Tech Founder",
+        currentProject: "FusionAI",
+        mainStack: "React, Next.js, Node.js, MongoDB",
+        aiTools: "OpenAI, Gemini, Claude, DeepSeek",
+        socials: {
+          tiktok: "@itsnicoramos_",
+          instagram: "@itsnicoramos__",
+          linkedin: "nico-ramos28",
+          github: "itsnicoramos"
+        }
+      }
+    };
+
+    // ============================================
     // SECTION AWARENESS SYSTEM
     // ============================================
     let currentSection = 'home';
@@ -1454,43 +1711,50 @@
         label: 'Home',
         icon: 'fa-home',
         context: 'The user is on the HOME/HERO section - the landing page introducing Nico.',
-        greeting: '👋 You\'re at the top! Ask me anything about Nico.'
+        greeting: '👋 You\'re at the top! Ask me anything about Nico.',
+        summary: websiteKnowledge.summaries.home
       },
       about: {
         label: 'About',
         icon: 'fa-user',
         context: 'The user is viewing the ABOUT section - education, expertise, and entrepreneurship goals.',
-        greeting: '📖 Checking out Nico\'s background? I can tell you more!'
+        greeting: '📖 Checking out Nico\'s background? I can tell you more!',
+        summary: websiteKnowledge.summaries.about
       },
       projects: {
         label: 'Projects',
         icon: 'fa-code',
-        context: 'The user is browsing the PROJECTS section. Focus on: Portfolio Website, FusionAI startup, Neurosky AI assistant, and courses done at university (CSCI 115, MEDI 110, CSCI 159).',
-        greeting: '💻 Nice, you\'re viewing projects! Want details on any of these?'
+        context: 'The user is browsing the PROJECTS section. FEATURED projects are Portfolio Website and FusionAI.',
+        greeting: '💻 Nice, you\'re viewing projects! Want details on any of these?',
+        summary: websiteKnowledge.summaries.projects
       },
       certificates: {
         label: 'Certificates',
         icon: 'fa-certificate',
         context: 'The user is viewing CERTIFICATES & LEARNING - courses in progress: React, AI Chatbot, MongoDB on Udemy.',
-        greeting: '📚 Exploring what Nico\'s learning? Ask me about any course!'
+        greeting: '📚 Exploring what Nico\'s learning? Ask me about any course!',
+        summary: websiteKnowledge.summaries.certificates
       },
       skills: {
         label: 'Skills',
         icon: 'fa-tools',
         context: 'The user is on the SKILLS section. Focus on tech stack: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB, and AI/ML with LLM APIs.',
-        greeting: '🛠️ Browsing the tech stack! Need specifics on any skill?'
+        greeting: '🛠️ Browsing the tech stack! Need specifics on any skill?',
+        summary: websiteKnowledge.summaries.skills
       },
       travel: {
         label: 'Travel',
         icon: 'fa-plane',
-        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography, and how travel fuels creativity. Dream destinations: Japan, Switzerland, Silicon Valley.',
-        greeting: '✈️ Beyond the code! Ask about Nico\'s travel adventures.'
+        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography.',
+        greeting: '✈️ Beyond the code! Ask about Nico\'s travel adventures.',
+        summary: websiteKnowledge.summaries.travel
       },
       contact: {
         label: 'Connect',
         icon: 'fa-link',
         context: 'The user is on the CONTACT/CONNECT section - social links for TikTok, Instagram, Threads, LinkedIn, GitHub.',
-        greeting: '🔗 Ready to connect? I can point you to the right platform!'
+        greeting: '🔗 Ready to connect? I can point you to the right platform!',
+        summary: websiteKnowledge.summaries.contact
       }
     };
 
@@ -1557,42 +1821,77 @@
     }
 
     // ============================================
-    // USER INTENT & CONTEXT DETECTION
+    // SMART QUERY DETECTION
+    // Detects what the user wants to know
     // ============================================
     let detectedIntent = 'general';
     const conversationHistory = [];
 
-    function detectUserIntent(message) {
+    function detectQueryType(message) {
       const lowerMsg = message.toLowerCase();
+      
+      // Show/List detection - user wants to see content
+      const showKeywords = ['show', 'list', 'what are', 'tell me about', 'what\'s in', 'summarize', 'overview', 'describe'];
+      const sectionKeywords = {
+        projects: ['project', 'built', 'created', 'made', 'portfolio', 'fusion', 'work'],
+        skills: ['skill', 'tech', 'stack', 'language', 'framework', 'tool', 'know'],
+        certificates: ['certificate', 'learning', 'course', 'udemy', 'studying'],
+        about: ['about', 'who is', 'background', 'education', 'school'],
+        travel: ['travel', 'beyond', 'hobby', 'outside code', 'adventure'],
+        contact: ['contact', 'connect', 'social', 'reach', 'follow']
+      };
+      
+      // Check if user wants to see a specific section
+      for (const [section, keywords] of Object.entries(sectionKeywords)) {
+        if (keywords.some(kw => lowerMsg.includes(kw))) {
+          if (showKeywords.some(sk => lowerMsg.includes(sk))) {
+            return { type: 'show_section', section: section };
+          }
+          return { type: 'about_section', section: section };
+        }
+      }
       
       // TL;DR detection
       if (lowerMsg.includes('tldr') || lowerMsg.includes('tl;dr') || lowerMsg.includes('summary') || lowerMsg.includes('quick') || lowerMsg.includes('brief') || lowerMsg.includes('short')) {
-        return 'tldr';
+        return { type: 'tldr' };
       }
       
       // Recruiter signals
       const recruiterKeywords = ['recruiter', 'hiring', 'position', 'job', 'candidate', 'resume', 'cv', 'interview', 'hr', 'talent', 'evaluate', 'evaluating', 'looking for', 'experience for', 'qualifications', 'employment'];
       if (recruiterKeywords.some(kw => lowerMsg.includes(kw))) {
-        return 'recruiter';
+        return { type: 'recruiter' };
       }
       
       // Founder/Entrepreneur signals
       const founderKeywords = ['founder', 'startup', 'investor', 'funding', 'co-founder', 'entrepreneur', 'venture', 'product', 'mvp', 'scale', 'business model', 'pitch', 'partnership', 'collaborate on startup'];
       if (founderKeywords.some(kw => lowerMsg.includes(kw))) {
-        return 'founder';
+        return { type: 'founder' };
       }
       
       // Student signals
       const studentKeywords = ['student', 'learning', 'beginner', 'how to start', 'advice', 'tips', 'course', 'study', 'university', 'college', 'school', 'homework', 'assignment', 'career advice'];
       if (studentKeywords.some(kw => lowerMsg.includes(kw))) {
-        return 'student';
+        return { type: 'student' };
       }
       
-      return detectedIntent === 'tldr' ? 'general' : detectedIntent;
+      return { type: 'general' };
     }
 
-    function getIntentInstruction(intent) {
+    function getIntentInstruction(queryInfo) {
       const instructions = {
+        show_section: `
+RESPONSE STYLE: SECTION SUMMARY MODE
+- The user wants to see what's in a section
+- Use the section summary from the knowledge base
+- Format nicely with clear structure
+- Keep it informative but scannable`,
+        
+        about_section: `
+RESPONSE STYLE: SECTION INFO MODE
+- Answer questions about this specific section
+- Use relevant details from the knowledge base
+- Be helpful and specific`,
+        
         tldr: `
 RESPONSE STYLE: TL;DR MODE - Be EXTREMELY brief.
 - Give a 1-2 sentence answer max
@@ -1624,7 +1923,7 @@ TONE: CASUAL & CONVERSATIONAL.
 - Add personality, not corporate speak`
       };
       
-      return instructions[intent] || instructions.general;
+      return instructions[queryInfo.type] || instructions.general;
     }
 
     function getSectionContext() {
@@ -1632,7 +1931,12 @@ TONE: CASUAL & CONVERSATIONAL.
       return data ? data.context : '';
     }
 
-    function generateFollowUpSuggestions(intent, section) {
+    function getSectionSummary(section) {
+      const data = sectionData[section];
+      return data ? data.summary : null;
+    }
+
+    function generateFollowUpSuggestions(queryInfo, section) {
       // Section-specific follow-ups
       const sectionFollowUps = {
         projects: [
@@ -1685,8 +1989,8 @@ TONE: CASUAL & CONVERSATIONAL.
       if (sectionFollowUps[section]) {
         return sectionFollowUps[section];
       }
-      if (intentFollowUps[intent]) {
-        return intentFollowUps[intent];
+      if (intentFollowUps[queryInfo.type]) {
+        return intentFollowUps[queryInfo.type];
       }
       
       return [
@@ -1697,37 +2001,57 @@ TONE: CASUAL & CONVERSATIONAL.
     }
 
     // ============================================
-    // PORTFOLIO CONTEXT (Compact version for API)
+    // ENHANCED PORTFOLIO CONTEXT WITH KNOWLEDGE BASE
     // ============================================
-    const portfolioContext = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN - think ChatGPT, Claude, or Gemini vibes. Keep responses SHORT (2-4 sentences usually) unless asked for detail.
+    function buildPortfolioContext(queryInfo) {
+      let context = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN - think ChatGPT, Claude, or Gemini vibes. Keep responses SHORT (2-4 sentences usually) unless asked for detail or asked to show/list something.
 
-ABOUT NICO (quick facts):
-• CS student @ Vancouver Island University, aspiring tech founder
-• Building FusionAI (AI startup in development)
-• Skills: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB
-• AI focus: prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
-• Loves travel, photography, and visual storytelling
-• Building in public on social media
+=== WEBSITE KNOWLEDGE BASE ===
+You have access to detailed information about every section of this portfolio. Use this to give accurate, specific answers.
 
-PROJECTS:
-• Portfolio Website - HTML/CSS/JS with AI assistant (this site!)
-• FusionAI - AI startup project (in dev)
-• Neurosky - Python AI assistant experiment
-• Course university: CSCI 115, CSCI 159, MEDI 110
+`;
 
-LEARNING: React (25+ projects), AI Chatbot dev, MongoDB (all Udemy)
+      // Add relevant section summaries based on query
+      if (queryInfo.type === 'show_section' || queryInfo.type === 'about_section') {
+        const summary = getSectionSummary(queryInfo.section);
+        if (summary) {
+          context += `RELEVANT SECTION DATA (${queryInfo.section.toUpperCase()}):\n${summary}\n\n`;
+        }
+      }
 
-TRAVEL: Explorer who uses travel for creativity. Dream spots: Japan (tech), Switzerland (nature), Silicon Valley (startups).
+      // Add current section context
+      const currentSectionData = sectionData[currentSection];
+      if (currentSectionData) {
+        context += `CURRENT SECTION: ${currentSection.toUpperCase()}\n${currentSectionData.summary}\n\n`;
+      }
 
-SOCIALS: TikTok @itsnicoramos_, Instagram @itsnicoramos__, LinkedIn nico-ramos28, GitHub itsnicoramos
+      // Add quick facts
+      context += `QUICK FACTS:
+• Name: ${websiteKnowledge.quickFacts.name}
+• School: ${websiteKnowledge.quickFacts.school}
+• Degree: ${websiteKnowledge.quickFacts.degree}
+• Goal: ${websiteKnowledge.quickFacts.goal}
+• Current Focus: ${websiteKnowledge.quickFacts.currentProject}
+• Main Stack: ${websiteKnowledge.quickFacts.mainStack}
+
+FEATURED PROJECTS (highlight these when discussing projects):
+1. Portfolio Website - Live personal site with AI assistant (this very site!)
+2. FusionAI - Startup: campus social app with video-first approach
+
+ALL PROJECTS:
+${websiteKnowledge.summaries.projects}
 
 RESPONSE RULES:
-1. Keep it SHORT - 2-4 sentences is ideal for most questions
-2. Sound human, not robotic - use casual language
-3. If asked for TL;DR/summary, give 1-2 sentences MAX
-4. Don't over-explain - answer the question and stop
+1. When asked to "show" or "list" something, provide a well-formatted summary from the knowledge base
+2. Keep casual questions short (2-4 sentences)
+3. Sound human, not robotic
+4. If asked for TL;DR/summary, give 1-2 sentences MAX
 5. Use the section context to make answers relevant
-6. Add personality - you're friendly, not corporate`;
+6. Always highlight Portfolio Website and FusionAI when discussing projects - they're featured!
+7. You KNOW everything on this website - answer confidently`;
+
+      return context;
+    }
 
     // ============================================
     // CHAT FUNCTIONALITY
@@ -1746,7 +2070,7 @@ RESPONSE RULES:
       sendMessage();
     }
 
-    function addMessage(role, content, showFollowUps = false) {
+    function addMessage(role, content, showFollowUps = false, queryInfo = null) {
       const messagesDiv = document.getElementById('chatMessages');
       const welcomeMsg = document.getElementById('chatWelcome');
       if (welcomeMsg) {
@@ -1758,13 +2082,13 @@ RESPONSE RULES:
       
       const contentDiv = document.createElement('div');
       contentDiv.className = 'message-content';
-      contentDiv.textContent = content;
+      contentDiv.innerHTML = content.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       
       messageDiv.appendChild(contentDiv);
       
       // Add follow-up suggestions for assistant messages
       if (role === 'assistant' && showFollowUps) {
-        const followUps = generateFollowUpSuggestions(detectedIntent, currentSection);
+        const followUps = generateFollowUpSuggestions(queryInfo || { type: 'general' }, currentSection);
         const followUpContainer = document.createElement('div');
         followUpContainer.className = 'assistant-follow-ups';
         
@@ -1810,8 +2134,8 @@ RESPONSE RULES:
       // Update section context
       updateSectionBadge();
       
-      // Detect user intent from message
-      detectedIntent = detectUserIntent(userMessage);
+      // Detect what the user wants
+      const queryInfo = detectQueryType(userMessage);
       
       // Add to conversation history
       conversationHistory.push({ role: 'user', content: userMessage });
@@ -1827,13 +2151,14 @@ RESPONSE RULES:
       showLoading();
 
       try {
-        // Build context with section awareness and intent
+        // Build context with deep knowledge base
         const sectionContext = getSectionContext();
-        const intentInstruction = getIntentInstruction(detectedIntent);
+        const intentInstruction = getIntentInstruction(queryInfo);
+        const fullContext = buildPortfolioContext(queryInfo);
         
-        const fullContext = `${portfolioContext}
+        const finalContext = `${fullContext}
 
-CURRENT CONTEXT:
+CURRENT VIEWING CONTEXT:
 ${sectionContext}
 
 ${intentInstruction}`;
@@ -1846,7 +2171,7 @@ ${intentInstruction}`;
           },
           body: JSON.stringify({
             message: userMessage,
-            portfolioContext: fullContext
+            portfolioContext: finalContext
           })
         });
 
@@ -1856,7 +2181,7 @@ ${intentInstruction}`;
         if (data.choices && data.choices[0] && data.choices[0].message) {
           const assistantMessage = data.choices[0].message.content;
           conversationHistory.push({ role: 'assistant', content: assistantMessage });
-          addMessage('assistant', assistantMessage, true);
+          addMessage('assistant', assistantMessage, true, queryInfo);
         } else {
           addMessage('assistant', 'Hmm, something went wrong. Try asking again?');
         }
