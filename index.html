@@ -2256,12 +2256,23 @@ ${intentInstruction}`;
 
         const data = await response.json();
         hideLoading();
-        
+
+        // Log the response for debugging
+        console.log('API Response Status:', response.status);
+        console.log('API Response Data:', data);
+
+        // Check if there's an error message from the backend
+        if (data.error) {
+          addMessage('assistant', `Error: ${data.error}`);
+          return;
+        }
+
         if (data.choices && data.choices[0] && data.choices[0].message) {
           const assistantMessage = data.choices[0].message.content;
           conversationHistory.push({ role: 'assistant', content: assistantMessage });
           addMessage('assistant', assistantMessage, true, queryInfo);
         } else {
+          console.error('Unexpected response format:', data);
           addMessage('assistant', 'Hmm, something went wrong. Try asking again?');
         }
       } catch (error) {
