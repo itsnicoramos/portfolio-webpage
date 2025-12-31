@@ -215,7 +215,7 @@ function stripPII(message) {
 // 7. SYSTEM PROMPT (Anti-Hallucination)
 // ============================================
 function buildSystemPrompt() {
-  return `You are a helpful assistant for Nico Ramos's portfolio website. Your ONLY job is to answer questions about Nico based on the VERIFIED FACTS below.
+  return `You are a helpful assistant for Nico s portfolio website. Your ONLY job is to answer questions about Nico based on the VERIFIED FACTS below.
 
 === STRICT RULES ===
 1. ONLY use information from the VERIFIED FACTS section below
@@ -391,7 +391,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    const { message } = body;
+    const { message, portfolioContext } = body;
 
     // 3. Validate input
     const inputCheck = validateInput(message);
@@ -426,8 +426,10 @@ exports.handler = async (event, context) => {
     // 6. Strip PII
     const cleanMessage = stripPII(inputCheck.sanitized);
 
-    // 7. Build system prompt
-    const systemPrompt = buildSystemPrompt();
+    // 7. Build system prompt - use frontend context if provided, otherwise use default
+    const systemPrompt = portfolioContext && typeof portfolioContext === 'string'
+      ? portfolioContext
+      : buildSystemPrompt();
 
     // 8. Call OpenAI with timeout
     let response;
@@ -484,8 +486,27 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Validate response structure
+    if (!data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
+      console.error('Invalid OpenAI response structure:', JSON.stringify(data));
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({ error: 'Invalid AI response format' })
+      };
+    }
+
+    if (!data.choices[0]?.message?.content) {
+      console.error('Missing message content in response:', JSON.stringify(data.choices[0]));
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({ error: 'Empty AI response' })
+      };
+    }
+
     // 10. Sanitize output
-    const rawResponse = data.choices?.[0]?.message?.content || '';
+    const rawResponse = data.choices[0].message.content;
     const sanitizedResponse = sanitizeOutput(rawResponse);
 
     return {
