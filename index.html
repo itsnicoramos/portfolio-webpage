@@ -1262,6 +1262,72 @@
   <section id="projects">
     <div class="container">
       <h2 class="section-title">Featured Projects</h2>
+
+      <!-- Startup Section -->
+      <div class="travel-section" id="startup" style="margin-bottom: 60px; margin-top: 0;">
+        <div class="travel-header">
+          <h2>🚀 Building My Startup</h2>
+          <p>From idea to launch. Building in public</p>
+        </div>
+
+        <div class="startup-hero" style="max-width: 900px; margin: 0 auto 40px;">
+          <div class="carousel-card featured fusion" style="min-width: auto; width: 100%;">
+            <h3>FusionAI</h3>
+            <span class="status">🔥 In Development</span>
+
+            <div style="margin: 25px 0;">
+              <h4 style="color: var(--primary); margin-bottom: 12px;">What is FusionAI?</h4>
+              <p style="color: #c0c0c0; line-height: 1.7;">
+                Coming Soon... 
+              </p>
+            </div>
+
+            <div class="tech-tags">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">AI/ML</span>
+              <span class="tech-tag">Video-First</span>
+              <span class="tech-tag">Web App</span>
+            </div>
+
+            <div style="margin-top: 25px; padding: 20px; background: rgba(0, 245, 255, 0.05); border-radius: 12px; border: 1px solid rgba(0, 245, 255, 0.2);">
+              <h4 style="color: var(--accent); margin-bottom: 10px; font-size: 0.95rem;">📍 Current Status</h4>
+              <ul style="color: #b0b0b0; line-height: 1.9; padding-left: 20px;">
+                <li>Designing core user flows and MVP features</li>
+                <li>Setting up Firebase infrastructure</li>
+                <li>Building authentication and video upload system</li>
+                <li>Planning VIU campus beta launch</li>
+              </ul>
+            </div>
+
+            <p style="margin-top: 20px;">
+              <a href="#" class="btn btn-primary" style="display: inline-block; pointer-events: none; opacity: 0.7;">
+                🔗 Link Coming Soon
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="travel-grid">
+          <div class="travel-card">
+            <div class="travel-icon">💡</div>
+            <h3>The Mission</h3>
+            <p>Building products that prioritize user experience, trust, and retention. Testing real engagement metrics, not vanity numbers. Learning what makes people actually come back.</p>
+          </div>
+          <div class="travel-card">
+            <div class="travel-icon">🎯</div>
+            <h3>The Approach</h3>
+            <p>Campus-by-campus rollout starting small. Obsessing over user feedback. Building in public across social platforms. Every decision backed by real data and user behavior.</p>
+          </div>
+          <div class="travel-card">
+            <div class="travel-icon">🌱</div>
+            <h3>The Journey</h3>
+            <p>From CS student to founder. Learning to code, design, market, and ship. Not just building for class but building to solve real problems and create lasting value.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; font-size: 1.8rem; margin-bottom: 30px; color: #e0e0e0;">Other Projects</h3>
       <div class="carousel-container">
         <div class="carousel-wrapper">
           <div class="carousel-track" id="projectsTrack">
@@ -1289,9 +1355,10 @@
                 launching campus-by-campus starting with VIU.</p>
               <div class="tech-tags">
                 <span class="tech-tag">React</span>
-                <span class="tech-tag">Supabase</span>
+                <span class="tech-tag">Firebase</span>
                 <span class="tech-tag">AI/ML</span>
                 <span class="tech-tag">Video-First</span>
+                <span class="tech-tag">Vercel</span>
               </div>
               <p style="margin-top: 15px; color: var(--accent);">🔗 Link coming soon!</p>
             </div>
@@ -2088,45 +2155,35 @@ He builds in public and shares his journey across these platforms.`
     }
 
     function buildPortfolioContext(queryInfo) {
-      let context = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN. Keep responses SHORT (2-4 sentences usually) unless asked for detail.
+      let context = `You are Nico's AI assistant. Keep responses SHORT (2-4 sentences).
 
-=== WEBSITE KNOWLEDGE BASE ===
+QUICK FACTS:
+• Name: Nico Ramos
+• School: Vancouver Island University (BSc Computer Science)
+• Current Project: FusionAI (campus social app)
+• Tech Stack: React, Firebase, Python, C++, MongoDB
+
+PROJECTS:
+• Portfolio Website (Live) - AI-powered personal site
+• FusionAI (In Dev) - Video-first campus social app, launching at VIU
+• Neurosky - AI assistant exploring ML concepts
+• University projects: CSCI 115 (Web), MEDI 110 (Media), CSCI 159 (C++)
+
+LEARNING:
+• React (Udemy) - Next.js, TypeScript, Prisma
+• AI Chatbot (Udemy) - Multi-model APIs
+• MongoDB (Udemy)
+
 `;
 
       if (queryInfo.type === 'show_section' || queryInfo.type === 'about_section') {
         const summary = getSectionSummary(queryInfo.section);
         if (summary) {
-          context += `RELEVANT SECTION DATA (${queryInfo.section.toUpperCase()}):\n${summary}\n\n`;
+          context += `FOCUS: ${queryInfo.section.toUpperCase()}\n${summary.substring(0, 400)}\n\n`;
         }
       }
 
-      const currentSectionData = sectionData[currentSection];
-      if (currentSectionData) {
-        context += `CURRENT SECTION: ${currentSection.toUpperCase()}\n${currentSectionData.summary}\n\n`;
-      }
-
-      context += `QUICK FACTS:
-• Name: ${websiteKnowledge.quickFacts.name}
-• School: ${websiteKnowledge.quickFacts.school}
-• Degree: ${websiteKnowledge.quickFacts.degree}
-• Goal: ${websiteKnowledge.quickFacts.goal}
-• Current Focus: ${websiteKnowledge.quickFacts.currentProject}
-• Main Stack: ${websiteKnowledge.quickFacts.mainStack}
-
-FEATURED PROJECTS:
-1. Portfolio Website - Live personal site with AI assistant
-2. FusionAI - Startup: campus social app with video-first approach
-
-ALL PROJECTS:
-${websiteKnowledge.summaries.projects}
-
-RESPONSE RULES:
-1. When asked to "show" or "list" something, provide a well-formatted summary
-2. Keep casual questions short (2-4 sentences)
-3. Sound human, not robotic
-4. If asked for TL;DR/summary, give 1-2 sentences MAX
-5. Always highlight Portfolio Website and FusionAI when discussing projects
-6. You KNOW everything on this website - answer confidently`;
+      context += `Be conversational, not robotic. Answer confidently.`;
 
       return context;
     }
