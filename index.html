@@ -1540,6 +1540,7 @@
         id="chatInput" 
         placeholder="Ask about Nico's work..."
         onkeypress="handleChatKeyPress(event)"
+        maxlength="500"
       />
       <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
         <i class="fas fa-paper-plane"></i>
@@ -1547,6 +1548,253 @@
     </div>
   </div>
 
+  <!-- ============================================
+       SECURITY MODULE
+       Input Validation, Rate Limiting, AI Security,
+       Content Safety, Data Minimization
+       ============================================ -->
+  <script>
+  (function() {
+    'use strict';
+
+    // 1. INPUT VALIDATION
+    const InputValidator = {
+      MAX_MESSAGE_LENGTH: 500,
+      MIN_MESSAGE_LENGTH: 2,
+
+      sanitizeHTML: function(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      },
+
+      removeScripts: function(str) {
+        if (!str) return '';
+        return str
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+          .replace(/javascript:/gi, '')
+          .replace(/on\w+\s*=/gi, '')
+          .replace(/data:/gi, '');
+      },
+
+      validateMessage: function(message) {
+        if (!message || typeof message !== 'string') {
+          return { valid: false, error: 'Message is required' };
+        }
+        const trimmed = message.trim();
+        if (trimmed.length < this.MIN_MESSAGE_LENGTH) {
+          return { valid: false, error: 'Message is too short' };
+        }
+        if (trimmed.length > this.MAX_MESSAGE_LENGTH) {
+          return { valid: false, error: 'Message too long (max ' + this.MAX_MESSAGE_LENGTH + ' characters)' };
+        }
+        if (this.containsSuspiciousContent(trimmed)) {
+          return { valid: false, error: 'Message contains invalid content' };
+        }
+        return { valid: true, sanitized: this.sanitizeHTML(this.removeScripts(trimmed)) };
+      },
+
+      containsSuspiciousContent: function(str) {
+        const patterns = [
+          /<script/i, /javascript:/i, /on\w+\s*=/i, /eval\s*\(/i,
+          /document\.(cookie|write|location)/i, /window\.(location|open)/i,
+          /innerHTML\s*=/i, /\.\s*constructor/i, /__proto__/i, /prototype\s*\[/i
+        ];
+        return patterns.some(p => p.test(str));
+      }
+    };
+
+    // 2. RATE LIMITING
+    const RateLimiter = {
+      MAX_PER_MINUTE: 10,
+      MAX_PER_HOUR: 50,
+      COOLDOWN: 60000,
+      KEY: 'portfolio_rate',
+
+      getData: function() {
+        try {
+          const d = sessionStorage.getItem(this.KEY);
+          return d ? JSON.parse(d) : this.reset();
+        } catch(e) { return this.reset(); }
+      },
+
+      reset: function() {
+        const d = { minute: [], hour: [], blocked: null };
+        this.save(d);
+        return d;
+      },
+
+      save: function(d) {
+        try { sessionStorage.setItem(this.KEY, JSON.stringify(d)); } catch(e) {}
+      },
+
+      isAllowed: function() {
+        const now = Date.now();
+        const d = this.getData();
+
+        if (d.blocked && now < d.blocked) {
+          const sec = Math.ceil((d.blocked - now) / 1000);
+          return { allowed: false, error: 'Too many requests. Wait ' + sec + ' seconds.' };
+        }
+
+        d.minute = d.minute.filter(t => t > now - 60000);
+        d.hour = d.hour.filter(t => t > now - 3600000);
+
+        if (d.minute.length >= this.MAX_PER_MINUTE) {
+          d.blocked = now + this.COOLDOWN;
+          this.save(d);
+          return { allowed: false, error: 'Too many requests. Wait a minute.' };
+        }
+
+        if (d.hour.length >= this.MAX_PER_HOUR) {
+          d.blocked = now + this.COOLDOWN * 5;
+          this.save(d);
+          return { allowed: false, error: 'Hourly limit reached. Try again later.' };
+        }
+
+        return { allowed: true };
+      },
+
+      record: function() {
+        const now = Date.now();
+        const d = this.getData();
+        d.minute.push(now);
+        d.hour.push(now);
+        d.blocked = null;
+        this.save(d);
+      }
+    };
+
+    // 3. AI SECURITY (Prompt Injection Protection)
+    const AIGuard = {
+      BLOCKED: [
+        /ignore\s+(previous|all|above)\s+(instructions?|prompts?)/i,
+        /disregard\s+(previous|all|above)/i,
+        /forget\s+(everything|all|previous)/i,
+        /you\s+are\s+now\s+/i,
+        /new\s+instructions?:/i,
+        /system\s*:\s*/i,
+        /assistant\s*:\s*/i,
+        /\[INST\]/i,
+        /\[\/INST\]/i,
+        /<\|im_start\|>/i,
+        /<\|im_end\|>/i,
+        /pretend\s+(you('re|are)|to\s+be)/i,
+        /act\s+as\s+(if|a|an)/i,
+        /roleplay\s+as/i,
+        /jailbreak/i,
+        /bypass\s+(filter|safety|restriction)/i,
+        /ignore\s+safety/i,
+        /override\s+(system|safety)/i,
+        /reveal\s+(system|your)\s+prompt/i,
+        /what\s+is\s+your\s+(system\s+)?prompt/i,
+        /show\s+(me\s+)?(your\s+)?instructions/i,
+        /repeat\s+(the\s+)?(above|previous|system)/i,
+        /DAN\s*mode/i,
+        /developer\s*mode/i
+      ],
+
+      hasInjection: function(msg) {
+        return this.BLOCKED.some(p => p.test(msg));
+      },
+
+      sanitize: function(msg) {
+        if (!msg) return '';
+        return msg
+          .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+          .replace(/([^\w\s])\1{4,}/g, '$1$1$1')
+          .replace(/\s{10,}/g, '  ')
+          .trim();
+      },
+
+      validate: function(msg) {
+        if (this.hasInjection(msg)) {
+          return { valid: false, error: "I can only answer questions about Nico's work and projects!" };
+        }
+        const clean = this.sanitize(msg);
+        if (!clean || clean.length < 2) {
+          return { valid: false, error: 'Please enter a valid message' };
+        }
+        return { valid: true, sanitized: clean };
+      }
+    };
+
+    // 4. CONTENT SAFETY
+    const ContentSafety = {
+      isSpam: function(msg) {
+        if (!msg) return false;
+        const caps = (msg.match(/[A-Z]/g) || []).length / msg.length;
+        if (msg.length > 20 && caps > 0.7) return true;
+        if (/(.)\1{9,}/.test(msg)) return true;
+        const special = (msg.match(/[^a-zA-Z0-9\s]/g) || []).length / msg.length;
+        if (msg.length > 10 && special > 0.5) return true;
+        if ((msg.match(/https?:\/\//g) || []).length > 2) return true;
+        return false;
+      },
+
+      validate: function(msg) {
+        if (this.isSpam(msg)) {
+          return { valid: false, error: 'Message looks like spam. Please try again.' };
+        }
+        return { valid: true };
+      }
+    };
+
+    // 5. DATA MINIMIZATION
+    const DataMin = {
+      getSession: function() {
+        let id = sessionStorage.getItem('portfolio_sid');
+        if (!id) {
+          id = 'sess_' + Math.random().toString(36).substring(2, 15);
+          sessionStorage.setItem('portfolio_sid', id);
+        }
+        return id;
+      },
+
+      stripPII: function(msg) {
+        return msg
+          .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, '[email removed]')
+          .replace(/(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}/g, '[phone removed]')
+          .replace(/\b\d{3}[-.\s]?\d{2}[-.\s]?\d{4}\b/g, '[number removed]')
+          .replace(/\b(?:\d{4}[-.\s]?){3}\d{4}\b/g, '[number removed]');
+      }
+    };
+
+    // MAIN SECURITY API
+    window.PortfolioSecurity = {
+      processMessage: function(msg) {
+        // Rate limit
+        const rate = RateLimiter.isAllowed();
+        if (!rate.allowed) return { success: false, error: rate.error };
+
+        // Input validation
+        const input = InputValidator.validateMessage(msg);
+        if (!input.valid) return { success: false, error: input.error };
+
+        // Content safety
+        const content = ContentSafety.validate(input.sanitized);
+        if (!content.valid) return { success: false, error: content.error };
+
+        // AI security
+        const ai = AIGuard.validate(input.sanitized);
+        if (!ai.valid) return { success: false, error: ai.error };
+
+        // Data minimization
+        const clean = DataMin.stripPII(ai.sanitized);
+
+        // Record request
+        RateLimiter.record();
+
+        return { success: true, message: clean, sessionId: DataMin.getSession() };
+      }
+    };
+
+    DataMin.getSession();
+  })();
+  </script>
+
+  <!-- MAIN CHAT SCRIPT -->
   <script>
     // Mobile Menu Toggle
     function toggleMenu() {
@@ -1561,7 +1809,7 @@
       
       if (chatWindow.classList.contains('active')) {
         chatIcon.className = 'fas fa-times';
-        updateSectionBadge(); // Update section when chat opens
+        updateSectionBadge();
       } else {
         chatIcon.className = 'fas fa-comments';
       }
@@ -1569,10 +1817,8 @@
 
     // ============================================
     // DEEP WEBSITE KNOWLEDGE BASE
-    // The AI learns from this structured data
     // ============================================
     const websiteKnowledge = {
-      // Section summaries for quick TL;DR responses
       summaries: {
         home: "Nico Ramos is a BSc Computer Science student at Vancouver Island University and an aspiring tech founder. He's passionate about building products that matter.",
         about: "Nico focuses on user experience, trust, and long-term retention. He's building real products (not just class projects) like Fusion, a video-first campus social app. He builds in public and aspires to be a tech founder.",
@@ -1631,72 +1877,14 @@ He creates short-form travel clips to explore storytelling and creativity outsid
 He builds in public and shares his journey across these platforms.`
       },
 
-      // Detailed project data
-      projects: {
-        portfolio: {
-          name: "Portfolio Website",
-          status: "Live & Active",
-          featured: true,
-          description: "Personal web resume with responsive design, smooth animations, and an AI assistant that guides visitors. Built from scratch showcasing full-stack capabilities.",
-          tech: ["HTML5", "CSS3", "JavaScript", "AI Integration"],
-          url: "https://itsnicoramos-website.netlify.app",
-          highlights: ["Custom AI chatbot", "Glassmorphism design", "Section-aware assistance", "Responsive layout"]
-        },
-        fusion: {
-          name: "FusionAI",
-          status: "In Development",
-          featured: true,
-          isStartup: true,
-          description: "Campus-first social app where students introduce themselves through short videos. Focused on authentic connections and real engagement metrics.",
-          tech: ["React", "Supabase", "AI/ML", "Video-First"],
-          highlights: ["Video-first content", "Campus-by-campus launch", "Starting with VIU", "Focus on retention over growth hacks"],
-          philosophy: "Testing what actually makes people post, return, and invite others - not growth hacks."
-        },
-        neurosky: {
-          name: "Codename: Neurosky",
-          status: "Experimental",
-          description: "Experimental Python AI assistant exploring supervised vs. unsupervised learning concepts.",
-          tech: ["Python", "AI/ML"],
-          url: "https://github.com/itsnicoramos/AIAssistant"
-        },
-        csci115: {
-          name: "CSCI 115 Web Development",
-          status: "Completed",
-          description: "Foundational web development project using HTML, CSS, and JavaScript. Spring 2025 at VIU.",
-          tech: ["HTML", "CSS", "JavaScript"],
-          url: "https://itsnicoramos.github.io/csci115-project/"
-        },
-        medi110: {
-          name: "MEDI 110 Media Production",
-          status: "Completed",
-          description: "Storytelling website showcasing Vancouver through photography, editing, and responsive design. Fall 2025 at VIU.",
-          tech: ["HTML", "CSS", "Photography", "Storytelling"],
-          url: "https://itsnicoramos.github.io/MEDI110finalProject/"
-        },
-        csci159: {
-          name: "CSCI 159 Computer Science 1",
-          status: "Completed",
-          description: "Intensive C++ programming course covering problem decomposition, conditionals, loops, functions, arrays, pointers, debugging. Fall 2025 at VIU.",
-          tech: ["C++"],
-          url: "https://github.com/itsnicoramos/csci159-labs"
-        }
-      },
-
-      // Quick facts for rapid responses
       quickFacts: {
-        name: "Nico Ramos",
+        name: "Nico ",
         school: "Vancouver Island University",
         degree: "BSc Computer Science",
         goal: "Tech Founder",
         currentProject: "FusionAI",
         mainStack: "React, Next.js, Node.js, MongoDB",
-        aiTools: "OpenAI, Gemini, Claude, DeepSeek",
-        socials: {
-          tiktok: "@itsnicoramos_",
-          instagram: "@itsnicoramos__",
-          linkedin: "nico-ramos28",
-          github: "itsnicoramos"
-        }
+        aiTools: "OpenAI, Gemini, Claude, DeepSeek"
       }
     };
 
@@ -1738,21 +1926,21 @@ He builds in public and shares his journey across these platforms.`
       skills: {
         label: 'Skills',
         icon: 'fa-tools',
-        context: 'The user is on the SKILLS section. Focus on tech stack: C++, Python, JS/TS, React, Next.js, Node.js, MongoDB, and AI/ML with LLM APIs.',
+        context: 'The user is on the SKILLS section.',
         greeting: '🛠️ Browsing the tech stack! Need specifics on any skill?',
         summary: websiteKnowledge.summaries.skills
       },
       travel: {
         label: 'Travel',
         icon: 'fa-plane',
-        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section. Focus on exploration, visual storytelling, photography.',
+        context: 'The user is viewing the TRAVEL/BEYOND THE CODE section.',
         greeting: '✈️ Beyond the code! Ask about Nico\'s travel adventures.',
         summary: websiteKnowledge.summaries.travel
       },
       contact: {
         label: 'Connect',
         icon: 'fa-link',
-        context: 'The user is on the CONTACT/CONNECT section - social links for TikTok, Instagram, Threads, LinkedIn, GitHub.',
+        context: 'The user is on the CONTACT/CONNECT section.',
         greeting: '🔗 Ready to connect? I can point you to the right platform!',
         summary: websiteKnowledge.summaries.contact
       }
@@ -1783,11 +1971,8 @@ He builds in public and shares his journey across these platforms.`
       }
     }
 
-    // Update section on scroll
     window.addEventListener('scroll', () => {
       updateSectionBadge();
-      
-      // Show notification in chat when section changes (only if chat is open)
       const chatWindow = document.getElementById('chatWindow');
       if (chatWindow.classList.contains('active') && currentSection !== lastNotifiedSection) {
         showSectionNotification(currentSection);
@@ -1798,14 +1983,11 @@ He builds in public and shares his journey across these platforms.`
     function showSectionNotification(section) {
       const messagesDiv = document.getElementById('chatMessages');
       const welcomeMsg = document.getElementById('chatWelcome');
-      
-      // Don't show if welcome message is still visible (no conversation started)
       if (welcomeMsg) return;
       
       const data = sectionData[section];
       if (!data) return;
       
-      // Create notification element
       const notifDiv = document.createElement('div');
       notifDiv.className = 'section-notification';
       notifDiv.innerHTML = `<i class="fas ${data.icon}"></i> ${data.greeting}`;
@@ -1813,7 +1995,6 @@ He builds in public and shares his journey across these platforms.`
       messagesDiv.appendChild(notifDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
       
-      // Auto-fade after 4 seconds
       setTimeout(() => {
         notifDiv.style.opacity = '0';
         setTimeout(() => notifDiv.remove(), 300);
@@ -1821,8 +2002,7 @@ He builds in public and shares his journey across these platforms.`
     }
 
     // ============================================
-    // SMART QUERY DETECTION
-    // Detects what the user wants to know
+    // QUERY DETECTION
     // ============================================
     let detectedIntent = 'general';
     const conversationHistory = [];
@@ -1830,7 +2010,6 @@ He builds in public and shares his journey across these platforms.`
     function detectQueryType(message) {
       const lowerMsg = message.toLowerCase();
       
-      // Show/List detection - user wants to see content
       const showKeywords = ['show', 'list', 'what are', 'tell me about', 'what\'s in', 'summarize', 'overview', 'describe'];
       const sectionKeywords = {
         projects: ['project', 'built', 'created', 'made', 'portfolio', 'fusion', 'work'],
@@ -1841,7 +2020,6 @@ He builds in public and shares his journey across these platforms.`
         contact: ['contact', 'connect', 'social', 'reach', 'follow']
       };
       
-      // Check if user wants to see a specific section
       for (const [section, keywords] of Object.entries(sectionKeywords)) {
         if (keywords.some(kw => lowerMsg.includes(kw))) {
           if (showKeywords.some(sk => lowerMsg.includes(sk))) {
@@ -1851,25 +2029,21 @@ He builds in public and shares his journey across these platforms.`
         }
       }
       
-      // TL;DR detection
       if (lowerMsg.includes('tldr') || lowerMsg.includes('tl;dr') || lowerMsg.includes('summary') || lowerMsg.includes('quick') || lowerMsg.includes('brief') || lowerMsg.includes('short')) {
         return { type: 'tldr' };
       }
       
-      // Recruiter signals
-      const recruiterKeywords = ['recruiter', 'hiring', 'position', 'job', 'candidate', 'resume', 'cv', 'interview', 'hr', 'talent', 'evaluate', 'evaluating', 'looking for', 'experience for', 'qualifications', 'employment'];
+      const recruiterKeywords = ['recruiter', 'hiring', 'position', 'job', 'candidate', 'resume', 'cv', 'interview'];
       if (recruiterKeywords.some(kw => lowerMsg.includes(kw))) {
         return { type: 'recruiter' };
       }
       
-      // Founder/Entrepreneur signals
-      const founderKeywords = ['founder', 'startup', 'investor', 'funding', 'co-founder', 'entrepreneur', 'venture', 'product', 'mvp', 'scale', 'business model', 'pitch', 'partnership', 'collaborate on startup'];
+      const founderKeywords = ['founder', 'startup', 'investor', 'funding', 'co-founder', 'entrepreneur'];
       if (founderKeywords.some(kw => lowerMsg.includes(kw))) {
         return { type: 'founder' };
       }
       
-      // Student signals
-      const studentKeywords = ['student', 'learning', 'beginner', 'how to start', 'advice', 'tips', 'course', 'study', 'university', 'college', 'school', 'homework', 'assignment', 'career advice'];
+      const studentKeywords = ['student', 'learning', 'beginner', 'how to start', 'advice', 'tips'];
       if (studentKeywords.some(kw => lowerMsg.includes(kw))) {
         return { type: 'student' };
       }
@@ -1879,50 +2053,14 @@ He builds in public and shares his journey across these platforms.`
 
     function getIntentInstruction(queryInfo) {
       const instructions = {
-        show_section: `
-RESPONSE STYLE: SECTION SUMMARY MODE
-- The user wants to see what's in a section
-- Use the section summary from the knowledge base
-- Format nicely with clear structure
-- Keep it informative but scannable`,
-        
-        about_section: `
-RESPONSE STYLE: SECTION INFO MODE
-- Answer questions about this specific section
-- Use relevant details from the knowledge base
-- Be helpful and specific`,
-        
-        tldr: `
-RESPONSE STYLE: TL;DR MODE - Be EXTREMELY brief.
-- Give a 1-2 sentence answer max
-- No fluff, just the key point
-- Think Twitter-length responses`,
-        
-        recruiter: `
-TONE: RECRUITER MODE - Professional & scannable.
-- Lead with key qualifications
-- Be concise, use short paragraphs
-- Focus on outcomes and skills`,
-        
-        founder: `
-TONE: FOUNDER MODE - Product & tech focused.
-- Discuss architecture and decisions
-- Highlight innovation and vision
-- Speak to startup mindset`,
-        
-        student: `
-TONE: STUDENT MODE - Friendly & helpful.
-- Share learning tips
-- Be encouraging
-- Use relatable examples`,
-        
-        general: `
-TONE: CASUAL & CONVERSATIONAL.
-- Be friendly and natural
-- Keep responses short (2-3 sentences when possible)
-- Add personality, not corporate speak`
+        show_section: `RESPONSE STYLE: SECTION SUMMARY MODE - Use the section summary from the knowledge base`,
+        about_section: `RESPONSE STYLE: SECTION INFO MODE - Answer questions about this specific section`,
+        tldr: `RESPONSE STYLE: TL;DR MODE - Give a 1-2 sentence answer max`,
+        recruiter: `TONE: RECRUITER MODE - Professional & scannable`,
+        founder: `TONE: FOUNDER MODE - Product & tech focused`,
+        student: `TONE: STUDENT MODE - Friendly & helpful`,
+        general: `TONE: CASUAL & CONVERSATIONAL - Be friendly and natural`
       };
-      
       return instructions[queryInfo.type] || instructions.general;
     }
 
@@ -1937,81 +2075,24 @@ TONE: CASUAL & CONVERSATIONAL.
     }
 
     function generateFollowUpSuggestions(queryInfo, section) {
-      // Section-specific follow-ups
       const sectionFollowUps = {
-        projects: [
-          "Tell me more about FusionAI",
-          "What's the tech behind this portfolio?",
-          "Which project was most challenging?"
-        ],
-        skills: [
-          "What's his strongest language?",
-          "How does he use AI/ML?",
-          "What frameworks does he prefer?"
-        ],
-        travel: [
-          "How does travel influence his work?",
-          "What's his dream destination?",
-          "Does he share travel content?"
-        ],
-        about: [
-          "What's his entrepreneurial goal?",
-          "Why Vancouver Island University?",
-          "What drives him?"
-        ],
-        certificates: [
-          "What's he currently learning?",
-          "React or MongoDB - which one?",
-          "How does he approach learning?"
-        ]
+        projects: ["Tell me more about FusionAI", "What's the tech behind this portfolio?", "Which project was most challenging?"],
+        skills: ["What's his strongest language?", "How does he use AI/ML?", "What frameworks does he prefer?"],
+        travel: ["How does travel influence his work?", "What's his dream destination?", "Does he share travel content?"],
+        about: ["What's his entrepreneurial goal?", "Why Vancouver Island University?", "What drives him?"],
+        certificates: ["What's he currently learning?", "React or MongoDB - which one?", "How does he approach learning?"]
       };
 
-      // Intent-specific follow-ups
-      const intentFollowUps = {
-        recruiter: [
-          "What's his availability?",
-          "Any team experience?",
-          "Key achievements?"
-        ],
-        founder: [
-          "Tell me about FusionAI's vision",
-          "What's his startup experience?",
-          "How does he approach product?"
-        ],
-        student: [
-          "Tips for CS students?",
-          "How did he start coding?",
-          "Best resources?"
-        ]
-      };
-
-      // Prioritize section context, then intent
-      if (sectionFollowUps[section]) {
-        return sectionFollowUps[section];
-      }
-      if (intentFollowUps[queryInfo.type]) {
-        return intentFollowUps[queryInfo.type];
-      }
-      
-      return [
-        "What's Nico working on now?",
-        "Tell me about his background",
-        "What makes him unique?"
-      ];
+      if (sectionFollowUps[section]) return sectionFollowUps[section];
+      return ["What's Nico working on now?", "Tell me about his background", "What makes him unique?"];
     }
 
-    // ============================================
-    // ENHANCED PORTFOLIO CONTEXT WITH KNOWLEDGE BASE
-    // ============================================
     function buildPortfolioContext(queryInfo) {
-      let context = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN - think ChatGPT, Claude, or Gemini vibes. Keep responses SHORT (2-4 sentences usually) unless asked for detail or asked to show/list something.
+      let context = `You are Nico's AI assistant on his portfolio website. Be CONVERSATIONAL and HUMAN. Keep responses SHORT (2-4 sentences usually) unless asked for detail.
 
 === WEBSITE KNOWLEDGE BASE ===
-You have access to detailed information about every section of this portfolio. Use this to give accurate, specific answers.
-
 `;
 
-      // Add relevant section summaries based on query
       if (queryInfo.type === 'show_section' || queryInfo.type === 'about_section') {
         const summary = getSectionSummary(queryInfo.section);
         if (summary) {
@@ -2019,13 +2100,11 @@ You have access to detailed information about every section of this portfolio. U
         }
       }
 
-      // Add current section context
       const currentSectionData = sectionData[currentSection];
       if (currentSectionData) {
         context += `CURRENT SECTION: ${currentSection.toUpperCase()}\n${currentSectionData.summary}\n\n`;
       }
 
-      // Add quick facts
       context += `QUICK FACTS:
 • Name: ${websiteKnowledge.quickFacts.name}
 • School: ${websiteKnowledge.quickFacts.school}
@@ -2034,21 +2113,20 @@ You have access to detailed information about every section of this portfolio. U
 • Current Focus: ${websiteKnowledge.quickFacts.currentProject}
 • Main Stack: ${websiteKnowledge.quickFacts.mainStack}
 
-FEATURED PROJECTS (highlight these when discussing projects):
-1. Portfolio Website - Live personal site with AI assistant (this very site!)
+FEATURED PROJECTS:
+1. Portfolio Website - Live personal site with AI assistant
 2. FusionAI - Startup: campus social app with video-first approach
 
 ALL PROJECTS:
 ${websiteKnowledge.summaries.projects}
 
 RESPONSE RULES:
-1. When asked to "show" or "list" something, provide a well-formatted summary from the knowledge base
+1. When asked to "show" or "list" something, provide a well-formatted summary
 2. Keep casual questions short (2-4 sentences)
 3. Sound human, not robotic
 4. If asked for TL;DR/summary, give 1-2 sentences MAX
-5. Use the section context to make answers relevant
-6. Always highlight Portfolio Website and FusionAI when discussing projects - they're featured!
-7. You KNOW everything on this website - answer confidently`;
+5. Always highlight Portfolio Website and FusionAI when discussing projects
+6. You KNOW everything on this website - answer confidently`;
 
       return context;
     }
@@ -2086,7 +2164,6 @@ RESPONSE RULES:
       
       messageDiv.appendChild(contentDiv);
       
-      // Add follow-up suggestions for assistant messages
       if (role === 'assistant' && showFollowUps) {
         const followUps = generateFollowUpSuggestions(queryInfo || { type: 'general' }, currentSection);
         const followUpContainer = document.createElement('div');
@@ -2131,27 +2208,30 @@ RESPONSE RULES:
 
       if (!userMessage || isLoading) return;
 
-      // Update section context
-      updateSectionBadge();
+      // ========== SECURITY VALIDATION ==========
+      const securityResult = window.PortfolioSecurity.processMessage(userMessage);
       
-      // Detect what the user wants
-      const queryInfo = detectQueryType(userMessage);
-      
-      // Add to conversation history
-      conversationHistory.push({ role: 'user', content: userMessage });
+      if (!securityResult.success) {
+        addMessage('assistant', securityResult.error, false);
+        return;
+      }
 
-      // Add user message
+      const safeMessage = securityResult.message;
+      // =========================================
+
+      updateSectionBadge();
+      const queryInfo = detectQueryType(safeMessage);
+      conversationHistory.push({ role: 'user', content: safeMessage });
+
       addMessage('user', userMessage);
       input.value = '';
       
-      // Disable input
       isLoading = true;
       sendBtn.disabled = true;
       input.disabled = true;
       showLoading();
 
       try {
-        // Build context with deep knowledge base
         const sectionContext = getSectionContext();
         const intentInstruction = getIntentInstruction(queryInfo);
         const fullContext = buildPortfolioContext(queryInfo);
@@ -2163,14 +2243,13 @@ ${sectionContext}
 
 ${intentInstruction}`;
 
-        // Call your serverless function
         const response = await fetch('/.netlify/functions/api', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            message: userMessage,
+            message: safeMessage,
             portfolioContext: finalContext
           })
         });
@@ -2197,11 +2276,8 @@ ${intentInstruction}`;
       }
     }
 
-    // Initialize section badge on page load
     document.addEventListener('DOMContentLoaded', updateSectionBadge);
   </script>
 
-  <!-- Instagram Embed Script (uncomment when adding reels) -->
-  <!-- <script async src="//www.instagram.com/embed.js"></script> -->
 </body>
 </html>
