@@ -20,7 +20,7 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 - 🎯 **Visitor-focused experience**  
   Built to help recruiters, students, founders, professors, and other visitors quickly understand who I am and what I build.
 
-- [🌐 View Portfolio Website with AI integration](https://itsnicoramos-website.netlify.app)
+- [🌐 View Portfolio Website with AI integration](https://itsnico.dev/)
 
 ## 📌 Features (V2)
 
