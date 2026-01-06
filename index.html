@@ -1587,16 +1587,16 @@
       </div>
     </div>
     <div class="chat-input-container">
-      <input 
-        type="text" 
-        class="chat-input" 
-        id="chatInput" 
-        placeholder="Ask about Nico's work..."
-        onkeypress="handleChatKeyPress(event)"
-        maxlength="500"
+      <input
+        type="text"
+        class="chat-input"
+        id="chatInput"
+        placeholder="Chat in development..."
+        disabled
+        style="cursor: not-allowed; opacity: 0.6;"
       />
-      <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
-        <i class="fas fa-paper-plane"></i>
+      <button class="chat-send-btn" id="sendBtn" disabled style="opacity: 0.5; cursor: not-allowed;">
+        <i class="fas fa-lock"></i>
       </button>
     </div>
   </div>
