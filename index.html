@@ -2243,17 +2243,28 @@ LEARNING:
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
+    let dotsInterval;
+
     function showLoading() {
       const messagesDiv = document.getElementById('chatMessages');
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'loading-message';
       loadingDiv.id = 'loadingIndicator';
-      loadingDiv.innerHTML = '<span style="margin-right: 8px; color: var(--primary);">Thinking</span><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
+      loadingDiv.innerHTML = '<span id="ai-status" style="color: var(--primary); font-size: 14px;">...</span>';
       messagesDiv.appendChild(loadingDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      // Start animated dots
+      const statusEl = document.getElementById('ai-status');
+      let dots = "";
+      dotsInterval = setInterval(() => {
+        dots = dots.length < 3 ? dots + "." : "";
+        statusEl.textContent = dots || ".";
+      }, 400);
     }
 
     function hideLoading() {
+      clearInterval(dotsInterval);
       const loadingIndicator = document.getElementById('loadingIndicator');
       if (loadingIndicator) {
         loadingIndicator.remove();
