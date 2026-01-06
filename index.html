@@ -2248,7 +2248,7 @@ LEARNING:
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'loading-message';
       loadingDiv.id = 'loadingIndicator';
-      loadingDiv.innerHTML = '<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
+      loadingDiv.innerHTML = '<span style="margin-right: 8px; color: var(--primary);">Thinking</span><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
       messagesDiv.appendChild(loadingDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
