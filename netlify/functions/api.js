@@ -14,8 +14,11 @@ const CONFIG = {
   ALLOWED_ORIGINS: [
     'https://itsnicoramos-website.netlify.app',
     'https://itsnicoramos.com',
+    'https://itsnico.dev',
     'http://localhost:8888',  // Local dev
-    'http://localhost:3000'   // Local dev
+    'http://localhost:3000',  // Local dev
+    'http://127.0.0.1:8888',
+    'http://127.0.0.1:3000'
   ],
   
   // Request limits
@@ -344,12 +347,13 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // Check origin
+  // Check origin - allow if no origin (direct API calls) or if in allowed list
   if (origin && !CONFIG.ALLOWED_ORIGINS.includes(origin)) {
+    console.log('Blocked origin:', origin);
     return {
       statusCode: 403,
       headers,
-      body: JSON.stringify({ error: 'Forbidden' })
+      body: JSON.stringify({ error: 'Forbidden - Origin not allowed' })
     };
   }
 
