@@ -310,176 +310,162 @@
       font-size: 0.95rem;
     }
 
-    /* ========== Carousel Container ========== */
-    .carousel-container {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 0;
-    }
-
-    .carousel-wrapper {
-      overflow-x: auto;
-      overflow-y: hidden;
-      border-radius: 12px;
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: var(--text-muted) var(--border-light);
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .carousel-wrapper::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .carousel-wrapper::-webkit-scrollbar-track {
-      background: var(--border-light);
-      border-radius: 6px;
-    }
-
-    .carousel-wrapper::-webkit-scrollbar-thumb {
-      background: var(--text-muted);
-      border-radius: 6px;
-    }
-
-    .carousel-wrapper::-webkit-scrollbar-thumb:hover {
-      background: var(--text-secondary);
-    }
-
-    .carousel-track {
-      display: flex;
+    /* ========== Project Grid ========== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
-      padding: 8px 4px;
     }
 
-    .carousel-card {
-      min-width: 340px;
+    .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 28px;
-      position: relative;
-      overflow: hidden;
       transition: all 0.2s;
     }
 
-    .carousel-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--border);
-    }
-
-    .carousel-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
+    .project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
       border-color: var(--text-muted);
     }
 
-    .carousel-card h3 {
+    .project-card h3 {
       color: var(--text);
-      font-size: 1.2rem;
-      margin-bottom: 12px;
+      font-size: 1.15rem;
+      margin-bottom: 10px;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
-    .carousel-card .status {
+    .project-card .status {
       display: inline-block;
-      padding: 5px 12px;
+      padding: 4px 10px;
       background: var(--bg-alt);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
       color: var(--text-secondary);
-      margin: 8px 0;
+      margin: 6px 0;
       font-weight: 500;
     }
 
-    .carousel-card p {
+    .project-card p {
       color: var(--text-secondary);
       line-height: 1.7;
-      margin: 12px 0;
-      font-size: 0.95rem;
+      margin: 10px 0;
+      font-size: 0.93rem;
     }
 
-    .carousel-card a {
+    .project-card a {
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       transition: color 0.2s;
     }
 
-    .carousel-card a:hover {
+    .project-card a:hover {
       color: var(--accent-light);
     }
 
-    /* ========== Featured Project Cards ========== */
-    .carousel-card.featured {
-      min-width: 380px;
-      background: var(--bg-card);
+    .project-card.featured {
       border: 2px solid var(--text);
       position: relative;
-      overflow: visible;
     }
 
-    .carousel-card.featured::before {
-      height: 3px;
-      background: var(--text);
-      animation: none;
-    }
-
-    .carousel-card.featured::after {
+    .project-card.featured::after {
       content: 'FEATURED';
       position: absolute;
-      top: -11px;
+      top: -10px;
       right: 20px;
       background: var(--text);
       color: white;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 4px;
       letter-spacing: 0.08em;
     }
 
-    .carousel-card.featured:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--secondary);
+    .project-card.startup {
+      border: 2px solid var(--accent);
     }
 
-    .carousel-card.featured h3 {
-      font-size: 1.3rem;
-      background: none;
-      -webkit-background-clip: unset;
-      -webkit-text-fill-color: unset;
-      background-clip: unset;
-      color: var(--text);
-    }
-
-    .carousel-card.featured .status {
-      background: var(--bg-alt);
-      border-color: var(--border);
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
-
-    .carousel-card.featured p {
-      color: var(--text-secondary);
-    }
-
-    .carousel-card.featured.fusion {
-      background: var(--bg-card);
-    }
-
-    .carousel-card.featured.fusion::after {
+    .project-card.startup::after {
       content: 'STARTUP';
+      position: absolute;
+      top: -10px;
+      right: 20px;
       background: var(--accent);
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ========== Experience Section ========== */
+    .experience-empty {
+      text-align: center;
+      padding: 48px 24px;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      color: var(--text-muted);
+    }
+
+    .experience-empty p {
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    /* ========== Cert / Learning Grid ========== */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--text-muted);
+    }
+
+    .cert-card h3 {
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .cert-card .status {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin: 6px 0;
+      font-weight: 500;
+    }
+
+    .cert-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 10px 0 0;
+      font-size: 0.93rem;
     }
 
     /* ========== Tech Tags ========== */
@@ -500,7 +486,7 @@
       font-weight: 500;
     }
 
-    .carousel-card.featured .tech-tag {
+    .project-card .tech-tag {
       background: var(--bg-alt);
       border-color: var(--border);
       color: var(--text-secondary);
@@ -1149,12 +1135,12 @@
         padding: 80px 20px;
       }
 
-      .carousel-card {
-        min-width: 280px;
+      .project-grid {
+        grid-template-columns: 1fr;
       }
 
-      .carousel-card.featured {
-        min-width: 300px;
+      .cert-grid {
+        grid-template-columns: 1fr;
       }
 
       .chat-window {
@@ -1197,6 +1183,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#certificates">Certificates</a></li>
       <li><a href="#contact">Connect</a></li>
     </ul>
@@ -1244,180 +1231,140 @@
     </div>
   </section>
 
-  <!-- Projects Carousel -->
+  <!-- Projects Section -->
   <section id="projects">
     <div class="container">
-      <h2 class="section-title">Featured Projects</h2>
+      <h2 class="section-title">Projects</h2>
       <p style="text-align: center; color: var(--text-secondary); max-width: 500px; margin: -8px auto 48px; font-size: 1.05rem;">Real products and course projects I've built and shipped.</p>
 
-      <!-- Startup Section -->
-      <div class="travel-section" id="startup" style="margin-bottom: 60px; margin-top: 0;">
-        <div class="travel-header">
-          <h2>🚀 Building My Startup</h2>
-          <p>From  startup-idea to launch. Building in public</p>
-        </div>
+      <div class="project-grid">
 
-        <div class="startup-hero" style="max-width: 900px; margin: 0 auto 40px;">
-          <div class="carousel-card featured fusion" style="min-width: auto; width: 100%;">
-            <h3>looply</h3>
-            <span class="status">🔥 In Development</span>
-
-            <div style="margin: 24px 0;">
-              <h4 style="color: var(--text); margin-bottom: 10px; font-weight: 700;">What is looply?</h4>
-              <p style="color: var(--text-secondary); line-height: 1.7;">
-                Coming Soon...
-              </p>
-            </div>
-
-            <div class="tech-tags">
-              <span class="tech-tag">React</span>
-              <span class="tech-tag">Firebase</span>
-              <span class="tech-tag">AI Agent Integration</span>
-              <span class="tech-tag">Web App</span>
-              <span class="tech-tag">Vercel</span>
-            </div>
-
-            </div>
-
-            <p style="margin-top: 20px;">
-              <a href="#" class="btn btn-secondary" style="display: inline-block; pointer-events: none; opacity: 0.6; font-size: 0.9rem;">
-                Link Coming Soon
-              </a>
-            </p>
+        <!-- looply - Startup -->
+        <div class="project-card startup">
+          <h3>Looply</h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;">
+            <span style="font-weight: 600; color: var(--text); font-size: 0.93rem;">Founder & Software Engineer</span>
+            <span style="color: var(--text-muted); font-size: 0.85rem;">2025 – Present · Remote</span>
           </div>
-
-        </div>
-
-        <div class="travel-grid">
-          <div class="travel-card">
-            <div class="travel-icon">💡</div>
-            <h3>The Mission</h3>
-            <p>Building products that prioritize user experience, trust, and retention. Testing real engagement metrics, not vanity numbers. Learning what makes people actually come back.</p>
-          </div>
-          <div class="travel-card">
-            <div class="travel-icon">🎯</div>
-            <h3>The Approach</h3>
-            <p>Obsessing over user feedback. Building in public across social platforms. Every decision backed by real data and user behavior.</p>
-          </div>
-          <div class="travel-card">
-            <div class="travel-icon">🌱</div>
-            <h3>The Journey</h3>
-            <p>From CS student to founder. Learning to code, design, market, and ship. Not just building for class but building to solve real problems and create lasting value.</p>
+          <ul style="color: var(--text-secondary); font-size: 0.93rem; line-height: 1.8; padding-left: 18px; margin: 10px 0;">
+            <li>Designed, built, and deployed a full-stack AI web application to help users plan content strategies and scope MVP applications</li>
+            <li>Developed a performant React + Vite frontend with emphasis on clean rendering, fast load times, and responsive design</li>
+            <li>Designed and implemented backend services using Firebase Firestore, Authentication, and serverless functions to support scalable user data</li>
+            <li>Integrated OpenAI GPT and Google Gemini models to power structured, task-oriented workflows rather than generic chat interactions</li>
+            <li>Designed a persistent memory layer to store user context (goals, niches, progress) across sessions</li>
+            <li>Owned the full software lifecycle including architecture decisions, development, debugging, deployment, and iteration</li>
+          </ul>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Vite</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">OpenAI</span>
+            <span class="tech-tag">Gemini</span>
+            <span class="tech-tag">Vercel</span>
           </div>
         </div>
-      </div>
 
-      <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 24px; color: var(--text); font-weight: 700; letter-spacing: -0.02em;">Other Projects</h3>
-      <div class="carousel-container">
-        <div class="carousel-wrapper">
-          <div class="carousel-track" id="projectsTrack">
-            
-            <!-- FEATURED: Portfolio Website -->
-            <div class="carousel-card featured">
-              <h3>💻 Portfolio Website</h3>
-              <span class="status">✨ Live & Active</span>
-              <p>Personal web resume with responsive design, smooth animations, and an AI assistant that guides visitors through my projects  and journey. Built from scratch showcasing full-stack capabilities.</p>
-              <div class="tech-tags">
-                <span class="tech-tag">HTML5</span>
-                <span class="tech-tag">CSS3</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">AI Integration</span>
-              </div>
-              <p style="margin-top: 15px;"><a href="https://itsnico.dev" target="_blank">View Live webpage →</a></p>
-            </div>
-
-            <!-- FEATURED -->
-            <div class="carousel-card featured fusion">
-              <h3>🚀 looply</h3>
-              <span class="status">🔥 In Development</span>
-              <p> coming soon...</p>
-              <div class="tech-tags">
-                <span class="tech-tag">React, Vite </span>
-                <span class="tech-tag">Firebase</span>
-                <span class="tech-tag">AI Agent integration  </span>
-                <span class="tech-tag">Web App</span>
-                 <span class="tech-tag">Web App</span>
-                 <span class="tech-tag">Vercel</span>
-              </div>
-              <p style="margin-top: 15px; color: var(--text-muted);">Link coming soon</p>
-            </div>
-
-          
-
-            <div class="carousel-card">
-              <h3>🤖 Codename: Neurosky</h3>
-              <span class="status">Experimental</span>
-              <p>Experimental Python AI assistant built while exploring supervised vs. unsupervised learning in AI/ML concepts during summer 2025.</p>
-              <a href="https://github.com/itsnicoramos/AIAssistant" target="_blank">View on GitHub →</a>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🌐 CSCI 115 Web Development</h3>
-              <span class="status">Completed</span>
-              <p>Course project demonstrating foundational web development skills using HTML, CSS, and JavaScript. Completed Spring 2025 at VIU.</p>
-              <a href="https://itsnicoramos.github.io/csci115-project/" target="_blank">View Project →</a>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🌐 MEDI 110 Media Production</h3>
-              <span class="status">Completed</span>
-              <p>Storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design. Completed Fall 2025 at VIU.</p>
-              <a href="https://itsnicoramos.github.io/MEDI110finalProject/" target="_blank">View Project →</a>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🌐 CSCI 159 Computer Science 1</h3>
-              <span class="status">Completed</span>
-              <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging. Completed Fall 2025 at VIU.</p>
-              <a href="https://github.com/itsnicoramos/csci159-labs" target="_blank">View on GitHub →</a>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🌐 CSCI 161 Computer Science 2</h3>
-              <span class="status">Loading</span>
-              <p>Loading</p>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🌐 CSCI 162 Topics in Computer Science</h3>
-              <span class="status">Loading</span>
-              <p>Loading</p>
-            </div>
-
+        <!-- Portfolio Website -->
+        <div class="project-card featured">
+          <h3>Portfolio Website</h3>
+          <span class="status">Live</span>
+          <p>Personal web resume with responsive design and an AI assistant that guides visitors through my projects and journey. Built from scratch.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">AI Integration</span>
           </div>
+          <p style="margin-top: 12px;"><a href="https://itsnico.dev" target="_blank">View Live →</a></p>
         </div>
+
+        <!-- Neurosky -->
+        <div class="project-card">
+          <h3>Codename: Neurosky</h3>
+          <span class="status">Experimental</span>
+          <p>Experimental Python AI assistant built while exploring supervised vs. unsupervised learning in AI/ML concepts during summer 2025.</p>
+          <p style="margin-top: 12px;"><a href="https://github.com/itsnicoramos/AIAssistant" target="_blank">View on GitHub →</a></p>
+        </div>
+
+        <!-- CSCI 115 -->
+        <div class="project-card">
+          <h3>CSCI 115 Web Development</h3>
+          <span class="status">Completed</span>
+          <p>Course project demonstrating foundational web development skills using HTML, CSS, and JavaScript. Completed Spring 2025 at VIU.</p>
+          <p style="margin-top: 12px;"><a href="https://itsnicoramos.github.io/csci115-project/" target="_blank">View Project →</a></p>
+        </div>
+
+        <!-- MEDI 110 -->
+        <div class="project-card">
+          <h3>MEDI 110 Media Production</h3>
+          <span class="status">Completed</span>
+          <p>Storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design. Completed Fall 2025 at VIU.</p>
+          <p style="margin-top: 12px;"><a href="https://itsnicoramos.github.io/MEDI110finalProject/" target="_blank">View Project →</a></p>
+        </div>
+
+        <!-- CSCI 159 -->
+        <div class="project-card">
+          <h3>CSCI 159 Computer Science 1</h3>
+          <span class="status">Completed</span>
+          <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging. Completed Fall 2025 at VIU.</p>
+          <p style="margin-top: 12px;"><a href="https://github.com/itsnicoramos/csci159-labs" target="_blank">View on GitHub →</a></p>
+        </div>
+
+        <!-- CSCI 161 -->
+        <div class="project-card">
+          <h3>CSCI 161 Computer Science 2</h3>
+          <span class="status">In Progress</span>
+          <p>Currently enrolled. More details coming soon.</p>
+        </div>
+
+        <!-- CSCI 162 -->
+        <div class="project-card">
+          <h3>CSCI 162 Topics in Computer Science</h3>
+          <span class="status">In Progress</span>
+          <p>Currently enrolled. More details coming soon.</p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Certificates Carousel -->
-  <section id="certificates" style="background: var(--bg-alt);">
+  <!-- Experience Section -->
+  <section id="experience" style="background: var(--bg-alt);">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 480px; margin: -8px auto 40px; font-size: 1.05rem;">Professional experience and roles.</p>
+      <div class="experience-empty">
+        <p style="font-size: 1.1rem; font-weight: 600; color: var(--text-secondary);">Coming soon</p>
+        <p>Experience entries will be added here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates & Learning -->
+  <section id="certificates">
     <div class="container">
       <h2 class="section-title">Certificates & Learning</h2>
-      <div class="carousel-container">
-        <div class="carousel-wrapper">
-          <div class="carousel-track" id="certsTrack">
-            
-            <div class="carousel-card">
-              <h3>⚛️ Hands-on React</h3>
-              <span class="status">In Progress (Udemy)</span>
-              <p>25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit – Comprehensive full-stack React development course.</p>
-            </div>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 460px; margin: -8px auto 40px; font-size: 1.05rem;">Courses and certifications I'm actively working through.</p>
+      <div class="cert-grid">
 
-            <div class="carousel-card">
-              <h3>🤖 Real-Time AI Chatbot</h3>
-              <span class="status">In Progress (Udemy)</span>
-              <p>React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok). Building production-ready AI applications.</p>
-            </div>
-
-            <div class="carousel-card">
-              <h3>🍃 Master MongoDB</h3>
-              <span class="status">In Progress (Udemy)</span>
-              <p>Development for Web & Mobile Apps. CRUD Operations, Indexes, Aggregation Framework. Complete MongoDB mastery course.</p>
-            </div>
-
-          </div>
+        <div class="cert-card">
+          <h3>Hands-on React</h3>
+          <span class="status">In Progress (Udemy)</span>
+          <p>25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit.</p>
         </div>
+
+        <div class="cert-card">
+          <h3>Real-Time AI Chatbot</h3>
+          <span class="status">In Progress (Udemy)</span>
+          <p>React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok).</p>
+        </div>
+
+        <div class="cert-card">
+          <h3>Master MongoDB</h3>
+          <span class="status">In Progress (Udemy)</span>
+          <p>Development for Web & Mobile Apps. CRUD Operations, Indexes, Aggregation Framework.</p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1938,6 +1885,13 @@ He builds in public and shares his journey across these platforms.`
         greeting: '💻 Nice, you\'re viewing projects! Want details on any of these?',
         summary: websiteKnowledge.summaries.projects
       },
+      experience: {
+        label: 'Experience',
+        icon: 'fa-briefcase',
+        context: 'The user is viewing the EXPERIENCE section - professional experience (coming soon).',
+        greeting: '💼 Checking out experience? More details coming soon!',
+        summary: 'Experience section is coming soon. Nico is currently a CS student at VIU building his startup looply.'
+      },
       certificates: {
         label: 'Certificates',
         icon: 'fa-certificate',
@@ -1969,7 +1923,7 @@ He builds in public and shares his journey across these platforms.`
     };
 
     function detectCurrentSection() {
-      const sections = ['home', 'about', 'projects', 'certificates', 'skills', 'travel', 'contact'];
+      const sections = ['home', 'about', 'projects', 'skills', 'experience', 'certificates', 'travel', 'contact'];
       const scrollPos = window.scrollY + window.innerHeight / 3;
       
       for (let i = sections.length - 1; i >= 0; i--) {
