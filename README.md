@@ -5,7 +5,7 @@ A responsive and creative personal website built using **HTML**, **CSS**, and **
 ---
 ## 📌 Features (V3)
 
-- 🤖 **AI Assistant integrated into the UI**  
+- 🤖 **AI Assistant integrated into the UI and Dark/light mode feature**  
   A built-in AI assistant that answers questions about my background, projects, skills, and what I’m currently building. Designed to guide visitors through the website rather than just display static information.
 
 - 🧠 **Context-aware, human-like responses**  
