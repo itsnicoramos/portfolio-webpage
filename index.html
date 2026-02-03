@@ -8,7 +8,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <style>
     * {
       margin: 0;
@@ -35,6 +44,82 @@
       --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
     }
 
+    /* ========== Dark Theme ========== */
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --primary: #e2e8f0;
+      --secondary: #cbd5e1;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --bg-card: #1e293b;
+      --border: #334155;
+      --border-light: #1e293b;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -2px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.5), 0 4px 6px -4px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="dark"] nav {
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    [data-theme="dark"] .btn-primary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    [data-theme="dark"] .btn-primary:hover {
+      background: #cbd5e1;
+    }
+
+    [data-theme="dark"] .project-card.featured::after {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    [data-theme="dark"] .social-link:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      border-color: #e2e8f0;
+    }
+
+    [data-theme="dark"] .chat-button {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    [data-theme="dark"] .chat-button:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      color: #0f172a;
+    }
+
+    [data-theme="dark"] .chat-header {
+      background: #1e293b;
+    }
+
+    [data-theme="dark"] .message.user .message-content {
+      background: #334155;
+    }
+
+    [data-theme="dark"] .chat-send-btn {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    [data-theme="dark"] .chat-send-btn:hover:not(:disabled) {
+      background: #cbd5e1;
+    }
+
+    [data-theme="dark"] .chat-window {
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -56,6 +141,18 @@
       display: none;
     }
 
+    /* ========== Logo ========== */
+    .nav-logo {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      margin-right: 36px;
+      flex-shrink: 0;
+    }
+
     /* ========== Navigation ========== */
     nav {
       position: fixed;
@@ -71,7 +168,7 @@
       height: 64px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       border-radius: 0;
       transform: none;
       box-shadow: none;
@@ -121,6 +218,28 @@
       color: var(--text);
       font-size: 24px;
       cursor: pointer;
+    }
+
+    /* ========== Theme Toggle ========== */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
     }
 
     /* ========== Hero Section ========== */
@@ -1177,7 +1296,7 @@
 
   <!-- Navigation -->
   <nav>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <a href="#home" class="nav-logo">Nico</a>
     <ul id="nav-menu">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -1187,6 +1306,10 @@
       <li><a href="#certificates">Certificates</a></li>
       <li><a href="#contact">Connect</a></li>
     </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   </nav>
 
   <!-- Hero Section -->
@@ -1474,6 +1597,31 @@
   <script>
     // Dynamic year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    function toggleTheme() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      var icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        updateThemeIcon();
+      }
+    });
+
+    updateThemeIcon();
   </script>
 
   <!-- AI Chat Button -->
