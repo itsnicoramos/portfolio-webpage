@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     (function() {
       var theme = localStorage.getItem('theme');
@@ -251,12 +252,24 @@
       position: relative;
       padding: 140px 24px 80px;
       background: var(--bg);
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .hero-content {
       text-align: center;
       z-index: 1;
       max-width: 720px;
+      position: relative;
     }
 
     .hero h1 {
@@ -347,8 +360,8 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
       background: var(--secondary);
     }
 
@@ -361,7 +374,8 @@
     .btn-secondary:hover {
       background: var(--bg-alt);
       border-color: var(--text-muted);
-      transform: translateY(-1px);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--shadow-md);
     }
 
     /* ========== Section Styling ========== */
@@ -445,9 +459,9 @@
     }
 
     .project-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--text-muted);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      border-color: var(--accent-light);
     }
 
     .project-card h3 {
@@ -857,6 +871,14 @@
       box-shadow: var(--shadow-md);
     }
 
+    .social-link i {
+      transition: transform 0.2s ease;
+    }
+
+    .social-link:hover i {
+      transform: scale(1.15);
+    }
+
     /* ========== Chat Button & Window ========== */
     .chat-button {
       position: fixed;
@@ -1211,6 +1233,23 @@
       cursor: not-allowed;
     }
 
+    /* ========== Scroll Fade Animations ========== */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-fade-delay-1 { transition-delay: 0.1s; }
+    .scroll-fade-delay-2 { transition-delay: 0.2s; }
+    .scroll-fade-delay-3 { transition-delay: 0.3s; }
+    .scroll-fade-delay-4 { transition-delay: 0.4s; }
+
     /* ========== Footer ========== */
     footer {
       text-align: center;
@@ -1314,11 +1353,12 @@
 
   <!-- Hero Section -->
   <section id="home" class="hero">
+    <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
       <h1>Hi, I'm Nico </h1>
       <p>BSc Computer Science Student at Vancouver Island University | Future Tech Founder</p>
       <div class="hero-image">
-        <img src="img/profile.png" alt="Nico " />
+        <img src="img/profileNico.jpeg" alt="Nico" />
       </div>
       <div class="cta-buttons">
         <a href="#projects" class="btn btn-primary">View Projects </a>
@@ -1330,20 +1370,20 @@
   <!-- About Section -->
   <section id="about">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <p style="text-align: center; color: var(--text-secondary); max-width: 560px; margin: -8px auto 0; font-size: 1.05rem; line-height: 1.6;">CS student, builder, and aspiring founder focused on creating products people actually use.</p>
+      <h2 class="section-title scroll-fade">About Me</h2>
+      <p class="scroll-fade" style="text-align: center; color: var(--text-secondary); max-width: 560px; margin: -8px auto 0; font-size: 1.05rem; line-height: 1.6;">CS student, builder, and aspiring founder focused on creating products people actually use.</p>
       <div class="about-grid">
-        <div class="about-card">
+        <div class="about-card scroll-fade">
           <h3>🎓 Education</h3>
           <p>Computer Science student at Vancouver Island University,
             I care most about user experience, trust, and long-term retention. I enjoy building systems where small design decisions compound over time, especially in social and AI-driven products.
           </p>
         </div>
-        <div class="about-card">
+        <div class="about-card scroll-fade scroll-fade-delay-1">
           <h3>💻 Expertise</h3>
           <p>Full-stack web development with React, Next.js, and Firebase, with a focus on integrating AI models like OpenAI GPT and Google Gemini into real products. Comfortable working across the entire stack — from designing responsive frontends to building serverless backends, managing databases, and deploying to production.</p>
         </div>
-        <div class="about-card">
+        <div class="about-card scroll-fade scroll-fade-delay-2">
           <h3>🚀 Entrepreneurship</h3>
           <p>Founder of Looply, an AI-powered web app that helps creators and builders plan content strategies and scope out their product ideas. Instead of generic chatbots, Looply uses structured workflows powered by OpenAI and Gemini to guide users step by step — remembering their goals, niche, and progress across sessions. Built from the ground up with React, Firebase, and serverless architecture, and currently preparing for launch.</p>
         </div>
@@ -1354,13 +1394,13 @@
   <!-- Projects Section -->
   <section id="projects">
     <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p style="text-align: center; color: var(--text-secondary); max-width: 500px; margin: -8px auto 48px; font-size: 1.05rem;">Real products and course projects I've built and shipped.</p>
+      <h2 class="section-title scroll-fade">Projects</h2>
+      <p class="scroll-fade" style="text-align: center; color: var(--text-secondary); max-width: 500px; margin: -8px auto 48px; font-size: 1.05rem;">Real products and course projects I've built and shipped.</p>
 
       <div class="project-grid">
 
         <!-- looply - Startup -->
-        <div class="project-card startup">
+        <div class="project-card startup scroll-fade">
           <h3>Looply</h3>
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;">
             <span style="font-weight: 600; color: var(--text); font-size: 0.93rem;">Founder & Software Engineer</span>
@@ -1387,7 +1427,7 @@
         </div>
 
         <!-- Portfolio Website -->
-        <div class="project-card featured">
+        <div class="project-card featured scroll-fade">
           <h3>Portfolio Website</h3>
           <span class="status">Live</span>
           <p>Personal web resume with responsive design and an AI assistant that guides visitors through my projects and journey. Built from scratch.</p>
@@ -1401,7 +1441,7 @@
         </div>
 
         <!-- Neurosky -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>Codename: Neurosky</h3>
           <span class="status">Experimental</span>
           <p>Experimental Python AI assistant built while exploring supervised vs. unsupervised learning in AI/ML concepts during summer 2025.</p>
@@ -1409,7 +1449,7 @@
         </div>
 
         <!-- CSCI 115 -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>CSCI 115 Web Development</h3>
           <span class="status">Completed</span>
           <p>Course project demonstrating foundational web development skills using HTML, CSS, and JavaScript. Completed Spring 2025 at VIU.</p>
@@ -1417,7 +1457,7 @@
         </div>
 
         <!-- MEDI 110 -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>MEDI 110 Media Production</h3>
           <span class="status">Completed</span>
           <p>Storytelling-based website showcasing Vancouver through photography, editing techniques, and responsive web design. Completed Fall 2025 at VIU.</p>
@@ -1425,7 +1465,7 @@
         </div>
 
         <!-- CSCI 159 -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>CSCI 159 Computer Science 1</h3>
           <span class="status">Completed</span>
           <p>Intensive intro to programming in C++. Covered problem decomposition, conditionals, loops, functions, arrays, pointers, and debugging. Completed Fall 2025 at VIU.</p>
@@ -1433,14 +1473,14 @@
         </div>
 
         <!-- CSCI 161 -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>CSCI 161 Computer Science 2</h3>
           <span class="status">In Progress</span>
           <p>Currently enrolled. More details coming soon.</p>
         </div>
 
         <!-- CSCI 162 -->
-        <div class="project-card">
+        <div class="project-card scroll-fade">
           <h3>CSCI 162 Topics in Computer Science</h3>
           <span class="status">In Progress</span>
           <p>Currently enrolled. More details coming soon.</p>
@@ -1453,9 +1493,9 @@
   <!-- Experience Section -->
   <section id="experience" style="background: var(--bg-alt);">
     <div class="container">
-      <h2 class="section-title">Experience</h2>
-      <p style="text-align: center; color: var(--text-secondary); max-width: 480px; margin: -8px auto 40px; font-size: 1.05rem;">Professional experience and roles.</p>
-      <div class="experience-empty">
+      <h2 class="section-title scroll-fade">Experience</h2>
+      <p class="scroll-fade" style="text-align: center; color: var(--text-secondary); max-width: 480px; margin: -8px auto 40px; font-size: 1.05rem;">Professional experience and roles.</p>
+      <div class="experience-empty scroll-fade">
         <p style="font-size: 1.1rem; font-weight: 600; color: var(--text-secondary);">Coming soon</p>
         <p>Experience entries will be added here.</p>
       </div>
@@ -1465,23 +1505,23 @@
   <!-- Certificates & Learning -->
   <section id="certificates">
     <div class="container">
-      <h2 class="section-title">Certificates & Learning</h2>
-      <p style="text-align: center; color: var(--text-secondary); max-width: 460px; margin: -8px auto 40px; font-size: 1.05rem;">Courses and certifications I'm actively working through.</p>
+      <h2 class="section-title scroll-fade">Certificates & Learning</h2>
+      <p class="scroll-fade" style="text-align: center; color: var(--text-secondary); max-width: 460px; margin: -8px auto 40px; font-size: 1.05rem;">Courses and certifications I'm actively working through.</p>
       <div class="cert-grid">
 
-        <div class="cert-card">
+        <div class="cert-card scroll-fade">
           <h3>Hands-on React</h3>
           <span class="status">In Progress (Udemy)</span>
           <p>25+ Projects with Next.js, TypeScript, Prisma, Zod, shadcn/ui, Axios, Router 6, Query 5, Redux Toolkit.</p>
         </div>
 
-        <div class="cert-card">
+        <div class="cert-card scroll-fade scroll-fade-delay-1">
           <h3>Real-Time AI Chatbot</h3>
           <span class="status">In Progress (Udemy)</span>
           <p>React Project with Multi-Model API Integration (ChatGPT, Gemini, Claude, DeepSeek, Grok).</p>
         </div>
 
-        <div class="cert-card">
+        <div class="cert-card scroll-fade scroll-fade-delay-2">
           <h3>Master MongoDB</h3>
           <span class="status">In Progress (Udemy)</span>
           <p>Development for Web & Mobile Apps. CRUD Operations, Indexes, Aggregation Framework.</p>
@@ -1494,20 +1534,58 @@
   <!-- Skills Section -->
   <section id="skills">
     <div class="container">
-      <h2 class="section-title">Technical Skills</h2>
+      <h2 class="section-title scroll-fade">Technical Skills</h2>
       <div class="skills-grid">
-        <div class="skill-card">
-          <strong>Primary / Strong Skills</strong>
-          <p>C / C++, SQL (SQLite), HTML, CSS, JavaScript, React.js, Next.js, Git & GitHub, LLM Integration, Prompt Engineering using AI</p>
+        <div class="skill-card scroll-fade">
+          <i class="fas fa-palette" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; display: block;"></i>
+          <strong>Frontend</strong>
+          <div class="tech-tags" style="margin-top: 12px;">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">React.js</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">TypeScript</span>
+          </div>
         </div>
-        <div class="skill-card">
-          <strong>Secondary / Familiar With</strong>
-          <p>Python, TypeScript, Excel VBA, Linux, NPM</p>
+        <div class="skill-card scroll-fade scroll-fade-delay-1">
+          <i class="fas fa-server" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; display: block;"></i>
+          <strong>Backend</strong>
+          <div class="tech-tags" style="margin-top: 12px;">
+            <span class="tech-tag">C / C++</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">SQL (SQLite)</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Node.js</span>
+          </div>
+        </div>
+        <div class="skill-card scroll-fade scroll-fade-delay-2">
+          <i class="fas fa-wrench" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; display: block;"></i>
+          <strong>Tools</strong>
+          <div class="tech-tags" style="margin-top: 12px;">
+            <span class="tech-tag">Git & GitHub</span>
+            <span class="tech-tag">Linux</span>
+            <span class="tech-tag">NPM</span>
+            <span class="tech-tag">VS Code</span>
+            <span class="tech-tag">Vite</span>
+            <span class="tech-tag">Vercel</span>
+          </div>
+        </div>
+        <div class="skill-card scroll-fade scroll-fade-delay-3">
+          <i class="fas fa-book-open" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; display: block;"></i>
+          <strong>Currently Learning</strong>
+          <div class="tech-tags" style="margin-top: 12px;">
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">Prisma</span>
+            <span class="tech-tag">Redux Toolkit</span>
+            <span class="tech-tag">LLM Integration</span>
+            <span class="tech-tag">Prompt Engineering</span>
+          </div>
         </div>
       </div>
 
       <!-- Travel Section - Beyond the Code -->
-      <div class="travel-section" id="travel">
+      <div class="travel-section scroll-fade" id="travel">
         <div class="travel-header">
           <h2>✈️ Beyond the Code</h2>
           <p>Short-form travel clips I use to explore storytelling, perspective, and creativity outside of code.</p>
@@ -1562,11 +1640,11 @@
   <!-- Contact Section -->
   <section id="contact" style="background: var(--bg-alt);">
     <div class="container">
-      <h2 class="section-title">Let's Connect</h2>
-      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1.05rem;">
+      <h2 class="section-title scroll-fade">Let's Connect</h2>
+      <p class="scroll-fade" style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1.05rem;">
         Follow my journey building in public
       </p>
-      <div class="social-grid">
+      <div class="social-grid scroll-fade">
         <a href="https://www.tiktok.com/@itsnicoramos_" target="_blank" class="social-link">
           <i class="fab fa-tiktok"></i>
         </a>
@@ -1619,6 +1697,309 @@
     });
 
     updateThemeIcon();
+  </script>
+
+  <!-- Three.js Hero Particle Scene -->
+  <script>
+  (function() {
+    'use strict';
+
+    function initScene() {
+      if (typeof THREE === 'undefined') {
+        setTimeout(initScene, 100);
+        return;
+      }
+
+      var canvas = document.getElementById('hero-canvas');
+      var heroSection = document.getElementById('home');
+      if (!canvas || !heroSection) return;
+
+      // Device detection
+      var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+      var isLowEnd = navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : isMobile;
+
+      // Configuration
+      var config = {
+        particleCount: isLowEnd ? 250 : 800,
+        showLines: !isMobile,
+        maxLineDistance: 120,
+        maxLines: 150,
+        pixelRatio: isMobile ? 1 : Math.min(window.devicePixelRatio, 2),
+        mouseParallax: !isMobile,
+        rotationSpeed: 0.0003,
+        particleSize: isMobile ? 2.5 : 2,
+        spreadX: 800,
+        spreadY: 500,
+        spreadZ: 400,
+        targetFPS: isMobile ? 30 : 60
+      };
+
+      // Renderer
+      var renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: !isMobile,
+        powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(config.pixelRatio);
+      renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
+      renderer.setClearColor(0x000000, 0);
+
+      // Scene & Camera
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(
+        60,
+        heroSection.offsetWidth / heroSection.offsetHeight,
+        1,
+        2000
+      );
+      camera.position.z = 600;
+
+      // Read theme colors
+      function getThemeColor() {
+        var style = getComputedStyle(document.documentElement);
+        var color = style.getPropertyValue('--text-muted').trim();
+        return new THREE.Color(color || '#94a3b8');
+      }
+
+      // Particles
+      var positions = new Float32Array(config.particleCount * 3);
+      var velocities = new Float32Array(config.particleCount * 3);
+
+      for (var i = 0; i < config.particleCount; i++) {
+        positions[i * 3]     = (Math.random() - 0.5) * config.spreadX;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * config.spreadY;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * config.spreadZ;
+
+        velocities[i * 3]     = (Math.random() - 0.5) * 0.3;
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.3;
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+      }
+
+      var particleGeometry = new THREE.BufferGeometry();
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      var themeColor = getThemeColor();
+
+      var particleMaterial = new THREE.PointsMaterial({
+        color: themeColor,
+        size: config.particleSize,
+        transparent: true,
+        opacity: 0,
+        sizeAttenuation: true
+      });
+
+      var particles = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particles);
+
+      // Connection lines (desktop only)
+      var linesMesh = null;
+      var lineGeometry = null;
+
+      if (config.showLines) {
+        lineGeometry = new THREE.BufferGeometry();
+        var lineMaterial = new THREE.LineBasicMaterial({
+          color: themeColor,
+          transparent: true,
+          opacity: 0
+        });
+        var linePositions = new Float32Array(config.maxLines * 6);
+        lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+        lineGeometry.setDrawRange(0, 0);
+        linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+        scene.add(linesMesh);
+      }
+
+      // Mouse tracking
+      var mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+      if (config.mouseParallax) {
+        heroSection.addEventListener('mousemove', function(e) {
+          var rect = heroSection.getBoundingClientRect();
+          mouse.targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 50;
+          mouse.targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 50;
+        });
+      }
+
+      // Animation state
+      var isAnimating = true;
+      var fadeProgress = 0;
+      var lastFrameTime = 0;
+      var frameInterval = 1000 / config.targetFPS;
+
+      // Pause when hero is out of view
+      var heroObserver = new IntersectionObserver(function(entries) {
+        isAnimating = entries[0].isIntersecting;
+      }, { threshold: 0 });
+      heroObserver.observe(heroSection);
+
+      // Pause when tab is hidden
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          isAnimating = false;
+        } else {
+          var rect = heroSection.getBoundingClientRect();
+          isAnimating = rect.bottom > 0 && rect.top < window.innerHeight;
+        }
+      });
+
+      // Theme change hook
+      var originalToggleTheme = window.toggleTheme;
+      window.toggleTheme = function() {
+        originalToggleTheme();
+        requestAnimationFrame(function() {
+          themeColor = getThemeColor();
+          particleMaterial.color.copy(themeColor);
+          if (linesMesh) {
+            linesMesh.material.color.copy(themeColor);
+          }
+        });
+      };
+
+      // Resize handler
+      var resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          var w = heroSection.offsetWidth;
+          var h = heroSection.offsetHeight;
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        }, 150);
+      });
+
+      // Animation loop
+      function animate(currentTime) {
+        requestAnimationFrame(animate);
+
+        if (!isAnimating) return;
+
+        // Frame rate limiting
+        if (currentTime - lastFrameTime < frameInterval) return;
+        lastFrameTime = currentTime;
+
+        // Fade-in effect
+        if (fadeProgress < 1) {
+          fadeProgress += 0.012;
+          if (fadeProgress > 1) fadeProgress = 1;
+          particleMaterial.opacity = fadeProgress * 0.6;
+          if (linesMesh) linesMesh.material.opacity = fadeProgress * 0.15;
+        }
+
+        // Mouse damping
+        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+        // Rotate particle group
+        particles.rotation.x += config.rotationSpeed;
+        particles.rotation.y += config.rotationSpeed * 0.7;
+
+        // Apply mouse offset
+        if (config.mouseParallax) {
+          particles.position.x = mouse.x;
+          particles.position.y = -mouse.y;
+        }
+
+        // Update particle positions
+        var posArray = particleGeometry.attributes.position.array;
+        for (var i = 0; i < config.particleCount; i++) {
+          posArray[i * 3]     += velocities[i * 3];
+          posArray[i * 3 + 1] += velocities[i * 3 + 1];
+          posArray[i * 3 + 2] += velocities[i * 3 + 2];
+
+          if (Math.abs(posArray[i * 3])     > config.spreadX / 2) velocities[i * 3]     *= -1;
+          if (Math.abs(posArray[i * 3 + 1]) > config.spreadY / 2) velocities[i * 3 + 1] *= -1;
+          if (Math.abs(posArray[i * 3 + 2]) > config.spreadZ / 2) velocities[i * 3 + 2] *= -1;
+        }
+        particleGeometry.attributes.position.needsUpdate = true;
+
+        // Update connection lines (desktop only)
+        if (linesMesh && lineGeometry) {
+          var lp = lineGeometry.attributes.position.array;
+          var lineIndex = 0;
+          var lineCount = 0;
+          var maxDistSq = config.maxLineDistance * config.maxLineDistance;
+          var checkCount = Math.min(config.particleCount, 200);
+
+          for (var a = 0; a < checkCount && lineCount < config.maxLines; a++) {
+            for (var b = a + 1; b < checkCount && lineCount < config.maxLines; b++) {
+              var dx = posArray[a * 3]     - posArray[b * 3];
+              var dy = posArray[a * 3 + 1] - posArray[b * 3 + 1];
+              var dz = posArray[a * 3 + 2] - posArray[b * 3 + 2];
+              var distSq = dx * dx + dy * dy + dz * dz;
+
+              if (distSq < maxDistSq) {
+                lp[lineIndex++] = posArray[a * 3];
+                lp[lineIndex++] = posArray[a * 3 + 1];
+                lp[lineIndex++] = posArray[a * 3 + 2];
+                lp[lineIndex++] = posArray[b * 3];
+                lp[lineIndex++] = posArray[b * 3 + 1];
+                lp[lineIndex++] = posArray[b * 3 + 2];
+                lineCount++;
+              }
+            }
+          }
+
+          lineGeometry.attributes.position.needsUpdate = true;
+          lineGeometry.setDrawRange(0, lineCount * 2);
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize after DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.requestIdleCallback) {
+          requestIdleCallback(initScene);
+        } else {
+          setTimeout(initScene, 200);
+        }
+      });
+    } else {
+      if (window.requestIdleCallback) {
+        requestIdleCallback(initScene);
+      } else {
+        setTimeout(initScene, 200);
+      }
+    }
+  })();
+  </script>
+
+  <!-- Scroll-Triggered Fade-In Animations -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Fallback if IntersectionObserver not supported
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.scroll-fade').forEach(function(el) {
+        el.classList.add('visible');
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -80px 0px',
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.scroll-fade').forEach(function(el) {
+      observer.observe(el);
+    });
+  })();
   </script>
 
   <!-- AI Chat Button -->
@@ -1958,19 +2339,15 @@
 
 🍃 **Master MongoDB** - CRUD operations, indexes, aggregation framework for web & mobile apps`,
 
-        skills: `Nico's technical skills include:
+        skills: `Nico's technical skills are organized into four categories:
 
-**Languages**: C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
+**Frontend**: HTML, CSS, JavaScript, React.js, Next.js, TypeScript
 
-**Frameworks**: React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Axios, React Router 6, TanStack Query, Node.js, Express.js
+**Backend**: C / C++, Python, SQL (SQLite), Firebase, Node.js
 
-**Databases**: MongoDB
+**Tools**: Git & GitHub, Linux, NPM, VS Code, Vite, Vercel
 
-**Tools**: Git & GitHub, VS Code, Linux, Terminal, NPM, Vite
-
-**AI/ML**: Prompt engineering, LLM API integration (OpenAI, Gemini, Claude, DeepSeek)
-
-**Specializations**: AI development, software engineering, full-stack web dev, front-end engineering, content creation`,
+**Currently Learning**: MongoDB, Prisma, Redux Toolkit, LLM Integration, Prompt Engineering`,
 
         travel: `Beyond coding, Nico is an explorer and visual storyteller:
 
