@@ -659,6 +659,72 @@
       font-size: 0.95rem;
     }
 
+    /* ========== Tech Logo Marquee ========== */
+    .tech-stack-section {
+      margin-top: 64px;
+    }
+
+    .tech-stack-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .tech-marquee {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .tech-marquee-track {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: marqueeScroll 35s linear infinite;
+    }
+
+    .tech-marquee:hover .tech-marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .tech-logo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      min-width: 80px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .tech-logo-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .tech-logo-card img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .tech-logo-card span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.2;
+    }
+
     /* ========== Travel / Startup Section ========== */
     .travel-section {
       background: var(--bg-alt);
@@ -1356,7 +1422,7 @@
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
       <h1>Hi, I'm Nico </h1>
-      <p>BSc Computer Science Student at Vancouver Island University | Future Tech Founder</p>
+      <p>BSc Computer Science Student at Vancouver Island University | Student Founder</p>
       <div class="hero-image">
         <img src="img/profileNico.jpeg" alt="Nico" />
       </div>
@@ -1580,6 +1646,145 @@
             <span class="tech-tag">Redux Toolkit</span>
             <span class="tech-tag">LLM Integration</span>
             <span class="tech-tag">Prompt Engineering</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Marquee -->
+      <div class="tech-stack-section scroll-fade">
+        <p class="tech-stack-label">Tech I Use</p>
+        <div class="tech-marquee">
+          <div class="tech-marquee-track">
+            <!-- Original set -->
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" />
+              <span>React</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" />
+              <span>Next.js</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
+              <span>JavaScript</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" />
+              <span>TypeScript</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" />
+              <span>HTML</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" />
+              <span>CSS</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+              <span>Node.js</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+              <span>Python</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+              <span>C++</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" />
+              <span>Firebase</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+              <span>MongoDB</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" />
+              <span>Git</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
+              <span>GitHub</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" />
+              <span>Linux</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" alt="Vite" />
+              <span>Vite</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" alt="Vercel" />
+              <span>Vercel</span>
+            </div>
+            <!-- Duplicate set for seamless loop -->
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" />
+              <span>React</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" />
+              <span>Next.js</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
+              <span>JavaScript</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" />
+              <span>TypeScript</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" />
+              <span>HTML</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" />
+              <span>CSS</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+              <span>Node.js</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+              <span>Python</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+              <span>C++</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" />
+              <span>Firebase</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+              <span>MongoDB</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" />
+              <span>Git</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
+              <span>GitHub</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" />
+              <span>Linux</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" alt="Vite" />
+              <span>Vite</span>
+            </div>
+            <div class="tech-logo-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" alt="Vercel" />
+              <span>Vercel</span>
+            </div>
           </div>
         </div>
       </div>
