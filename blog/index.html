@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Nico Ramos</title>
+  <meta name="description" content="Short posts on what I'm learning, building, and figuring out — by Nico Ramos" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Nico</a>
+    <ul id="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="./" class="blog-nav-active">Blog</a></li>
+      <li><a href="../index.html#contact">Connect</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <!-- Blog Header -->
+  <section class="blog-header">
+    <div class="container">
+      <h1 class="section-title">Blog</h1>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 520px; margin: -8px auto 0; font-size: 1.05rem; line-height: 1.6;">Short posts on what I'm learning, building, and figuring out.</p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="blog-posts-section">
+    <div class="container">
+
+      <!-- Empty State (remove this div add  first post) -->
+      <div class="blog-empty">
+        <i class="fas fa-pen-nib"></i>
+        <h3>No posts yet</h3>
+        <p>I'm working on my first post. Check back soon.</p>
+      </div>
+
+      <!--
+      
+
+      <a href="your-post-slug.html" class="blog-card">
+        <div class="blog-card-meta">
+          <time datetime="2026-02-13">Feb 13, 2026</time>
+          <span class="blog-card-tag">Building in Public</span>
+        </div>
+        <h2>Your Post Title Here</h2>
+        <p>A short 1-2 sentence preview of the post...</p>
+        <span class="blog-card-read">Read post <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      -->
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="currentYear"></span> Nico™  All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    function toggleTheme() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      var icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        updateThemeIcon();
+      }
+    });
+
+    updateThemeIcon();
+
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
