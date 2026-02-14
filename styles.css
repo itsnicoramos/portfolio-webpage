@@ -45,7 +45,9 @@
 }
 
 [data-theme="dark"] nav {
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(15, 23, 42, 0.45);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 [data-theme="dark"] .btn-primary {
@@ -108,10 +110,10 @@ nav {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   padding: 0 40px;
   height: 64px;
   display: flex;
@@ -119,7 +121,7 @@ nav {
   justify-content: flex-start;
   border-radius: 0;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   max-width: 100%;
 }
 
