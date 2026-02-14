@@ -13,7 +13,6 @@ const CONFIG = {
   // Allowed origins (add your domains here)
   ALLOWED_ORIGINS: [
     'https://itsnicoramos-website.netlify.app',
-    'https://itsnicoramos.com',
     'https://itsnico.dev',
     'http://localhost:8888',  // Local dev
     'http://localhost:3000',  // Local dev
