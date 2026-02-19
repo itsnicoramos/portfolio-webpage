@@ -300,7 +300,7 @@ function toggleMenu() {
   }
 })();
 
-// ========== Tech Marquee (auto-duplicate for seamless loop) ==========
+
 (function() {
   var track = document.querySelector('.tech-marquee-track');
   if (!track) return;
@@ -308,7 +308,7 @@ function toggleMenu() {
   track.innerHTML = items + items;
 })();
 
-// ========== Scroll-Triggered Fade-In Animations ==========
+
 (function() {
   'use strict';
 

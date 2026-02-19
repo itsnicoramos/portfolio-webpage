@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Break Notes: I Tried Claude Opus 4.6 for Front-End and Back-End to work on my startup  and It Lowkey Shocked Me | Nico Ramos</title>
+  <meta name="description" content="I used my reading break to experiment with Claude Opus 4.6 as a pair builder for UI work. Here's what surprised me, and what it can't replace." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Nico</a>
+    <ul id="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="./" class="blog-nav-active">Blog</a></li>
+      <li><a href="../index.html#contact">Connect</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <!-- Post Header -->
+  <section class="blog-post-header">
+    <div class="container">
+      <a href="./" class="blog-post-back"><i class="fas fa-arrow-left"></i> All posts</a>
+
+      <h1>Reading Break Notes: I Tried Claude Opus 4.6 for Front-End and Back-End and It Lowkey Shocked Me</h1>
+      <div class="blog-post-meta">
+        <time datetime="2026-02-19">Feb 19, 2026</time>
+        <span>&middot;</span>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Post Content -->
+  <section class="blog-post-content no-copy">
+    <div class="container">
+
+      <p>Reading break isn't a vacation for me. It's a reset. I'm using it to move my startup forward without letting it mess up my programming + math grind.</p>
+
+      <p>This week I've been experimenting with <strong>Claude Opus 4.6</strong> as a "pair builder" for front end work. Not in a "copy-paste and pray" way. More like: I write the product intent, it helps me scaffold, refactor, and unblock decisions so I can ship faster.</p>
+
+      <p>And yeah… it made my jaw drop a couple times.</p>
+
+      <h2>What surprised me (in a good way)</h2>
+
+      <p>The win wasn't just code generation. It was how well it handled the <em>thinking</em> part of front end:</p>
+
+      <ul>
+        <li>It can take a messy idea and turn it into a clean UI plan: sections, states, empty/loading cases, and what the user actually sees.</li>
+        <li>It's strong at refactoring. When my component starts turning into spaghetti, it can split it into something readable and reusable.</li>
+        <li>It catches UI logic issues early, like double-submits, missing error states, or "this will flash on slow connections."</li>
+      </ul>
+
+      <h2>Plot twist: it helped with backend too</h2>
+
+      <p>I didn't expect this part to matter as much, but it did.</p>
+
+      <p>Claude helped me <strong>draft</strong> the "glue" layer by generating serverless function code so the UI can call real services without me building a whole backend from scratch.</p>
+
+      <p>In my setup that meant:</p>
+
+      <ul>
+        <li>A Vercel-style serverless endpoint that receives requests from the client</li>
+        <li>Input validation + basic guardrails (so the function doesn't accept nonsense)</li>
+        <li>Calling Firebase for the actual work (auth, database, whatever service layer I need)</li>
+        <li>Returning a clean response back to the client</li>
+      </ul>
+
+      <p>This is the difference between "a nice looking site" and "a product that actually behaves." That bridge is where I usually lose time, and it helped me move through it faster.</p>
+
+      <h2>It can actually architect, not just code</h2>
+
+      <p>What I respect the most: it doesn't only spit out components. It can think in systems.</p>
+
+      <p>When I asked for help, it proposed architecture choices that felt founder-friendly:</p>
+
+      <ul>
+        <li>Where state should live so the app doesn't become fragile</li>
+        <li>How to structure API routes so it stays clean as features grow</li>
+        <li>How to keep secrets off the client and avoid obvious security mistakes</li>
+        <li>A file structure that doesn't collapse the moment you add version 2 features</li>
+      </ul>
+
+      <p>It felt less like "generate a page" and more like "help me build something I can keep shipping on."</p>
+
+      <h2>The real lesson: prompts matter more than any  model</h2>
+
+      <p>When I wrote a clear spec like: <em>"build a landing page with a hero, 3 feature cards, pricing, and a waitlist form. Use a clean component structure. Keep it minimal. Explain file structure, state, and edge cases."</em> the output was instantly better.</p>
+
+      <p>So now my workflow is:</p>
+
+      <ol>
+        <li>Write the request like a product spec</li>
+        <li>Ask for a component breakdown first</li>
+        <li>Generate the code</li>
+        <li>Ask for a cleanup/refactor pass</li>
+      </ol>
+
+      <h2>What it's not doing for me</h2>
+
+      <p>It won't replace taste. If I don't know what the product should feel like, it'll guess. And I still review everything because AI can be confident and wrong in subtle ways.</p>
+
+      <h2>How I'm using it without getting lazy</h2>
+
+      <p>I'm using Claude to speed up execution, but I'm still forcing myself to understand the structure, props, state, and data flow. The goal is momentum, not dependency.</p>
+
+      <h2>What I'm doing next</h2>
+
+      <p>I'm going to keep using it for:</p>
+
+      <ul>
+        <li>UI scaffolding</li>
+        <li>Component refactors</li>
+        <li>Serverless "glue" functions for real integrations</li>
+        <li>Copy tweaks and micro-interactions</li>
+      </ul>
+
+      <p>But the goal stays the same: ship clean, readable code that I actually understand.</p>
+
+      <p>Honestly, I think I found an AI tool that actually works for me: <strong>Claude Opus 4.6</strong>.</p>
+
+      <hr>
+
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        <strong>Mini takeaway:</strong> Claude helped me move faster, but I still had to make product decisions, validate inputs, and keep secrets on the server. The model is a multiplier, not a replacement.
+        <a href="./">Back to the blog</a>.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="currentYear"></span> Nico™  All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    function toggleTheme() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      var icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'live');
+        updateThemeIcon();
+      }
+    });
+
+    updateThemeIcon();
+
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+
+    // Discourage copy (deterrence only  not a security measure)
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'u' || e.key === 'a')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>
