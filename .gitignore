@@ -4,7 +4,7 @@
 # VS Code settings
 .vscode/
 
-# Node modules (for future use)
+# Node modules
 node_modules/
 
 # Log files
