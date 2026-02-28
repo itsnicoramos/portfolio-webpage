@@ -36,7 +36,7 @@
     #   • fonts.gstatic.com     → Google Fonts files
     #   • cdn.jsdelivr.net      → devicons / simple-icons
     #   • cdn.jsdelivr.net/npm  → OpenAI / Anthropic SVG icons
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https://cdn.jsdelivr.net https://cdn.jsdelivr.net/npm/ data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' https://cdn.jsdelivr.net https://cdn.jsdelivr.net/npm/ data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 
     # Remove server fingerprinting headers
     X-Powered-By  = ""
