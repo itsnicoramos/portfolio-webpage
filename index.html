@@ -206,7 +206,7 @@
       <div class="scroll-fade" style="max-width: 640px; margin: 0 auto;">
         <a href="blog/claude-opus-46-frontend.html" style="display: block; text-decoration: none; border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; transition: border-color 0.2s, box-shadow 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
           <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em;">Feb 19, 2026 &nbsp;&middot;&nbsp; Building in Public</p>
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 10px; line-height: 1.4;">Reading Break Notes: Using Claude Opus 4.6 as a Pair Builder</h3>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 10px; line-height: 1.4;"> Using Claude Opus 4.6 as a Pair Builder</h3>
           <p style="font-size: 0.95rem; color: var(--text-secondary); margin: 0 0 16px; line-height: 1.6;">I used my reading break to experiment with Claude Opus 4.6 as a pair builder for UI work. Here's what surprised me, and what it can't replace.</p>
           <span style="font-size: 0.88rem; font-weight: 600; color: var(--accent);">Read post &rarr;</span>
         </a>
@@ -439,9 +439,16 @@
   <!-- Footer -->
   <footer>
     <p>&copy; <span id="currentYear"></span> Nico™  All rights reserved.</p>
+    <div class="lang-search-widget" id="lang-search-widget">
+      <i class="fas fa-globe lang-globe-icon"></i>
+      <input type="text" id="lang-search" class="lang-search-input" placeholder="Language: English" autocomplete="off" spellcheck="false" />
+      <div class="lang-results" id="lang-results"></div>
+    </div>
+    <div id="google_translate_element" style="display:none;"></div>
   </footer>
 
   <script src="script.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 
 </body>
 </html>

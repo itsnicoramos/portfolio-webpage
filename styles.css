@@ -929,6 +929,134 @@ footer {
   font-size: 0.9rem;
 }
 
+/* ========== Language Selector ========== */
+/* Suppress Google Translate banner */
+.goog-te-banner-frame,
+iframe.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+  visibility: hidden !important;
+}
+body,
+body.translated-ltr,
+body.translated-rtl {
+  top: 0 !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.lang-search-widget {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.lang-globe-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+
+.lang-search-input {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px 7px 28px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-family: inherit;
+  width: 180px;
+  outline: none;
+  transition: border-color 0.2s, width 0.2s;
+}
+
+.lang-search-input:focus {
+  border-color: var(--accent);
+  width: 200px;
+  color: var(--text);
+}
+
+.lang-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.lang-results {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 220px;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  z-index: 1000;
+  padding: 4px;
+}
+
+.lang-results.open {
+  display: flex;
+}
+
+.lang-results::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lang-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lang-results::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.lang-option {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 10px;
+  text-align: left;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lang-option:hover {
+  background: var(--border-light);
+  color: var(--text);
+}
+
+.lang-option.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.lang-no-result {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 12px 8px;
+}
+
 /* ========== Responsive ========== */
 @media (max-width: 768px) {
   nav {
