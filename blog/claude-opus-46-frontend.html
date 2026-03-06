@@ -49,6 +49,8 @@
         <time datetime="2026-02-19">Feb 19, 2026</time>
         <span>&middot;</span>
         <span>3 min read</span>
+        <span>&middot;</span>
+        <span class="blog-views" id="post-views" style="display:none;"><i class="fas fa-eye"></i> <span id="post-views-count">0</span> views</span>
       </div>
     </div>
   </section>
@@ -187,6 +189,25 @@
     function toggleMenu() {
       document.getElementById('nav-menu').classList.toggle('active');
     }
+
+    // View counter
+    (function() {
+      var POST_KEY = 'blog-claude-opus-46';
+      var NAMESPACE = 'itsnico-dev';
+      fetch('https://api.counterapi.dev/v1/' + NAMESPACE + '/' + POST_KEY + '/up')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var count = data && data.count != null ? data.count : null;
+          if (count == null) return;
+          var el = document.getElementById('post-views');
+          var countEl = document.getElementById('post-views-count');
+          if (el && countEl) {
+            countEl.textContent = count.toLocaleString();
+            el.style.display = 'inline-flex';
+          }
+        })
+        .catch(function() {});
+    })();
 
     // Discourage copy (deterrence only  not a security measure)
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });

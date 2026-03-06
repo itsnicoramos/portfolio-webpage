@@ -603,3 +603,18 @@ function toggleMenu() {
     observer.observe(el);
   });
 })();
+
+// ========== Blog View Counts (homepage) ==========
+(function() {
+  var el = document.getElementById('home-views-claude-opus-46');
+  if (!el) return;
+  fetch('https://api.counterapi.dev/v1/itsnico-dev/blog-claude-opus-46')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var count = data && data.count != null ? data.count : null;
+      if (count == null) return;
+      el.querySelector('span').textContent = count.toLocaleString();
+      el.style.display = 'inline-flex';
+    })
+    .catch(function() {});
+})();

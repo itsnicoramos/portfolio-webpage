@@ -258,6 +258,20 @@
   margin: 40px 0;
 }
 
+/* ========== View Count ========== */
+.blog-views {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.blog-views i {
+  font-size: 0.8rem;
+}
+
 /* ========== Discourage Copy (deterrence only) ========== */
 .no-copy {
   -webkit-user-select: none;

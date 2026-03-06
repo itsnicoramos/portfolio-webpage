@@ -1116,3 +1116,8 @@ body.translated-rtl {
     padding: 120px 20px 60px;
   }
 }
+
+/* Logos that are black SVGs — invert in dark mode so they are visible */
+[data-theme="dark"] .tech-logo-card .logo-invert {
+  filter: invert(1);
+}
