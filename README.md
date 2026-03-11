@@ -73,9 +73,7 @@ The Travel section is designed to support embedded Instagram reels in a portrait
 
 No build tools required. Open `index.html` directly in a browser or serve with any static file server.
 
-```bash
-npx serve .
-```
+
 
 ---
 
