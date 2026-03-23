@@ -24,7 +24,7 @@ portfolio-webpage/
     index.html            Blog listing page (renders cards dynamically from blog.js)
     post.html             Single post template (fetches posts/<slug>.md, renders via marked)
     /posts
-      *.md                One markdown file per post — the only file you edit to write content
+      *.md                One markdown file per post 
   /img                    Local assets (profile image)
   /netlify                Netlify serverless functions
 ```
