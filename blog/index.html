@@ -49,19 +49,7 @@
 
   <!-- Blog Posts -->
   <section class="blog-posts-section">
-    <div class="container">
-
-      <a href="claude-opus-46-frontend.html" class="blog-card">
-        <div class="blog-card-meta">
-          <time datetime="2026-02-19">Feb 19, 2026</time>
-          <span class="blog-card-tag">Building in Public</span>
-          <span class="blog-views" id="card-views-claude-opus-46" style="display:none;margin-left:auto;"><i class="fas fa-eye"></i> <span>0</span></span>
-        </div>
-        <h2>Using Claude Opus 4.6 as a Pair Builder</h2>
-        <p>I used my reading break to experiment with Claude Opus 4.6 as a pair builder for UI work. Here's what surprised me, and what it can't replace.</p>
-        <span class="blog-card-read">Read post <i class="fas fa-arrow-right"></i></span>
-      </a>
-
+    <div class="container" id="posts-list">
     </div>
   </section>
 
@@ -70,6 +58,7 @@
     <p>&copy; <span id="currentYear"></span> Nico™  All rights reserved.</p>
   </footer>
 
+  <script src="blog.js"></script>
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -101,23 +90,7 @@
       document.getElementById('nav-menu').classList.toggle('active');
     }
 
-    // View counts (read-only)
-    (function() {
-      var posts = [{ key: 'blog-claude-opus-46', elId: 'card-views-claude-opus-46' }];
-      posts.forEach(function(post) {
-        fetch('https://api.counterapi.dev/v1/itsnico-dev/' + post.key)
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            var count = data && data.count != null ? data.count : null;
-            if (count == null) return;
-            var el = document.getElementById(post.elId);
-            if (!el) return;
-            el.querySelector('span').textContent = count.toLocaleString();
-            el.style.display = 'inline-flex';
-          })
-          .catch(function() {});
-      });
-    })();
+    renderPostList('posts-list');
   </script>
 
 </body>

@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- CHANGE: title and description for each post -->
-  <title>Post Title Here | Nico Ramos</title>
-  <meta name="description" content="A short description of this post for SEO and link previews." />
+  <title>Post | Nico Ramos</title>
+  <meta name="description" content="" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,37 +43,20 @@
   <section class="blog-post-header">
     <div class="container">
       <a href="./" class="blog-post-back"><i class="fas fa-arrow-left"></i> All posts</a>
-
-      <h1>Post Title Here</h1>
+      <h1 id="post-title"></h1>
       <div class="blog-post-meta">
-
-        <time datetime="2026-02-13"></time>
+        <time id="post-date"></time>
         <span>&middot;</span>
-        <!-- CHANGE: read time -->
-        <span>3 min read</span>
+        <span id="post-read-time"></span>
+        <span>&middot;</span>
+        <span class="blog-views" id="post-views" style="display:none;"><i class="fas fa-eye"></i> <span id="post-views-count">0</span> views</span>
       </div>
     </div>
   </section>
 
-  <!-- Post Content (add class="no-copy" to discourage copying) -->
+  <!-- Post Content -->
   <section class="blog-post-content no-copy">
-    <div class="container">
-
-      <p>  </p>
-
-     
-
-
-      <blockquote>A quote or key takeaway </blockquote>
-
-      <h2>What I Learned</h2>
-
-
-
-      <hr>
-
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Thanks  <a href="./">the blog</a>.</p>
-
+    <div class="container" id="post-content">
     </div>
   </section>
 
@@ -83,6 +65,8 @@
     <p>&copy; <span id="currentYear"></span> Nico™  All rights reserved.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="blog.js"></script>
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -113,6 +97,8 @@
     function toggleMenu() {
       document.getElementById('nav-menu').classList.toggle('active');
     }
+
+    renderPost();
 
     // Discourage copy (deterrence only — not a security measure)
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
