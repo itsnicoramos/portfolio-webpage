@@ -101,6 +101,17 @@
       background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
       border-bottom-right-radius:4px;align-self:flex-end;
     }
+    .msg.bot p{margin:0;}
+    .msg.bot p + p{margin-top:8px;}
+    .msg.bot ul{margin:0;padding-left:18px;}
+    .msg.bot li + li{margin-top:6px;}
+    .msg.bot a{
+      color:#a5b4fc;
+      text-decoration:underline;
+      text-underline-offset:2px;
+      word-break:break-word;
+    }
+    .msg.bot a:hover{color:#c7d2fe;}
 
     /* Typing indicator */
     .typing{display:flex;align-items:center;gap:5px;padding:9px 13px;}
@@ -199,10 +210,147 @@
   var isLoading = false;
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  function sanitizeHref(href) {
+    href = (href || '').trim();
+    if (!href) return '';
+    if (/^https?:\/\//i.test(href)) return href;
+    if (/^(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:\/[^\s<]*)?$/i.test(href)) {
+      return 'https://' + href.replace(/^\/+/, '');
+    }
+    return '';
+  }
+
+  function trimLinkSuffix(text) {
+    var suffix = '';
+    while (/[),.!?]$/.test(text)) {
+      suffix = text.slice(-1) + suffix;
+      text = text.slice(0, -1);
+    }
+    return { value: text, suffix: suffix };
+  }
+
+  function appendLinkedText(target, text) {
+    var doc = target.ownerDocument;
+    var pattern = /(https?:\/\/[^\s<]+|(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:\/[^\s<]*)?)/ig;
+    var lastIndex = 0;
+    var match;
+
+    while ((match = pattern.exec(text)) !== null) {
+      var raw = match[0];
+      var cleaned = trimLinkSuffix(raw);
+      var href = sanitizeHref(cleaned.value);
+
+      if (match.index > lastIndex) {
+        target.appendChild(doc.createTextNode(text.slice(lastIndex, match.index)));
+      }
+
+      if (href) {
+        var link = doc.createElement('a');
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = cleaned.value;
+        target.appendChild(link);
+      } else {
+        target.appendChild(doc.createTextNode(raw));
+      }
+
+      if (cleaned.suffix) {
+        target.appendChild(doc.createTextNode(cleaned.suffix));
+      }
+
+      lastIndex = match.index + raw.length;
+    }
+
+    if (lastIndex < text.length) {
+      target.appendChild(doc.createTextNode(text.slice(lastIndex)));
+    }
+  }
+
+  function appendTextContent(target, text) {
+    var doc = target.ownerDocument;
+    var lines = String(text || '').split('\n');
+
+    lines.forEach(function (line, index) {
+      appendLinkedText(target, line);
+      if (index < lines.length - 1) {
+        target.appendChild(doc.createElement('br'));
+      }
+    });
+  }
+
+  function sanitizeNode(node, doc) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      var textFrag = doc.createDocumentFragment();
+      appendTextContent(textFrag, node.textContent || '');
+      return textFrag;
+    }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return doc.createDocumentFragment();
+    }
+
+    var tag = node.tagName.toLowerCase();
+    var allowed = { ul: true, li: true, p: true, br: true, a: true };
+
+    if (!allowed[tag]) {
+      var fallback = doc.createDocumentFragment();
+      Array.prototype.forEach.call(node.childNodes, function (child) {
+        fallback.appendChild(sanitizeNode(child, doc));
+      });
+      return fallback;
+    }
+
+    if (tag === 'br') {
+      return doc.createElement('br');
+    }
+
+    var el = doc.createElement(tag);
+
+    if (tag === 'a') {
+      var href = sanitizeHref(node.getAttribute('href') || node.textContent || '');
+      if (!href) {
+        var anchorFallback = doc.createDocumentFragment();
+        Array.prototype.forEach.call(node.childNodes, function (child) {
+          anchorFallback.appendChild(sanitizeNode(child, doc));
+        });
+        return anchorFallback;
+      }
+
+      el.href = href;
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
+    }
+
+    Array.prototype.forEach.call(node.childNodes, function (child) {
+      el.appendChild(sanitizeNode(child, doc));
+    });
+
+    return el;
+  }
+
+  function renderBotMessage(el, text) {
+    var raw = String(text || '').trim();
+    var template = document.createElement('template');
+    template.innerHTML = raw;
+
+    Array.prototype.forEach.call(template.content.childNodes, function (child) {
+      el.appendChild(sanitizeNode(child, document));
+    });
+
+    if (!el.childNodes.length) {
+      appendTextContent(el, raw);
+    }
+  }
+
   function addMessage(role, text) {
     var el = document.createElement('div');
     el.className = 'msg ' + role;
-    el.textContent = text;
+    if (role === 'bot') {
+      renderBotMessage(el, text);
+    } else {
+      el.textContent = text;
+    }
     msgContainer.appendChild(el);
     msgContainer.scrollTop = msgContainer.scrollHeight;
     return el;

@@ -68,6 +68,54 @@ function sanitizeReply(text: string) {
     .trim();
 }
 
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function shouldUseListReply(message: string) {
+  return /(tech|technical|stack|skill|skills|tool|tools|framework|frameworks|language|languages|frontend|backend|social|socials|contact|reach|connect|linkedin|github|instagram|tiktok|threads|website|blog)/i.test(message);
+}
+
+function hasAllowedHtml(text: string) {
+  return /<\/?(ul|li|a|p|br)\b/i.test(text);
+}
+
+function formatAsHtmlList(text: string) {
+  let items = text
+    .split('\n')
+    .map(line => line.trim().replace(/^[-•\d.)\s]+/, ''))
+    .filter(Boolean);
+
+  if (items.length < 2) {
+    items = (text.match(/[^.!?]+[.!?]?/g) ?? [])
+      .map(part => part.trim().replace(/^[-•\d.)\s]+/, ''))
+      .filter(Boolean);
+  }
+
+  if (items.length === 0) {
+    items = [text.trim()];
+  }
+
+  return `<ul>${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+}
+
+function formatReplyForDisplay(message: string, reply: string) {
+  if (!reply) {
+    return reply;
+  }
+
+  if (!shouldUseListReply(message) || hasAllowedHtml(reply)) {
+    return reply;
+  }
+
+  return formatAsHtmlList(reply);
+}
+
 // ── Handler ───────────────────────────────────────────────────────────────────
 export const handler: Handler = async (event: HandlerEvent) => {
   const origin = event.headers['origin'] ?? event.headers['Origin'] ?? '';
@@ -173,7 +221,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
     }
 
     const content = data.choices?.[0]?.message?.content;
-    const reply = typeof content === 'string' ? sanitizeReply(content) : '';
+    const reply =
+      typeof content === 'string'
+        ? formatReplyForDisplay(message.trim(), sanitizeReply(content))
+        : '';
 
     if (!reply) {
       return json(502, { error: 'Empty response from AI' }, origin);
