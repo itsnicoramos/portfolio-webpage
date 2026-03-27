@@ -53,6 +53,21 @@ function json(statusCode: number, body: object, origin: string) {
   return { statusCode, headers: corsHeaders(origin), body: JSON.stringify(body) };
 }
 
+function sanitizeReply(text: string) {
+  const cleaned = text
+    .replace(/\*\*(.*?)\*\*/gs, '$1')
+    .replace(/\*(.*?)\*/gs, '$1')
+    .replace(/\*/g, '')
+    .replace(/\s*[—–]\s*/g, ', ')
+    .replace(/\n{3,}/g, '\n\n');
+
+  return cleaned
+    .split('\n')
+    .map(line => line.trim())
+    .join('\n')
+    .trim();
+}
+
 // ── Handler ───────────────────────────────────────────────────────────────────
 export const handler: Handler = async (event: HandlerEvent) => {
   const origin = event.headers['origin'] ?? event.headers['Origin'] ?? '';
@@ -158,7 +173,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     }
 
     const content = data.choices?.[0]?.message?.content;
-    const reply = typeof content === 'string' ? content.trim() : '';
+    const reply = typeof content === 'string' ? sanitizeReply(content) : '';
 
     if (!reply) {
       return json(502, { error: 'Empty response from AI' }, origin);
