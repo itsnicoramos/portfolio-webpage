@@ -27,7 +27,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
     # Disable device APIs that this site doesn't use
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Permissions-Policy = "camera=(), microphone=(self), geolocation=(), interest-cohort=()"
 
     # Force HTTPS for 1 year + include subdomains
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"

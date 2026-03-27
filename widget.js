@@ -5,7 +5,9 @@
     document.querySelector('script[src*="widget.js"]');
   var API_BASE = (scriptEl && scriptEl.getAttribute('data-api')) ||
     window.location.origin;
-  var ENDPOINT = API_BASE.replace(/\/$/, '') + '/.netlify/functions/chat';
+  var CHAT_ENDPOINT = API_BASE.replace(/\/$/, '') + '/.netlify/functions/chat';
+  var TRANSCRIBE_ENDPOINT = API_BASE.replace(/\/$/, '') + '/.netlify/functions/transcribe';
+  var DEFAULT_VOICE_STATUS = 'Type a message or tap the mic to speak.';
 
   var SUGGESTIONS = [
     'What tech stack do you use?',
@@ -13,27 +15,37 @@
     'How can I reach you?',
   ];
 
-  var WELCOME = 'Ask about projects, the tech stack, or the best way to connect.';
-
-  var sectionEl = document.getElementById('ask-nico');
+  var panelEl = document.getElementById('chat-panel');
+  var toggleBtn = document.getElementById('chat-toggle');
+  var closeBtn = document.getElementById('chat-close');
   var msgContainer = document.getElementById('chat-messages');
   var inputEl = document.getElementById('chat-input');
   var sendBtn = document.getElementById('chat-send');
   var formEl = document.getElementById('chat-form');
   var sugContainer = document.getElementById('chat-suggestions');
   var errorEl = document.getElementById('chat-error');
-  var panelBodyEl = document.getElementById('chat-panel-body');
-  var mobileToggleEl = document.getElementById('chat-mobile-toggle');
-  var mobileMedia = window.matchMedia('(max-width: 768px)');
+  var voiceBtn = document.getElementById('chat-voice');
+  var voiceStatusEl = document.getElementById('chat-voice-status');
 
-  if (!sectionEl || !msgContainer || !inputEl || !sendBtn || !formEl || !sugContainer || !errorEl || !panelBodyEl || !mobileToggleEl) {
+  if (!panelEl || !toggleBtn || !closeBtn || !msgContainer || !inputEl || !sendBtn || !formEl || !sugContainer || !errorEl || !voiceBtn || !voiceStatusEl) {
     return;
   }
 
+  var isPanelOpen = false;
   var history = [];
   var isLoading = false;
+  var isRecording = false;
+  var isTranscribing = false;
   var typingRow = null;
-  var isMobileCollapsed = false;
+  var mediaRecorder = null;
+  var mediaStream = null;
+  var audioChunks = [];
+  var canRecordAudio = !!(
+    window.navigator &&
+    navigator.mediaDevices &&
+    typeof navigator.mediaDevices.getUserMedia === 'function' &&
+    window.MediaRecorder
+  );
 
   function sanitizeHref(href) {
     href = (href || '').trim();
@@ -213,34 +225,23 @@
     errorEl.hidden = !message;
   }
 
-  function isMobileView() {
-    return mobileMedia.matches;
+  function setVoiceStatus(message) {
+    voiceStatusEl.textContent = message || '';
+    voiceStatusEl.hidden = !message;
   }
 
-  function syncMobileState() {
-    var mobile = isMobileView();
-
-    document.body.classList.toggle('has-mobile-chat', mobile);
-    sectionEl.classList.toggle('chat-collapsed', mobile && isMobileCollapsed);
-    document.body.classList.toggle('chat-mobile-collapsed', mobile && isMobileCollapsed);
-    panelBodyEl.hidden = mobile && isMobileCollapsed;
-    mobileToggleEl.setAttribute('aria-expanded', mobile && isMobileCollapsed ? 'false' : 'true');
-    mobileToggleEl.querySelector('span').textContent = mobile && isMobileCollapsed ? 'Open chat' : 'Minimize';
-  }
-
-  function openMobileChat(focusInput) {
-    if (!isMobileView()) return;
-    isMobileCollapsed = false;
-    syncMobileState();
-    if (focusInput) {
-      inputEl.focus();
-    }
+  function syncControls() {
+    inputEl.disabled = isLoading || isRecording || isTranscribing;
+    sendBtn.disabled = isLoading || isRecording || isTranscribing || inputEl.value.trim() === '';
+    voiceBtn.disabled = !canRecordAudio || isLoading || isTranscribing;
+    voiceBtn.classList.toggle('is-recording', isRecording);
+    voiceBtn.setAttribute('aria-pressed', isRecording ? 'true' : 'false');
+    voiceBtn.setAttribute('aria-label', isRecording ? 'Stop recording and send voice message' : 'Record a voice message');
   }
 
   function setLoading(value) {
     isLoading = value;
-    inputEl.disabled = value;
-    sendBtn.disabled = value || inputEl.value.trim() === '';
+    syncControls();
   }
 
   function buildSuggestions() {
@@ -252,6 +253,7 @@
       chip.className = 'chat-chip';
       chip.textContent = suggestion;
       chip.addEventListener('click', function () {
+        openChat(false);
         sendMessage(suggestion);
       });
       sugContainer.appendChild(chip);
@@ -260,10 +262,11 @@
 
   function sendMessage(text) {
     text = (text || inputEl.value || '').trim();
-    if (!text || isLoading) return;
+    if (!text || isLoading || isRecording || isTranscribing) return;
 
     inputEl.value = '';
     showError('');
+    sugContainer.hidden = true;
     addMessage('user', text);
     history.push({ role: 'user', content: text });
 
@@ -272,7 +275,7 @@
 
     var payload = { message: text, history: history.slice(0, -1) };
 
-    fetch(ENDPOINT, {
+    fetch(CHAT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -305,47 +308,227 @@
       });
   }
 
+  function getPreferredMimeType() {
+    var candidates = [
+      'audio/webm;codecs=opus',
+      'audio/webm',
+      'audio/mp4',
+      'audio/ogg;codecs=opus',
+      'audio/wav',
+    ];
+
+    if (!window.MediaRecorder || typeof MediaRecorder.isTypeSupported !== 'function') {
+      return '';
+    }
+
+    for (var i = 0; i < candidates.length; i += 1) {
+      if (MediaRecorder.isTypeSupported(candidates[i])) {
+        return candidates[i];
+      }
+    }
+
+    return '';
+  }
+
+  function stopMediaStream() {
+    if (!mediaStream) return;
+
+    mediaStream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+    mediaStream = null;
+  }
+
+  function blobToDataUrl(blob) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+          return;
+        }
+        reject(new Error('Could not read the audio recording.'));
+      };
+
+      reader.onerror = function () {
+        reject(new Error('Could not read the audio recording.'));
+      };
+
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  function finishTranscription() {
+    isTranscribing = false;
+    syncControls();
+  }
+
+  function transcribeAndSend(blob) {
+    showError('');
+
+    blobToDataUrl(blob)
+      .then(function (dataUrl) {
+        return fetch(TRANSCRIBE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            audioBase64: dataUrl,
+            mimeType: blob.type || 'audio/webm',
+          }),
+        });
+      })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return { ok: res.ok, data: data };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.data.text) {
+          throw new Error(result.data.error || 'Voice transcription failed. Try again.');
+        }
+
+        setVoiceStatus('Sending voice message...');
+        inputEl.value = result.data.text;
+        syncControls();
+        sendMessage(result.data.text);
+        setVoiceStatus(DEFAULT_VOICE_STATUS);
+        finishTranscription();
+      })
+      .catch(function (error) {
+        setVoiceStatus(DEFAULT_VOICE_STATUS);
+        showError(error && error.message ? error.message : 'Voice transcription failed. Try again.');
+        finishTranscription();
+      });
+  }
+
+  function startRecording() {
+    if (!canRecordAudio) {
+      setVoiceStatus('Voice input depends on microphone support in this browser.');
+      showError('Voice input is not supported here. You can still type a message.');
+      syncControls();
+      return;
+    }
+
+    showError('');
+    setVoiceStatus('Requesting microphone access...');
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(function (stream) {
+        var mimeType = getPreferredMimeType();
+        var recorder;
+
+        try {
+          recorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+        } catch (error) {
+          stream.getTracks().forEach(function (track) {
+            track.stop();
+          });
+          setVoiceStatus(DEFAULT_VOICE_STATUS);
+          showError('Microphone setup failed. Try typing instead.');
+          return;
+        }
+
+        mediaStream = stream;
+        mediaRecorder = recorder;
+        audioChunks = [];
+
+        recorder.addEventListener('dataavailable', function (event) {
+          if (event.data && event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        });
+
+        recorder.addEventListener('stop', function () {
+          var blob;
+
+          stopMediaStream();
+          mediaRecorder = null;
+
+          if (!audioChunks.length) {
+            setVoiceStatus(DEFAULT_VOICE_STATUS);
+            showError('No audio was captured. Try again.');
+            finishTranscription();
+            return;
+          }
+
+          blob = new Blob(audioChunks, { type: recorder.mimeType || mimeType || 'audio/webm' });
+          audioChunks = [];
+          transcribeAndSend(blob);
+        });
+
+        recorder.start();
+        isRecording = true;
+        syncControls();
+        setVoiceStatus('Listening. Tap the mic again to send.');
+      })
+      .catch(function (error) {
+        setVoiceStatus(DEFAULT_VOICE_STATUS);
+
+        if (error && (error.name === 'NotAllowedError' || error.name === 'SecurityError')) {
+          showError('Microphone access was blocked. Allow microphone access and try again.');
+          return;
+        }
+
+        showError('Unable to access the microphone. Try typing instead.');
+      });
+  }
+
+  function stopRecording() {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+      return;
+    }
+
+    isRecording = false;
+    isTranscribing = true;
+    syncControls();
+    setVoiceStatus('Transcribing your voice message...');
+    mediaRecorder.stop();
+  }
+
   formEl.addEventListener('submit', function (event) {
     event.preventDefault();
     sendMessage();
   });
 
   inputEl.addEventListener('input', function () {
-    sendBtn.disabled = isLoading || inputEl.value.trim() === '';
+    syncControls();
   });
 
-  mobileToggleEl.addEventListener('click', function () {
-    if (!isMobileView()) return;
-    isMobileCollapsed = !isMobileCollapsed;
-    syncMobileState();
-    if (!isMobileCollapsed) {
-      inputEl.focus();
-    }
-  });
-
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#ask-nico"]'), function (link) {
-    link.addEventListener('click', function (event) {
-      if (!isMobileView()) return;
-      event.preventDefault();
-      openMobileChat(true);
-    });
-  });
-
-  function handleViewportChange() {
-    if (!isMobileView()) {
-      isMobileCollapsed = false;
-    }
-    syncMobileState();
+  function openPanel() {
+    if (isPanelOpen) return;
+    isPanelOpen = true;
+    panelEl.style.display = 'flex';
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    window.setTimeout(function () { inputEl.focus(); }, 0);
   }
 
-  if (typeof mobileMedia.addEventListener === 'function') {
-    mobileMedia.addEventListener('change', handleViewportChange);
-  } else if (typeof mobileMedia.addListener === 'function') {
-    mobileMedia.addListener(handleViewportChange);
+  function closePanel() {
+    isPanelOpen = false;
+    panelEl.style.display = 'none';
+    toggleBtn.setAttribute('aria-expanded', 'false');
   }
+
+  toggleBtn.addEventListener('click', openPanel);
+
+  closeBtn.addEventListener('click', closePanel);
+
+  document.addEventListener('pointerdown', function (event) {
+    if (!isPanelOpen) return;
+    var sectionEl = document.getElementById('ask-nico');
+    if (sectionEl && sectionEl.contains(event.target)) return;
+    closePanel();
+  });
+
+  voiceBtn.addEventListener('click', function () {
+    if (isRecording) {
+      stopRecording();
+      return;
+    }
+
+    startRecording();
+  });
 
   buildSuggestions();
-  addMessage('bot', WELCOME);
-  handleViewportChange();
-  setLoading(false);
+  syncControls();
 })();
