@@ -6,6 +6,9 @@
   publish   = "."
   functions = "netlify/functions"
 
+[functions]
+  node_bundler = "esbuild"
+
 # ── Security headers applied to every response ─────────────────
 [[headers]]
   for = "/*"
