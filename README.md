@@ -8,13 +8,14 @@ Live site: [itsnico.dev](https://itsnico.dev)
 
 ## Architecture Overview
 
-The project is a static website deployed on Netlify. The main portfolio is a single `index.html` file with styles in `styles.css` and interactivity in `script.js`. The blog is a separate subsection (`/blog`) powered by markdown files and a TypeScript-compiled manifest — no database, no CMS, no framework.
+The project is a static website deployed on Netlify. The main portfolio is a single `index.html` file with styles in `styles.css`, core page interactivity in `script.js`, and a dedicated in-page AI chat experience powered by `widget.js`. The blog is a separate subsection (`/blog`) powered by markdown files and a TypeScript-compiled manifest — no database, no CMS, no framework.
 
 ```
 portfolio-webpage/
   index.html              Main single-page layout
   styles.css              All styling, including theme variables and responsive rules
   script.js               Theme toggle, scroll animations, nav behavior, Google Translate
+  widget.js               In-page AI chat UI and client-side chat behavior
   tsconfig.json           TypeScript config (compiles blog/blog.ts → blog/blog.js)
   package.json            Dev dependency: typescript
   /blog
@@ -27,6 +28,10 @@ portfolio-webpage/
       *.md                One markdown file per post 
   /img                    Local assets (profile image)
   /netlify                Netlify serverless functions
+    /functions
+      api.js              General portfolio/API utilities
+      chat.ts             AI chat endpoint
+      site-context.ts     System prompt and portfolio knowledge for the AI agent
 ```
 
 **Rendering approach:** No JavaScript framework. The page renders instantly with no hydration overhead. Scroll-triggered fade animations are handled via `IntersectionObserver`. The hero section uses Three.js for a canvas-based background effect. Blog posts are rendered client-side by fetching a `.md` file and parsing it with `marked` (loaded from CDN).
@@ -37,6 +42,8 @@ portfolio-webpage/
 
 **Internationalization:** Google Translate is integrated via a custom language search widget in the footer, allowing visitors to translate the page without leaving the site.
 
+**AI agent:** The site includes an embedded AI assistant that answers questions about projects, technical skills, and social links using a Netlify serverless function. The UI is rendered directly on the page rather than as a floating chat bubble, with a compact mobile chatbox for smaller screens.
+
 ---
 
 ## Sections
@@ -46,6 +53,7 @@ portfolio-webpage/
 | Home | Hero with animated canvas background, profile image, and call-to-action buttons |
 | About | Four cards covering education, technical expertise, entrepreneurship, and global mobility |
 | Projects | Grid of startup projects and university course work with tech tags and live links |
+| Ask AI | Embedded portfolio assistant for questions about work, stack, and contact links |
 | Blog | Preview of recent posts linking to standalone pages in the `/blog` directory |
 | Travel | Instagram reel embeds (portrait format) with informational cards about travel interests |
 | Skills | Skill cards by category plus an infinite-scroll tech logo marquee |
@@ -60,10 +68,25 @@ portfolio-webpage/
 | Markup | HTML5 |
 | Styling | CSS3, CSS custom properties |
 | Scripting | Vanilla JavaScript + TypeScript (blog manifest) |
+| AI Chat | Netlify Functions, prompt-based site context, OpenAI-backed chat endpoint |
 | 3D / Canvas | Three.js (r128) |
 | Icons | Font Awesome 6.5 |
 | Fonts | Inter, IBM Plex Sans via Google Fonts |
 | Hosting | Netlify (primary), GitHub Pages |
+
+---
+
+## AI Agent
+
+The portfolio includes an on-page AI agent designed to help visitors navigate the site more naturally. It can answer questions about current projects, technical background, education, and the best ways to connect.
+
+The agent is powered by:
+
+- `widget.js` for the client-side chatbox experience
+- `netlify/functions/chat.ts` for the serverless chat endpoint
+- `netlify/functions/site-context.ts` for the prompt and portfolio-specific knowledge base
+
+This agent is meant to evolve over time. The current version is focused on answering portfolio-related questions clearly and safely, but the long-term goal is to keep improving its tone, structure, context awareness, and usefulness as the site grows.
 
 ---
 
