@@ -51,6 +51,7 @@
     href = (href || '').trim();
     if (!href) return '';
     if (/^https?:\/\//i.test(href)) return href;
+    if (/^mailto:[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/i.test(href)) return href;
     if (/^(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:\/[^\s<]*)?$/i.test(href)) {
       return 'https://' + href.replace(/^\/+/, '');
     }
@@ -68,7 +69,7 @@
 
   function appendLinkedText(target, text) {
     var doc = target.ownerDocument;
-    var pattern = /(https?:\/\/[^\s<]+|(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:\/[^\s<]*)?)/ig;
+    var pattern = /(mailto:[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}[^\s<]*|https?:\/\/[^\s<]+|(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:\/[^\s<]*)?)/ig;
     var lastIndex = 0;
     var match;
 
