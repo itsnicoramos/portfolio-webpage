@@ -6,6 +6,14 @@ Live site: [itsnico.dev](https://itsnico.dev)
 
 ---
 
+## Preview
+
+| Dark Mode | Light Mode | Mobile |
+|:---------:|:----------:|:------:|
+| ![Dark Mode](img/darkmode.png) | ![Light Mode](img/lightmode.png) | ![Mobile](img/Mobile%20.png) |
+
+---
+
 ## Architecture Overview
 
 The project is a static website deployed on Netlify. The main portfolio is a single `index.html` file with styles in `styles.css`, core page interactivity in `script.js`, and a dedicated in-page AI chat experience powered by `widget.js`. The blog is a separate subsection (`/blog`) powered by markdown files and a TypeScript-compiled manifest — no database, no CMS, no framework.
