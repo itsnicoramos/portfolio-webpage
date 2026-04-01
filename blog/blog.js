@@ -2,9 +2,6 @@
 const NAMESPACE = 'itsnico-dev';
 // ─── Post manifest ────────────────────────────────────────────────────────────
 // To add a new post:
-//   1. Create  blog/posts/<slug>.md  with your content
-//   2. Add an entry to POSTS below
-//   3. Run:  npx tsc
 // ─────────────────────────────────────────────────────────────────────────────
 const POSTS = [
     {

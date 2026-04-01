@@ -198,7 +198,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-5.4',
+        model: 'gpt-5.4-mini',
         messages,
         max_completion_tokens: 512,
       }),

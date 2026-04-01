@@ -39,7 +39,7 @@ const CONFIG = {
   
   // OpenAI
   MAX_TOKENS: 500,
-  MODEL: 'gpt-4o-mini',
+  MODEL: 'gpt-5.4-mini',
   TEMPERATURE: 0.7,
   API_TIMEOUT_MS: 15000       // 15 second timeout
 };
