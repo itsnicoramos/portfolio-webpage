@@ -7,8 +7,8 @@
 :root {
   --primary: #0f172a;
   --secondary: #334155;
-  --accent: #2563eb;
-  --accent-light: #3b82f6;
+  --accent: #e8573b;
+  --accent-light: #f07057;
   --text: #0f172a;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
@@ -28,8 +28,8 @@
   color-scheme: dark;
   --primary: #e2e8f0;
   --secondary: #cbd5e1;
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
+  --accent: #e8573b;
+  --accent-light: #f07057;
   --text: #e2e8f0;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
@@ -215,52 +215,94 @@ nav a:hover {
 }
 
 .hero-content {
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1100px;
+  width: 100%;
   z-index: 1;
-  max-width: 720px;
   position: relative;
 }
 
-.hero h1 {
-  font-size: clamp(3rem, 8vw, 5.5rem);
+.hero-text {
+  text-align: left;
+}
+
+.hero-hello {
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
   font-weight: 900;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-  background-clip: unset;
   color: var(--text);
-  margin-bottom: 20px;
+  margin-bottom: 4px;
   animation: fadeInUp 0.8s ease;
   letter-spacing: -0.04em;
   line-height: 1.05;
 }
 
-.hero p {
-  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+.hero-dot {
+  color: var(--accent);
+}
+
+.hero-iam {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   color: var(--text-secondary);
-  margin-bottom: 40px;
-  animation: fadeInUp 0.8s ease 0.15s backwards;
-  line-height: 1.6;
+  margin-bottom: 10px;
+  font-weight: 500;
+  animation: fadeInUp 0.8s ease 0.1s backwards;
   letter-spacing: -0.01em;
 }
 
-.hero-image {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  margin: 0 auto 36px;
-  position: relative;
+.hero-role {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   animation: fadeInUp 0.8s ease 0.3s backwards;
 }
 
-.hero-image::before {
+.hero-bracket {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.6;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+  user-select: none;
+}
+
+.hero-img-wrap {
+  position: relative;
+}
+
+.hero-img-wrap::before {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -14px;
   border-radius: 50%;
-  background: var(--border);
-  z-index: -1;
-  animation: none;
+  border: 3px solid var(--accent);
+  opacity: 0.45;
+}
+
+.hero-image {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-image::before {
+  display: none;
 }
 
 .hero-image img {
@@ -268,7 +310,7 @@ nav a:hover {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--bg);
+  border: 4px solid var(--bg);
 }
 
 @keyframes fadeInUp {
@@ -284,18 +326,22 @@ nav a:hover {
 
 .cta-buttons {
   display: flex;
-  gap: 16px;
-  justify-content: center;
+  gap: 14px;
+  justify-content: flex-start;
   flex-wrap: wrap;
   animation: fadeInUp 0.8s ease 0.45s backwards;
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 32px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   font-size: 15px;
+  font-family: inherit;
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
@@ -325,6 +371,75 @@ nav a:hover {
   border-color: var(--text-muted);
   transform: translateY(-2px) scale(1.02);
   box-shadow: var(--shadow-md);
+}
+
+.btn-orange {
+  background: var(--accent);
+  color: #fff;
+  border: 2px solid var(--accent);
+}
+
+.btn-orange:hover {
+  background: #d14b2f;
+  border-color: #d14b2f;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(232, 87, 59, 0.35);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--text);
+}
+
+.btn-outline-dark:hover {
+  background: var(--text);
+  color: var(--bg);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-ai-cta {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-ai-cta:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(232, 87, 59, 0.35);
+}
+
+/* ========== Hero Skills Ticker ========== */
+.hero-skills-ticker {
+  padding: 16px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.hero-skills-track {
+  display: flex;
+  gap: 52px;
+  width: max-content;
+  animation: marqueeScroll 22s linear infinite;
+  align-items: center;
+}
+
+.hero-skills-track span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 /* ========== Section Styling ========== */
@@ -1094,7 +1209,7 @@ section {
 
 .chat-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 3px rgba(232, 87, 59, 0.1);
 }
 
 .chat-voice {
@@ -1225,13 +1340,13 @@ section {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 20px rgba(232, 87, 59, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .chat-toggle:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(37, 99, 235, 0.45);
+  box-shadow: 0 6px 28px rgba(232, 87, 59, 0.45);
 }
 
 .chat-toggle:focus-visible {
@@ -1470,6 +1585,29 @@ body.translated-rtl {
 
   .hero {
     padding: 120px 20px 60px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-text {
+    text-align: center;
+    order: 2;
+  }
+
+  .hero-visual {
+    order: 1;
+  }
+
+  .hero-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .cta-buttons {
+    justify-content: center;
   }
 
   #ask-nico {

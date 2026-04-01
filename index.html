@@ -46,17 +46,35 @@
   <section id="home" class="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
-      <h1>Hi, I'm Nico </h1>
-      <p>BSc Computer Science Student at Vancouver Island University | Student Founder</p>
-      <div class="hero-image">
-        <img src="img/profileNico.jpeg" alt="Nico profile picture " />
+      <div class="hero-text">
+        <h1 class="hero-hello">Hello<span class="hero-dot">.</span></h1>
+        <p class="hero-iam">I'm Nico</p>
+        <h2 class="hero-role">Student founder  &amp; Entrepreneur </h2>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-orange">Got a project?</a>
+          <a href="https://www.linkedin.com/in/nico-ramos28" target="_blank" class="btn btn-outline-dark">My resume</a>
+          <button type="button" class="btn btn-ai-cta" onclick="window.openNicoChat && window.openNicoChat()">Ask Nico's AI</button>
+        </div>
       </div>
-      <div class="cta-buttons">
-        <a href="#projects" class="btn btn-primary">View Projects </a>
-        <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+      <div class="hero-visual">
+        <span class="hero-bracket">&lt;</span>
+        <div class="hero-img-wrap">
+          <div class="hero-image">
+            <img src="img/profileNico.jpeg" alt="Nico profile picture" />
+          </div>
+        </div>
+        <span class="hero-bracket">&gt;</span>
       </div>
     </div>
   </section>
+
+  <!-- Skills Ticker -->
+  <div class="hero-skills-ticker">
+    <div class="hero-skills-track">
+      <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span><span>Node.js</span><span>Python</span><span>Firebase</span><span>Git</span><span>TypeScript</span><span>Next.js</span>
+      <span aria-hidden="true">HTML5</span><span aria-hidden="true">CSS3</span><span aria-hidden="true">JavaScript</span><span aria-hidden="true">React</span><span aria-hidden="true">Node.js</span><span aria-hidden="true">Python</span><span aria-hidden="true">Firebase</span><span aria-hidden="true">Git</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Next.js</span>
+    </div>
+  </div>
 
   <!-- About Section -->
   <section id="about">
@@ -181,6 +199,8 @@
             <span class="tech-tag">CSS3</span>
             <span class="tech-tag">JavaScript</span>
             <span class="tech-tag">Responsive Design & mobile </span>
+            <span class="tech-tag">Three.js </span>
+            <span class="tech-tag">AI Agent </span>
           </div>
           <p style="margin-top: 12px;"><a href="https://itsnico.dev" target="_blank">View Live →</a></p>
         </div>
@@ -306,13 +326,6 @@
           </div>
         </div>
 
-        <div class="short-card">
-          <div class="short-placeholder">
-            <i class="fab fa-instagram"></i>
-            <span>Travel Reel</span>
-            <p>Coming Soon</p>
-          </div>
-        </div>
 
       </div>
 
@@ -491,6 +504,11 @@
             </a>
             <a href="https://github.com/itsnicoramos" target="_blank" class="social-link" title="GitHub">
               <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-link" title="Email"
+               onclick="this.href='mailto:'+atob('bmljY285N3JAZ21haWwuY29t');return false;"
+               aria-label="Send email">
+              <i class="fas fa-envelope"></i>
             </a>
           </div>
         </div>

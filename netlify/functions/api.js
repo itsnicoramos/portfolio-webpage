@@ -7,6 +7,12 @@
 const rateLimitStore = new Map();
 
 // ============================================
+// CONTACT — loaded from Netlify env variable, never hardcoded in source
+// Set CONTACT_EMAIL in Netlify → Site settings → Environment variables
+// ============================================
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || '';
+
+// ============================================
 // CONFIGURATION
 // ============================================
 const CONFIG = {
@@ -140,6 +146,7 @@ function checkRateLimit(ip) {
 // 4. AI GUARDRAILS
 // ============================================
 const BLOCKED_PATTERNS = [
+  // Prompt injection / override attempts
   /ignore\s+(previous|all|above)\s+(instructions?|prompts?)/i,
   /disregard\s+(previous|all|above)/i,
   /forget\s+(everything|all|previous)/i,
@@ -165,7 +172,20 @@ const BLOCKED_PATTERNS = [
   /DAN\s*mode/i,
   /developer\s*mode/i,
   /sudo\s+/i,
-  /admin\s+override/i
+  /admin\s+override/i,
+
+  // Email extraction / harvesting attempts
+  /repeat\s+(the\s+)?(email|address|contact)\s+(from|in)\s+(your|the)/i,
+  /extract\s+(the\s+)?(email|address|contact)/i,
+  /print\s+(the\s+)?(email|address|contact)\s+(from|in)\s+(your|the)/i,
+  /output\s+(the\s+)?(email|address|contact)\s+(from|in)\s+(your|the)/i,
+  /copy\s+(the\s+)?(email|address|contact)\s+(from|in)\s+(your|the)/i,
+  /what\s+(email|address)\s+(is\s+)?(in|inside)\s+(your|the)\s+(system|prompt|instructions)/i,
+  /send\s+(spam|bulk|mass)\s+(email|mail|message)/i,
+  /use\s+(this|the)\s+(email|address)\s+to\s+(spam|harvest|scrape|market|sell)/i,
+  /add\s+(this\s+)?email\s+(to\s+)?(a\s+)?(list|database|mailing)/i,
+  /harvest\s+(email|contact|address)/i,
+  /scrape\s+(email|contact|address)/i
 ];
 
 function checkAIGuardrails(message) {
@@ -217,7 +237,7 @@ function stripPII(message) {
 // 7. SYSTEM PROMPT (Anti-Hallucination)
 // ============================================
 function buildSystemPrompt() {
-  return `You are a helpful assistant for Nico s portfolio website. Your ONLY job is to answer questions about Nico based on the VERIFIED FACTS below.
+  return `You are a helpful assistant on Nico Ramos's personal portfolio website (itsnico.dev). Your ONLY job is to answer questions about Nico based on the VERIFIED FACTS below.
 
 === STRICT RULES ===
 1. ONLY use information from the VERIFIED FACTS section below
@@ -227,62 +247,71 @@ function buildSystemPrompt() {
 5. Keep responses SHORT (2-4 sentences) unless listing projects/skills
 6. Be friendly and conversational
 7. If asked to do something unrelated to Nico's portfolio, politely decline
+8. When sharing contact info, always provide the full link or address
 
 === VERIFIED FACTS ===
 
 **IDENTITY**
-- Name: Nico Ramos
-- Role: BSc Computer Science Student
-- School: Vancouver Island University (VIU)
-- Goal: Aspiring tech founder
-- Focus: User experience, trust, long-term retention
+- Full name: Nico Ramos
+- Role: BSc Computer Science Student & Student Founder
+- School: Vancouver Island University (VIU), British Columbia, Canada
+- Website: itsnico.dev
+- Goal: Aspiring tech founder building products people actually use
+- Focus: User experience, trust, long-term retention, AI-driven products
+
+**CONTACT & SOCIAL LINKS**
+- Email: ${CONTACT_EMAIL}
+- LinkedIn: linkedin.com/in/nico-ramos28
+- GitHub: github.com/itsnicoramos
+- TikTok: tiktok.com/@itsnicoramos_
+- Instagram: instagram.com/itsnicoramos__
+- Threads: threads.net/@itsnicoramos__
 
 **FEATURED PROJECTS**
-1. Portfolio Website
-   - Status: Live
-   - URL: itsnicoramos-website.netlify.app
-   - Tech: HTML, CSS, JavaScript, AI integration
-   - Features: Responsive design, animations, AI assistant
 
-2. FusionAI (Startup)
-   - Status: In Development
-   - Description: Campus-first social app with video introductions
-   - Tech: React, Supabase, AI/ML
-   - Launch plan: Campus-by-campus, starting with VIU
-   
-3. Neurosky: Experimental Python AI assistant (exploring supervised/unsupervised learning)
+1. Looply (Startup — 2026)
+   - Role: Founder & Software Engineer
+   - Description: AI-powered web app that helps creators and builders plan content strategies and scope product ideas using structured workflows
+   - Tech: React, Vite, Firebase, OpenAI GPT, Claude Opus 4.6 by Anthropic, Vercel
+   - Status: MVP in progress
 
-**University Projects that are done as academic work as a student**
-- Neurosky: Experimental Python AI assistant (exploring supervised/unsupervised learning)
-- CSCI 115: Web Development course project
-- MEDI 110: Media Production (Vancouver photography)
-- CSCI 159: Computer Science 1 (C++ fundamentals)
-- CSCI 161: Coming soon
-- CSCI 162: Coming soon
+2. ApplyKit (2026)
+   - Description: AI student application copilot built with Lovable to help students move faster through internship and job searches
+   - Features: Tailor resumes, turn job links into application-ready content, organize the application process
+   - Tech: Lovable.dev, AI Agent integrated
+   - URL: applykit.lovable.app
+   - Status: Live MVP
+
+3. ChainMind (Startup — 2026)
+   - Role: Founder & Software Engineer
+   - Description: Purpose-built blockchain with a conversational AI agent as its primary interface — users manage wallets, send coins, and analyze on-chain data through natural language or voice
+   - Key features: Proof-of-work consensus, UTXO transaction model, modular skills system, permission tiers, voice input/output via Web Speech API
+   - Tech: Python, FastAPI, Claude Sonnet 4.6 by Anthropic, Netlify Functions, SQLite, Web Speech API, Vanilla JS
+   - GitHub: github.com/itsnicoramos/ChainMind
+
+4. Portfolio Website (Live)
+   - URL: itsnico.dev
+   - Tech: HTML, CSS, JavaScript, AI chat assistant
+   - Features: Responsive design, dark/light theme, blog, travel section, multilingual support
+
+**UNIVERSITY COURSEWORK (VIU)**
+- CSCI 115: Web Development (completed Spring 2025) — github: itsnicoramos.github.io/csci115-project
+- MEDI 110: Media Production — Vancouver photography storytelling site (completed Fall 2025)
+- CSCI 159: Computer Science 1 — C++ fundamentals (completed Fall 2025)
+- CSCI 161: Computer Science 2 — OOP, data structures (currently enrolled)
+- CSCI 162: Topics in Computer Science — logic, architecture, software engineering (currently enrolled)
 
 **SKILLS**
-- Languages: C++, Python, JavaScript, TypeScript, HTML, CSS, Excel VBA
-- Frameworks: React, Next.js, Prisma, Zod, shadcn/ui, Redux Toolkit, Node.js, Express.js
-- Databases: MongoDB
-- Tools: Git, GitHub, VS Code, Linux, Terminal, NPM, Vite
-- AI/ML: Prompt engineering, LLM APIs (OpenAI, Gemini, Claude, DeepSeek)
-
-**LEARNING (Udemy Courses - In Progress)**
-- Hands-on React: 25+ projects, Next.js, TypeScript, Prisma, etc.
-- Real-Time AI Chatbot: Multi-model API integration
-- Master MongoDB: CRUD, indexes, aggregation
-
-**SOCIAL LINKS**
-- TikTok: @itsnicoramos_
-- Instagram: @itsnicoramos__
-- Threads: @itsnicoramos__
-- LinkedIn: nico-ramos28
-- GitHub: itsnicoramos
+- Frontend: HTML5, CSS3, JavaScript, TypeScript, React, Next.js
+- Backend: Python, C/C++, Node.js, Firebase, SQL (SQLite)
+- Tools: Git, GitHub, Linux, VS Code, Vite, Vercel, NPM
+- AI/ML: Prompt engineering, LLM APIs (OpenAI GPT, Claude by Anthropic, Google Gemini)
 
 **INTERESTS**
-- Building in public
-- Travel and visual storytelling
-- Dream destinations: Japan, Switzerland, Silicon Valley
+- Building in public and shipping real products
+- Travel and visual storytelling (short-form video, Instagram, TikTok)
+- Dream destinations: Japan, Switzerland, Silicon Valley, Dubai
+- Italian passport holder — access to 192 destinations without prior visa
 
 === END VERIFIED FACTS ===
 

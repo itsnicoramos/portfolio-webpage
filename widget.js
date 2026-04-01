@@ -500,6 +500,8 @@
     isPanelOpen = true;
     panelEl.style.display = 'flex';
     toggleBtn.setAttribute('aria-expanded', 'true');
+    toggleBtn.setAttribute('aria-label', 'Close chat');
+    toggleBtn.innerHTML = '&#x2715;';
     window.setTimeout(function () { inputEl.focus(); }, 0);
   }
 
@@ -507,9 +509,17 @@
     isPanelOpen = false;
     panelEl.style.display = 'none';
     toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.setAttribute('aria-label', 'Open chat');
+    toggleBtn.innerHTML = '?';
   }
 
-  toggleBtn.addEventListener('click', openPanel);
+  toggleBtn.addEventListener('click', function () {
+    if (isPanelOpen) {
+      closePanel();
+    } else {
+      openPanel();
+    }
+  });
 
   closeBtn.addEventListener('click', closePanel);
 
@@ -531,4 +541,6 @@
 
   buildSuggestions();
   syncControls();
+
+  window.openNicoChat = openPanel;
 })();
