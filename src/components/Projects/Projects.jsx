@@ -36,11 +36,11 @@ const PROJECTS = [
     badge: 'STARTUP',
     role: 'Founder & Software Engineer',
     date: '2026 · Remote',
-    desc: 'A purpose-built blockchain with a conversational AI agent as its primary interface — users manage wallets, send coins, and analyze on-chain data through natural language or voice.',
+    desc: 'A purpose-built blockchain with a conversational AI agent as its primary interface. Users manage wallets, send coins, and analyze on-chain data through natural language or voice.',
     bullets: [
       'Architected across three layers: static frontend on Netlify CDN, serverless AI functions, and a Python/FastAPI blockchain backend',
       'Implemented proof-of-work consensus, UTXO transaction model, and automatic peer-to-peer chain sync',
-      'Built a modular skills system — new agent capabilities added by dropping a folder',
+      'Built a modular skills system. New agent capabilities are added by dropping a folder.',
       'Integrated voice input and output via the Web Speech API with zero external dependencies',
     ],
     tech: ['Python', 'FastAPI', 'Claude Sonnet 4.6', 'Netlify Functions', 'SQLite', 'Vanilla JS'],
@@ -58,7 +58,7 @@ const PROJECTS = [
     status: 'Live',
   },
   {
-    title: 'CSCI 115 — Web Development',
+    title: 'CSCI 115: Web Development',
     badge: 'COURSE',
     role: 'Student',
     date: 'Spring 2025 · VIU',
@@ -69,7 +69,7 @@ const PROJECTS = [
     status: 'Completed',
   },
   {
-    title: 'MEDI 110 — Media Production',
+    title: 'MEDI 110: Media Production',
     badge: 'COURSE',
     role: 'Student',
     date: 'Fall 2025 · VIU',
@@ -80,7 +80,7 @@ const PROJECTS = [
     status: 'Completed',
   },
   {
-    title: 'CSCI 159 — Computer Science 1',
+    title: 'CSCI 159: Computer Science 1',
     badge: 'COURSE',
     role: 'Student',
     date: 'Fall 2025 · VIU',
@@ -91,7 +91,7 @@ const PROJECTS = [
     status: 'Completed',
   },
   {
-    title: 'CSCI 161 — Computer Science 2',
+    title: 'CSCI 161: Computer Science 2',
     badge: 'COURSE',
     role: 'Student',
     date: 'In Progress · VIU',
@@ -102,7 +102,7 @@ const PROJECTS = [
     status: 'In Progress',
   },
   {
-    title: 'CSCI 162 — Topics in Computer Science',
+    title: 'CSCI 162: Topics in Computer Science',
     badge: 'COURSE',
     role: 'Student',
     date: 'In Progress · VIU',

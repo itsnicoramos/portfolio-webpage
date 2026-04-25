@@ -133,7 +133,7 @@ export default function Hero() {
     }
     document.addEventListener('visibilitychange', onVisibilityChange)
 
-    // Theme observer — watch data-theme attribute changes
+    // Theme observer: watch data-theme attribute changes
     const themeObserver = new MutationObserver(() => {
       themeColor = getThemeColor()
       particleMaterial.color.copy(themeColor)

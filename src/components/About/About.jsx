@@ -10,7 +10,7 @@ const CARDS = [
   {
     icon: '💻',
     title: 'Expertise',
-    text: 'Full-stack web development with React, Next.js, and Firebase, with a focus on integrating AI models like OpenAI GPT and Claude into real products. Comfortable working across the entire stack — from designing responsive frontends to building serverless backends, managing databases, and deploying to production.',
+    text: 'Full-stack web development with React, Next.js, and Firebase, with a focus on integrating AI models like OpenAI GPT and Claude into real products. Comfortable working across the entire stack, from designing responsive frontends to building serverless backends, managing databases, and deploying to production.',
     delay: 'scroll-fade-delay-1',
   },
   {
@@ -22,7 +22,7 @@ const CARDS = [
   {
     icon: '🌍',
     title: 'Global Access',
-    text: "I'm building a life around tech, travel, and international opportunity. As an Italian passport holder still studying in North America, I have access to 192 destinations without a prior visa, and I see mobility as more than movement — it's access to new markets, cultures, and ideas.",
+    text: "I'm building a life around tech, travel, and international opportunity. As an Italian passport holder still studying in North America, I have access to 192 destinations without a prior visa, and I see mobility as more than movement. It's access to new markets, cultures, and ideas.",
     delay: 'scroll-fade-delay-3',
   },
 ]
