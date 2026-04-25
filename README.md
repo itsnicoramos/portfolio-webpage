@@ -6,14 +6,6 @@ Live site: [itsnico.dev](https://itsnico.dev)
 
 ---
 
-## Preview
-
-| Dark Mode | Light Mode | Mobile |
-|:---------:|:----------:|:------:|
-| ![Dark Mode](img/darkmode.png) | ![Light Mode](img/lightmode.png) | ![Mobile](img/Mobile%20.png) |
-
----
-
 ## Stack
 
 | Layer | Tool |
