@@ -1,4 +1,4 @@
-# Nico Ramos — Portfolio
+# Nico Ramos - Portfolio
 
 Personal portfolio site for [itsnico.dev](https://itsnico.dev), built with **React + Vite** and plain CSS. No framework UI libraries, no Tailwind.
 
@@ -39,7 +39,7 @@ portfolio-webpage/
 │   ├── hooks/
 │   │   ├── useTheme.js       # Light/dark toggle with localStorage persistence
 │   │   └── useScrollFade.js  # IntersectionObserver scroll-reveal animations
-│   ├── App.jsx               # Root component — composes all sections
+│   ├── App.jsx               # Root component, composes all sections
 │   ├── App.css
 │   ├── main.jsx              # React DOM entry point
 │   └── index.css             # Global styles and CSS custom properties
@@ -48,10 +48,10 @@ portfolio-webpage/
 ├── index.html                # Vite HTML entry
 ├── vite.config.js
 ├── package.json
-└── netlify.toml              # Build: npm run build → dist/
+└── netlify.toml              # Build: npm run build to dist/
 ```
 
-Each component owns its styles — one `.jsx` and one `.css` per folder, no shared stylesheet between components.
+Each component owns its styles. One `.jsx` and one `.css` per folder, no shared stylesheet between components.
 
 ---
 
@@ -67,7 +67,7 @@ npm run dev
 # Same as dev
 npm start
 
-# Production build → dist/
+# Production build to dist/
 npm run build
 
 # Preview production build locally
@@ -100,7 +100,7 @@ Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `da
 
 ## Blog
 
-The `blog/` directory is a separate static site (plain HTML + Markdown). It is **not** part of the React build — it is deployed as-is alongside the built SPA.
+The `blog/` directory is a separate static site (plain HTML + Markdown). It is **not** part of the React build and is deployed as-is alongside the built SPA.
 
 **To add a new post:**
 
