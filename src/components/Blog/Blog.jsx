@@ -12,7 +12,7 @@ export default function Blog() {
 
         <div className="blog-featured scroll-fade">
           <a
-            href="blog/post.html?slug=claude-opus-46-frontend"
+            href="/blog/post.html?slug=claude-opus-46-frontend"
             className="blog-card"
           >
             <div className="blog-card-meta">
@@ -28,7 +28,7 @@ export default function Blog() {
           </a>
 
           <div className="blog-cta">
-            <a href="blog/" className="btn btn-primary">Visit Blog</a>
+            <a href="/blog/" className="btn btn-primary">Visit Blog</a>
           </div>
         </div>
       </div>
