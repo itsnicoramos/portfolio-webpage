@@ -1,15 +1,20 @@
 {
   "name": "portfolio-webpage",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.54.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.170.0"
   },
   "devDependencies": {
-    "@netlify/functions": "^2.8.1",
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.5"
   }
 }
