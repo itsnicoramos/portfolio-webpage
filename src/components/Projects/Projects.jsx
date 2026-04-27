@@ -49,8 +49,8 @@ const PROJECTS = [
   {
     title: 'CyberBank',
     badge: 'FEATURED',
-    role: 'Solo Developer',
-    date: '2026 · Remote',
+    role: 'Solo Project',
+    date: '2026 ',
     desc: 'A solo-built C++ banking simulator designed to demonstrate object-oriented architecture, secure account authentication, transaction management, and persistent storage.',
     bullets: [
       'Account creation and PIN-based login with salted hashing',

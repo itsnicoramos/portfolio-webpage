@@ -53,26 +53,7 @@ portfolio-webpage/
 
 Each component owns its styles. One `.jsx` and one `.css` per folder, no shared stylesheet between components.
 
----
 
-## Getting started
-
-```bash
-# Install dependencies
-npm install
-
-# Start local dev server at http://localhost:5173
-npm run dev
-
-# Same as dev
-npm start
-
-# Production build to dist/
-npm run build
-
-# Preview production build locally
-npm run preview
-```
 
 ---
 
