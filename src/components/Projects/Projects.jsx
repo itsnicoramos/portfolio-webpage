@@ -47,6 +47,22 @@ const PROJECTS = [
     links: { github: 'https://github.com/itsnicoramos/ChainMind' },
   },
   {
+    title: 'CyberBank',
+    badge: 'FEATURED',
+    role: 'Solo Developer',
+    date: '2026 · Remote',
+    desc: 'A solo-built C++ banking simulator designed to demonstrate object-oriented architecture, secure account authentication, transaction management, and persistent storage.',
+    bullets: [
+      'Account creation and PIN-based login with salted hashing',
+      'Deposits, withdrawals, transfers, payee management, and interest accrual',
+      'Transaction history and CSV export',
+      'Configurable storage through a file-based backend with optional SQLite support',
+      'Lightweight web demo extending the core banking logic beyond the CLI',
+    ],
+    tech: ['C++', 'OOP', 'SQLite', 'Node.js', 'JavaScript', 'HTML', 'CSS', 'GNU Make', 'SHA-256', 'HMAC'],
+    links: { github: 'https://github.com/itsnicoramos/CyberBank' },
+  },
+  {
     title: 'Portfolio Website',
     badge: 'FEATURED',
     role: 'Designer & Developer',
