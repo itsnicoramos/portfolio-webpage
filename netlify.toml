@@ -35,12 +35,10 @@
 
     # Content-Security-Policy
     # Allows only the CDNs actually used by the site:
-    #   • cdnjs.cloudflare.com  → Font Awesome, Three.js
+    #   • cdnjs.cloudflare.com  → Font Awesome
     #   • fonts.googleapis.com  → Google Fonts CSS
     #   • fonts.gstatic.com     → Google Fonts files
-    #   • cdn.jsdelivr.net      → devicons / simple-icons
-    #   • cdn.jsdelivr.net/npm  → OpenAI / Anthropic SVG icons
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://translate.google.com https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://translate.googleapis.com https://translate.google.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' https://cdn.jsdelivr.net https://cdn.jsdelivr.net/npm/ https://www.gstatic.com data:; connect-src 'self' https://translate.googleapis.com https://api.counterapi.dev; frame-src https://translate.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 
     # Remove server fingerprinting headers
     X-Powered-By  = ""

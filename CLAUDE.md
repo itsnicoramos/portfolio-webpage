@@ -2,89 +2,91 @@
 
 ## Project overview
 
-Static personal portfolio site for Nico Ramos, deployed on Netlify at [itsnico.dev](https://itsnico.dev). No framework, no SSR, no database. The main portfolio is plain HTML/CSS/JS. The blog uses markdown files managed by a TypeScript manifest compiled to a browser script.
+Personal portfolio site for Nico Ramos, deployed on Netlify at [itsnico.dev](https://itsnico.dev). Single-page React + Vite app. No backend, no database, no UI framework. Plain CSS with custom properties; one `.jsx` + one `.css` per component folder.
 
+---
 
+## Stack
+
+- React 18 + Vite 6
+- Plain CSS (custom properties drive light/dark themes)
+- Three.js for the hero particle canvas
+- Google Fonts and Font Awesome via CDN (declared in `index.html`)
+- Netlify hosting (auto-deploy from `main`, build to `dist/`)
 
 ---
 
 ## File structure
 
 ```
-index.html          Single-page portfolio layout
-styles.css          All styles (CSS custom properties, responsive, themes)
-script.js           Theme toggle, scroll animations, Google Translate, nav
-tsconfig.json       Compiles blog/blog.ts → blog/blog.js (module: None, target: ES2017)
-package.json        devDependencies: typescript
+index.html             Vite HTML entry — loads /src/main.jsx
+vite.config.js         Vite config
+package.json
+netlify.toml           Build, headers, CSP, redirects
+netlify/functions/     Serverless functions (orphaned; not wired into the React app)
+public/img/            Static assets served at /img/
 
-blog/
-  blog.ts           SOURCE — post manifest (POSTS[]) + renderPostList() + renderPost()
-  blog.js           COMPILED — committed, loaded by blog HTML pages; regenerate with npx tsc
-  blog.css          Blog-specific styles (shared by index + post pages)
-  index.html        Blog listing — calls renderPostList('posts-list') from blog.js
-  post.html         Post template — calls renderPost() from blog.js; fetches posts/<slug>.md
-  posts/
-    *.md            One file per post — pure markdown, no frontmatter needed
-
-netlify/            Netlify serverless functions
-netlify.toml        Netlify config: headers, CSP, redirects
-img/                Local image assets
+src/
+  main.jsx             React entry
+  App.jsx              Composes all sections
+  App.css              Cursor glow, scroll-progress bar, card spotlight, magnetic button + animated underline styles
+  index.css            Global tokens (CSS custom properties), base typography, scroll-fade keyframes
+  hooks/
+    useTheme.js        Light/dark toggle, persisted to localStorage
+    useScrollFade.js   IntersectionObserver-based reveal for `.scroll-fade`
+    useInteractive.js  Cursor glow, scroll progress, hero parallax, project-card tilt + spotlight, magnetic buttons
+  components/
+    Navbar/            Fixed nav, theme toggle, hamburger
+    Hero/              Three.js particle canvas + intro
+    About/             4-card grid
+    Projects/          Project cards (data array in component)
+    Skills/            Skill category cards
+    Travel/            Travel cards
+    Contact/           Social links
+    Footer/            Dynamic copyright year
 ```
-
----
-
-## Blog system
-
-### How it works
-
-- `blog/blog.ts` is the single source of truth for post metadata (title, date, tag, excerpt, read time, view counter key).
-- `blog/index.html` renders the post list dynamically by calling `renderPostList('posts-list')`.
-- `blog/post.html` renders a post by reading `?slug=` from the URL, fetching `posts/<slug>.md`, and parsing it with `marked` (loaded from `cdn.jsdelivr.net`).
-- View counts use [counterapi.dev](https://api.counterapi.dev) — namespace `itsnico-dev`.
-
-### Adding a new post
-
-1. Create `blog/posts/<slug>.md` — write the post in markdown
-2. Add an entry to `POSTS` in `blog/blog.ts`:
-   ```ts
-   {
-     slug: 'my-post',
-     title: 'Post Title',
-     date: '2026-03-23',
-     dateLabel: 'Mar 23, 2026',
-     tag: 'Tag',
-     excerpt: 'One sentence shown in the card.',
-     readTime: '3 min read',
-     counterKey: 'blog-my-post',
-   }
-   ```
-3. Run `npx tsc`
-4. Commit `blog/blog.ts`, `blog/blog.js`, and `blog/posts/<slug>.md`
-
-### Updating the homepage blog preview
-
-The `index.html` blog section has a hardcoded card for the featured post. When a new featured post is promoted, update that card manually (link, title, excerpt, date) — it is not driven by `blog.ts`.
 
 ---
 
 ## Theming
 
-Light/dark mode uses CSS custom properties on `data-theme` attribute (`light` | `dark`) set on `<html>`. Theme is persisted in `localStorage` and applied before first paint (inline `<script>` in `<head>`) to prevent flash.
+`data-theme="light" | "dark"` on `<html>` switches CSS custom properties defined in `src/index.css`. Theme is read from `localStorage` and applied by an inline script in `index.html` before first paint to avoid FOUC.
+
+---
+
+## Interactivity
+
+`useInteractive` (called from `App.jsx`) wires up everything in one rAF loop and one set of listeners:
+
+- Cursor glow — fixed `.cursor-glow` element follows the pointer (mix-blend-mode: lighten)
+- Scroll progress bar — top-fixed `.scroll-progress` width tracks scroll percentage
+- Hero parallax — translates `.hero-content` slightly with scroll
+- Project card tilt — `mousemove`-driven rotateX/rotateY plus a CSS spotlight via `--mx` / `--my`
+- Magnetic buttons — `.btn` translates toward the cursor on hover
+
+All effects are skipped when `prefers-reduced-motion: reduce` or `(hover: none)` (touch).
 
 ---
 
 ## Content Security Policy
 
-The CSP is defined in `netlify.toml`. Allowed external origins include:
-- `cdnjs.cloudflare.com` — Font Awesome, Three.js
-- `cdn.jsdelivr.net` — `marked` (markdown parser for blog posts)
-- `fonts.googleapis.com` / `fonts.gstatic.com` — Google Fonts
-- `api.counterapi.dev` — blog view counters (`connect-src`)
+Defined in `netlify.toml`. Allowed external origins:
 
-If adding a new external dependency, add it to the CSP in `netlify.toml` before deploying.
+- `cdnjs.cloudflare.com` — Font Awesome
+- `fonts.googleapis.com` / `fonts.gstatic.com` — Google Fonts
+
+If you add a new external dependency, update the CSP before deploying.
 
 ---
 
 ## Deployment
 
-Netlify auto-deploys from the `main` branch. Publish directory is `.` (repo root). No build command is needed on Netlify — `blog/blog.js` is committed and served directly.
+Netlify auto-deploys from `main`.
+
+| Setting | Value |
+|---|---|
+| Build command | `npm run build` |
+| Publish directory | `dist` |
+| Functions directory | `netlify/functions` |
+
+Local: `npm run dev` for the dev server, `npm run build` to produce `dist/`, `npm run preview` to serve the build.

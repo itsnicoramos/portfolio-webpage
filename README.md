@@ -32,18 +32,17 @@ portfolio-webpage/
 │   │   ├── About/            # About.jsx + About.css
 │   │   ├── Projects/         # Projects.jsx + Projects.css
 │   │   ├── Skills/           # Skills.jsx + Skills.css
-│   │   ├── Blog/             # Blog.jsx + Blog.css
 │   │   ├── Travel/           # Travel.jsx + Travel.css
 │   │   ├── Contact/          # Contact.jsx + Contact.css
 │   │   └── Footer/           # Footer.jsx + Footer.css
 │   ├── hooks/
-│   │   ├── useTheme.js       # Light/dark toggle with localStorage persistence
-│   │   └── useScrollFade.js  # IntersectionObserver scroll-reveal animations
+│   │   ├── useTheme.js        # Light/dark toggle with localStorage persistence
+│   │   ├── useScrollFade.js   # IntersectionObserver scroll-reveal animations
+│   │   └── useInteractive.js  # Cursor glow, scroll progress, hero parallax, card tilt, magnetic buttons
 │   ├── App.jsx               # Root component, composes all sections
-│   ├── App.css
+│   ├── App.css               # Interactivity layer styles
 │   ├── main.jsx              # React DOM entry point
 │   └── index.css             # Global styles and CSS custom properties
-├── blog/                     # Static markdown blog (separate from the React build)
 ├── netlify/                  # Netlify serverless functions
 ├── index.html                # Vite HTML entry
 ├── vite.config.js
@@ -53,13 +52,37 @@ portfolio-webpage/
 
 Each component owns its styles. One `.jsx` and one `.css` per folder, no shared stylesheet between components.
 
+---
 
+## Development
+
+```bash
+npm install
+npm run dev     
+npm run build   
+npm run preview  
+```
 
 ---
 
 ## Theming
 
 Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `dark`). CSS custom properties defined in `src/index.css` switch values between themes. The active theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent any flash.
+
+---
+
+## Interactivity
+
+The `useInteractive` hook (called once from `App.jsx`) layers in subtle motion that respects the existing color and font system:
+
+- Accent-tinted **cursor glow** that follows the pointer
+- Top **scroll-progress bar**
+- Mild **parallax** on the hero content
+- **Tilt + cursor-tracked spotlight** on project cards
+- **Magnetic** primary buttons
+- Animated **underlines** on nav and content links
+
+Everything is automatically disabled on touch devices or when `prefers-reduced-motion: reduce` is set.
 
 ---
 
@@ -72,35 +95,9 @@ Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `da
 | About | `About` | 4-card grid covering education, expertise, entrepreneurship, and global mobility |
 | Projects | `Projects` | Card grid of startup and course projects with badges and tech tags |
 | Skills | `Skills` | Skill category cards (Frontend, Backend, Tools, Learning) |
-| Blog | `Blog` | Featured post preview linking to the static `/blog` directory |
 | Travel | `Travel` | Travel interest cards with Instagram link |
 | Contact | `Contact` | Social links grouped by Work/Build and Follow |
 | Footer | `Footer` | Dynamic copyright year |
-
----
-
-## Blog
-
-The `blog/` directory is a separate static site (plain HTML + Markdown). It is **not** part of the React build and is deployed as-is alongside the built SPA.
-
-**To add a new post:**
-
-1. Create `blog/posts/<slug>.md` with your content in Markdown
-2. Add an entry to `POSTS` in `blog/blog.ts`:
-   ```ts
-   {
-     slug: 'my-post',
-     title: 'Post Title',
-     date: '2026-04-25',
-     dateLabel: 'Apr 25, 2026',
-     tag: 'Tag',
-     excerpt: 'One sentence shown in the card.',
-     readTime: '3 min read',
-     counterKey: 'blog-my-post',
-   }
-   ```
-3. Run `npx tsc` to regenerate `blog/blog.js`
-4. Commit `blog/blog.ts`, `blog/blog.js`, and `blog/posts/<slug>.md`
 
 ---
 
