@@ -14,6 +14,18 @@ const CERTIFICATIONS = [
       'AI Applications',
     ],
   },
+  {
+    title: 'Master Prompt Engineering: This Course Will Transform You Into a Skilled Prompt Architect',
+    issuer: 'Online Course',
+    date: '2026',
+    desc: 'Comprehensive training in prompt engineering: designing, structuring, and optimizing prompts to get reliable, high-quality output from large language models.',
+    skills: [
+      'Prompt Engineering',
+      'LLMs',
+      'Prompt Design',
+      'AI Workflows',
+    ],
+  },
 ]
 
 export default function Certifications() {
