@@ -22,6 +22,7 @@ export default function Navbar({ theme, toggle }) {
         <li><a href="#about" onClick={closeMenu}>About</a></li>
         <li><a href="#projects" onClick={closeMenu}>Projects</a></li>
         <li><a href="#skills" onClick={closeMenu}>Skills</a></li>
+        <li><a href="#certifications" onClick={closeMenu}>Certifications</a></li>
         <li><a href="#travel" onClick={closeMenu}>Travel</a></li>
         <li><a href="#contact" onClick={closeMenu}>Connect</a></li>
       </ul>

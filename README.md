@@ -32,6 +32,7 @@ portfolio-webpage/
 │   │   ├── About/            # About.jsx + About.css
 │   │   ├── Projects/         # Projects.jsx + Projects.css
 │   │   ├── Skills/           # Skills.jsx + Skills.css
+│   │   ├── Certifications/   # Certifications.jsx + Certifications.css
 │   │   ├── Travel/           # Travel.jsx + Travel.css
 │   │   ├── Contact/          # Contact.jsx + Contact.css
 │   │   └── Footer/           # Footer.jsx + Footer.css
@@ -95,6 +96,7 @@ Everything is automatically disabled on touch devices or when `prefers-reduced-m
 | About | `About` | 4-card grid covering education, expertise, entrepreneurship, and global mobility |
 | Projects | `Projects` | Card grid of startup and course projects with badges and tech tags |
 | Skills | `Skills` | Skill category cards (Frontend, Backend, Tools, Learning) |
+| Certifications | `Certifications` | Card grid of credentials and continued learning |
 | Travel | `Travel` | Travel interest cards with Instagram link |
 | Contact | `Contact` | Social links grouped by Work/Build and Follow |
 | Footer | `Footer` | Dynamic copyright year |
