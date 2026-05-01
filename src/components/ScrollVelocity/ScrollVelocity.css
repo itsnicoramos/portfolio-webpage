@@ -1,0 +1,45 @@
+.sv-wrapper {
+  overflow: hidden;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sv-row {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+}
+
+.sv-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.sv-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 36px;
+  white-space: nowrap;
+  gap: 36px;
+}
+
+.sv-item::after {
+  content: '·';
+  margin-left: 36px;
+  color: var(--accent);
+  opacity: 0.5;
+}

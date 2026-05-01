@@ -1,6 +1,6 @@
-# Nico Ramos - Portfolio
+# Nico Ramos — Portfolio
 
-Personal portfolio site for [itsnico.dev](https://itsnico.dev), built with **React + Vite** and plain CSS. No framework UI libraries, no Tailwind.
+Personal portfolio site for [itsnico.dev](https://itsnico.dev), built with **React + Vite**, **Tailwind CSS**, and modern animation libraries. Inspired by [MAHESHPPAI/Portfolio-website](https://github.com/MAHESHPPAI/Portfolio-website).
 
 Live site: [itsnico.dev](https://itsnico.dev)
 
@@ -12,8 +12,10 @@ Live site: [itsnico.dev](https://itsnico.dev)
 |---|---|
 | UI | React 18 |
 | Build | Vite 6 |
-| Styling | Plain CSS (CSS custom properties, no framework) |
-| 3D / Canvas | Three.js (hero particle animation) |
+| Styling | Tailwind CSS v3 + CSS custom properties |
+| Animations | Framer Motion · CSS keyframes |
+| Smooth Scroll | Lenis |
+| 3D / Canvas | Three.js (hero particle system) |
 | Fonts / Icons | Google Fonts · Font Awesome CDN |
 | Hosting | Netlify (auto-deploy from `main`) |
 
@@ -24,34 +26,65 @@ Live site: [itsnico.dev](https://itsnico.dev)
 ```
 portfolio-webpage/
 ├── public/
-│   └── img/                  # Static assets served at /img/
+│   └── img/                     # Static assets served at /img/
 ├── src/
 │   ├── components/
-│   │   ├── Navbar/           # Navbar.jsx + Navbar.css
-│   │   ├── Hero/             # Hero.jsx + Hero.css
-│   │   ├── About/            # About.jsx + About.css
-│   │   ├── Projects/         # Projects.jsx + Projects.css
-│   │   ├── Skills/           # Skills.jsx + Skills.css
-│   │   ├── Certifications/   # Certifications.jsx + Certifications.css
-│   │   ├── Travel/           # Travel.jsx + Travel.css
-│   │   ├── Contact/          # Contact.jsx + Contact.css
-│   │   └── Footer/           # Footer.jsx + Footer.css
+│   │   ├── Navbar/              # Navbar.jsx + Navbar.css
+│   │   ├── Hero/                # Hero.jsx + Hero.css
+│   │   ├── About/               # About.jsx + About.css
+│   │   ├── Projects/            # Projects.jsx + Projects.css
+│   │   ├── Skills/              # Skills.jsx + Skills.css
+│   │   ├── Certifications/      # Certifications.jsx + Certifications.css
+│   │   ├── Travel/              # Travel.jsx + Travel.css
+│   │   ├── Contact/             # Contact.jsx + Contact.css
+│   │   ├── Footer/              # Footer.jsx + Footer.css
+│   │   ├── ScrollVelocity/      # Framer Motion velocity-based parallax marquee
+│   │   └── StarBorder/          # CSS conic-gradient animated border for buttons
 │   ├── hooks/
-│   │   ├── useTheme.js        # Light/dark toggle with localStorage persistence
-│   │   ├── useScrollFade.js   # IntersectionObserver scroll-reveal animations
-│   │   └── useInteractive.js  # Cursor glow, scroll progress, hero parallax, card tilt, magnetic buttons
-│   ├── App.jsx               # Root component, composes all sections
-│   ├── App.css               # Interactivity layer styles
-│   ├── main.jsx              # React DOM entry point
-│   └── index.css             # Global styles and CSS custom properties
-├── netlify/                  # Netlify serverless functions
-├── index.html                # Vite HTML entry
+│   │   ├── useTheme.js          # Light/dark toggle with localStorage persistence
+│   │   ├── useScrollFade.js     # IntersectionObserver scroll-reveal animations
+│   │   └── useInteractive.js    # Cursor glow, scroll progress, hero parallax, card tilt, magnetic buttons
+│   ├── App.jsx                  # Root component — mounts Lenis, composes all sections
+│   ├── App.css                  # Interactivity layer styles
+│   ├── main.jsx                 # React DOM entry point
+│   └── index.css                # Tailwind directives + global CSS custom properties
+├── netlify/                     # Netlify serverless functions
+├── index.html                   # Vite HTML entry
 ├── vite.config.js
+├── tailwind.config.js           # Tailwind — preflight disabled, scans src/**
+├── postcss.config.js
 ├── package.json
-└── netlify.toml              # Build: npm run build to dist/
+└── netlify.toml                 # Build: npm run build to dist/
 ```
 
-Each component owns its styles. One `.jsx` and one `.css` per folder, no shared stylesheet between components.
+Each component owns its styles. One `.jsx` and one `.css` per folder.
+
+---
+
+## Animations
+
+### ScrollVelocity
+Parallax marquee strip between the hero and About sections. Built with Framer Motion's `useScroll`, `useVelocity`, `useSpring`, and `useAnimationFrame` — the text speed responds to how fast you scroll. Two rows run in opposite directions.
+
+### StarBorder
+CTA buttons on the hero use a rotating conic-gradient border (CSS `@keyframes` + `conic-gradient`). The border spins continuously and accelerates on hover.
+
+### Lenis Smooth Scroll
+The whole page uses Lenis for physics-based smooth scrolling (1.2s duration, ease `1.001 - 2^(-10t)`). Disabled automatically when `prefers-reduced-motion` is set.
+
+### Framer Motion Entrance Animations
+About, Projects, and Skills sections use `motion.div` with `whileInView` and `staggerChildren` — cards cascade in from below with a custom ease (`[0.22, 1, 0.36, 1]`) as they enter the viewport. All animations trigger once and respect the viewport margin.
+
+### Existing Interactivity (unchanged)
+The `useInteractive` hook runs in a single `requestAnimationFrame` loop:
+- Accent-tinted **cursor glow** that follows the pointer
+- Top **scroll-progress bar**
+- Mild **parallax** on the hero content
+- **Tilt + cursor-tracked spotlight** on project cards
+- **Magnetic** primary buttons
+- Animated **underlines** on nav and content links
+
+All effects are disabled on touch devices or when `prefers-reduced-motion: reduce` is set.
 
 ---
 
@@ -59,9 +92,9 @@ Each component owns its styles. One `.jsx` and one `.css` per folder, no shared 
 
 ```bash
 npm install
-npm run dev     
-npm run build   
-npm run preview  
+npm run dev      # Start dev server
+npm run build    # Build to dist/
+npm run preview  # Preview production build
 ```
 
 ---
@@ -70,20 +103,7 @@ npm run preview
 
 Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `dark`). CSS custom properties defined in `src/index.css` switch values between themes. The active theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent any flash.
 
----
-
-## Interactivity
-
-The `useInteractive` hook (called once from `App.jsx`) layers in subtle motion that respects the existing color and font system:
-
-- Accent-tinted **cursor glow** that follows the pointer
-- Top **scroll-progress bar**
-- Mild **parallax** on the hero content
-- **Tilt + cursor-tracked spotlight** on project cards
-- **Magnetic** primary buttons
-- Animated **underlines** on nav and content links
-
-Everything is automatically disabled on touch devices or when `prefers-reduced-motion: reduce` is set.
+Tailwind dark mode uses the same attribute selector: `darkMode: ['attribute', '[data-theme="dark"]']`.
 
 ---
 
@@ -92,10 +112,10 @@ Everything is automatically disabled on touch devices or when `prefers-reduced-m
 | Section | Component | Description |
 |---|---|---|
 | Nav | `Navbar` | Fixed glassmorphism nav, smooth scroll links, theme toggle, hamburger menu |
-| Home | `Hero` | Three.js particle canvas, intro text, CTA buttons, tech ticker |
-| About | `About` | 4-card grid covering education, expertise, entrepreneurship, and global mobility |
-| Projects | `Projects` | Card grid of startup and course projects with badges and tech tags |
-| Skills | `Skills` | Skill category cards (Frontend, Backend, Tools, Learning) |
+| Home | `Hero` | Three.js particle canvas, intro text, StarBorder CTA buttons, ScrollVelocity strip |
+| About | `About` | 4-card grid with Framer Motion stagger entrance animations |
+| Projects | `Projects` | Card grid of startup and course projects with staggered entrance |
+| Skills | `Skills` | Skill category cards with Framer Motion stagger |
 | Certifications | `Certifications` | Card grid of credentials and continued learning |
 | Travel | `Travel` | Travel interest cards with Instagram link |
 | Contact | `Contact` | Social links grouped by Work/Build and Follow |

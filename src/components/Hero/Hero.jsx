@@ -1,10 +1,12 @@
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import './Hero.css'
+import StarBorder from '../StarBorder/StarBorder'
+import ScrollVelocity from '../ScrollVelocity/ScrollVelocity'
 
-const TICKER_ITEMS = [
-  'HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js',
-  'TypeScript', 'Python', 'C/C++', 'Git', 'Firebase', 'Linux', 'Vite'
+const VELOCITY_ROWS = [
+  { text: 'HTML5  ·  CSS3  ·  JavaScript  ·  React  ·  Node.js  ·  TypeScript  ·  Python  ·  C/C++  ·  Git  ·  Firebase  ·  Linux  ·  Vite', velocity: 60 },
+  { text: 'Frontend  ·  Backend  ·  Full-Stack  ·  Open Source  ·  Entrepreneur  ·  Student Founder  ·  Builder', velocity: -50 },
 ]
 
 export default function Hero() {
@@ -247,8 +249,12 @@ export default function Hero() {
             <p className="hero-iam">I'm Nico</p>
             <h2 className="hero-role">Student founder &amp; Entrepreneur</h2>
             <div className="cta-buttons">
-              <a href="#contact" className="btn btn-orange">Got a project?</a>
-              <a href="https://www.linkedin.com/in/nico-ramos28" target="_blank" rel="noreferrer" className="btn btn-outline">My resume</a>
+              <StarBorder href="#contact" color="#e8573b" speed="5s" className="btn-star-orange">
+                Got a project?
+              </StarBorder>
+              <StarBorder href="https://www.linkedin.com/in/nico-ramos28" target="_blank" rel="noreferrer" color="var(--text)" speed="8s" className="btn-star-outline">
+                My resume
+              </StarBorder>
             </div>
           </div>
           <div className="hero-visual">
@@ -263,16 +269,7 @@ export default function Hero() {
         </div>
       </section>
 
-      <div className="hero-skills-ticker">
-        <div className="hero-skills-track">
-          {TICKER_ITEMS.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-          {TICKER_ITEMS.map((item) => (
-            <span key={`${item}-dup`} aria-hidden="true">{item}</span>
-          ))}
-        </div>
-      </div>
+      <ScrollVelocity rows={VELOCITY_ROWS} />
     </>
   )
 }

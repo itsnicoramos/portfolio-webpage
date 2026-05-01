@@ -1,0 +1,73 @@
+.star-border {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2px;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.star-border-gradient {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  animation: star-spin 6s linear infinite;
+  filter: blur(6px);
+  opacity: 0.75;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes star-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.star-border:hover .star-border-gradient {
+  animation-duration: 2.5s;
+  opacity: 1;
+}
+
+.star-border-inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-star-orange .star-border-inner {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-star-orange:hover .star-border-inner {
+  background: #d14b2f;
+}
+
+.btn-star-outline .star-border-inner {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.btn-star-outline:hover .star-border-inner {
+  background: var(--text);
+  color: var(--bg);
+}

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import './Projects.css'
 
 const PROJECTS = [
@@ -142,19 +143,50 @@ const BADGE_CLASS = {
   COURSE: 'badge--course',
 }
 
+const gridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+}
+
 export default function Projects() {
   return (
     <section id="projects" className="projects-section">
       <div className="container">
-        <h2 className="section-title scroll-fade">Projects</h2>
-        <p className="section-subtitle scroll-fade">
+        <motion.h2
+          className="section-title"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          Projects
+        </motion.h2>
+        <motion.p
+          className="section-subtitle"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
           Real products and course projects I've built and shipped.
-        </p>
-        <div className="project-grid">
+        </motion.p>
+        <motion.div
+          className="project-grid"
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           {PROJECTS.map((p) => (
-            <div
+            <motion.div
               key={p.title}
-              className={`project-card scroll-fade${p.badge === 'STARTUP' ? ' project-card--startup' : ''}${p.badge === 'FEATURED' ? ' project-card--featured' : ''}`}
+              className={`project-card${p.badge === 'STARTUP' ? ' project-card--startup' : ''}${p.badge === 'FEATURED' ? ' project-card--featured' : ''}`}
+              variants={cardVariants}
             >
               <span className={`project-badge ${BADGE_CLASS[p.badge] || ''}`}>{p.badge}</span>
               <h3>{p.title}</h3>
@@ -184,9 +216,9 @@ export default function Projects() {
                   </a>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
