@@ -4,69 +4,6 @@
   flex-direction: column;
 }
 
-/* Cursor glow follows the pointer */
-.cursor-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 480px;
-  height: 480px;
-  pointer-events: none;
-  z-index: 50;
-  mix-blend-mode: lighten;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  will-change: transform;
-}
-@media (hover: hover) and (pointer: fine) {
-  .cursor-glow { opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cursor-glow { display: none; }
-}
-
-/* Top scroll-progress bar */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 0;
-  background: var(--accent);
-  z-index: 1000;
-  pointer-events: none;
-  transition: width 0.05s linear;
-}
-
-/* Smooth tilt on project cards + spotlight overlay */
-.project-card {
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-.project-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--accent) 12%, transparent) 0%,
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.project-card:hover::before { opacity: 1; }
-
-/* Magnetic-button transition */
-.btn {
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-              background 0.2s, color 0.2s, border-color 0.2s;
-  will-change: transform;
-}
-
 /* Animated underline on nav + content links */
 .nav-menu a,
 .project-links a,

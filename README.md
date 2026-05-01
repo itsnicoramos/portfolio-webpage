@@ -75,16 +75,8 @@ The whole page uses Lenis for physics-based smooth scrolling (1.2s duration, eas
 ### Framer Motion Entrance Animations
 About, Projects, and Skills sections use `motion.div` with `whileInView` and `staggerChildren` — cards cascade in from below with a custom ease (`[0.22, 1, 0.36, 1]`) as they enter the viewport. All animations trigger once and respect the viewport margin.
 
-### Existing Interactivity (unchanged)
-The `useInteractive` hook runs in a single `requestAnimationFrame` loop:
-- Accent-tinted **cursor glow** that follows the pointer
-- Top **scroll-progress bar**
-- Mild **parallax** on the hero content
-- **Tilt + cursor-tracked spotlight** on project cards
-- **Magnetic** primary buttons
-- Animated **underlines** on nav and content links
-
-All effects are disabled on touch devices or when `prefers-reduced-motion: reduce` is set.
+### Animated underlines
+Nav and content links use a CSS `scaleX` underline that sweeps left-to-right on hover.
 
 ---
 

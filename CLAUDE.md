@@ -9,9 +9,10 @@ Personal portfolio site for Nico Ramos, deployed on Netlify at [itsnico.dev](htt
 ## Stack
 
 - React 18 + Vite 6
-- Plain CSS (custom properties drive light/dark themes)
+- Tailwind CSS v3 + plain CSS custom properties (dark-only theme, no toggle)
+- Framer Motion for scroll-triggered entrance animations + Lenis for smooth scroll
 - Three.js for the hero particle canvas
-- Google Fonts and Font Awesome via CDN (declared in `index.html`)
+- Google Fonts (Inter + Playfair Display) and Font Awesome via CDN (declared in `index.html`)
 - Netlify hosting (auto-deploy from `main`, build to `dist/`)
 
 ---
@@ -29,14 +30,14 @@ public/img/            Static assets served at /img/
 src/
   main.jsx             React entry
   App.jsx              Composes all sections
-  App.css              Cursor glow, scroll-progress bar, card spotlight, magnetic button + animated underline styles
-  index.css            Global tokens (CSS custom properties), base typography, scroll-fade keyframes
+  App.css              Animated underline styles for nav + content links
+  index.css            Global tokens (CSS custom properties, dark-only), base typography, scroll-fade keyframes
   hooks/
-    useTheme.js        Light/dark toggle, persisted to localStorage
     useScrollFade.js   IntersectionObserver-based reveal for `.scroll-fade`
-    useInteractive.js  Cursor glow, scroll progress, hero parallax, project-card tilt + spotlight, magnetic buttons
   components/
-    Navbar/            Fixed nav, theme toggle, hamburger
+    Navbar/            Fixed nav, hamburger (no theme toggle)
+    ScrollVelocity/    Framer Motion velocity-based parallax marquee
+    StarBorder/        CSS conic-gradient animated border for CTA buttons
     Hero/              Three.js particle canvas + intro
     About/             4-card grid
     Projects/          Project cards (data array in component)
@@ -50,21 +51,16 @@ src/
 
 ## Theming
 
-`data-theme="light" | "dark"` on `<html>` switches CSS custom properties defined in `src/index.css`. Theme is read from `localStorage` and applied by an inline script in `index.html` before first paint to avoid FOUC.
+Dark-only. `data-theme="dark"` is hardcoded on `<html>` in `index.html`. CSS custom properties are defined on `:root` in `src/index.css`. No toggle, no localStorage theme logic.
 
 ---
 
-## Interactivity
+## Animations
 
-`useInteractive` (called from `App.jsx`) wires up everything in one rAF loop and one set of listeners:
-
-- Cursor glow — fixed `.cursor-glow` element follows the pointer (mix-blend-mode: lighten)
-- Scroll progress bar — top-fixed `.scroll-progress` width tracks scroll percentage
-- Hero parallax — translates `.hero-content` slightly with scroll
-- Project card tilt — `mousemove`-driven rotateX/rotateY plus a CSS spotlight via `--mx` / `--my`
-- Magnetic buttons — `.btn` translates toward the cursor on hover
-
-All effects are skipped when `prefers-reduced-motion: reduce` or `(hover: none)` (touch).
+- **Framer Motion** — `whileInView` + `staggerChildren` on About, Projects, Skills sections
+- **Lenis** — smooth scroll (1.2s ease), mounted in `App.jsx`, disabled on `prefers-reduced-motion`
+- **StarBorder** — rotating conic-gradient border on Hero CTA buttons
+- **scroll-fade** — CSS transition reveal via `useScrollFade` (IntersectionObserver adds `.visible`)
 
 ---
 

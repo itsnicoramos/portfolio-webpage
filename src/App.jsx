@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import './App.css'
 import useScrollFade from './hooks/useScrollFade'
-import useInteractive from './hooks/useInteractive'
 import Navbar from './components/Navbar/Navbar'
 import Hero from './components/Hero/Hero'
 import About from './components/About/About'
@@ -15,7 +14,6 @@ import Footer from './components/Footer/Footer'
 
 export default function App() {
   useScrollFade()
-  useInteractive()
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -40,8 +38,6 @@ export default function App() {
 
   return (
     <>
-      <div className="cursor-glow" aria-hidden="true" />
-      <div className="scroll-progress" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />
