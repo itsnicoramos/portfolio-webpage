@@ -2,12 +2,6 @@ import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import './Hero.css'
 import StarBorder from '../StarBorder/StarBorder'
-import ScrollVelocity from '../ScrollVelocity/ScrollVelocity'
-
-const VELOCITY_ROWS = [
-  { text: 'HTML5  ·  CSS3  ·  JavaScript  ·  React  ·  Node.js  ·  TypeScript  ·  Python  ·  C/C++  ·  Git  ·  Firebase  ·  Linux  ·  Vite', velocity: 60 },
-  { text: 'Frontend  ·  Backend  ·  Full-Stack  ·  Open Source  ·  Entrepreneur  ·  Student Founder  ·  Builder', velocity: -50 },
-]
 
 export default function Hero() {
   const canvasRef = useRef(null)
@@ -269,7 +263,6 @@ export default function Hero() {
         </div>
       </section>
 
-      <ScrollVelocity rows={VELOCITY_ROWS} />
     </>
   )
 }
