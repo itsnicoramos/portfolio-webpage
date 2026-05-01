@@ -12,11 +12,11 @@ Live site: [itsnico.dev](https://itsnico.dev)
 |---|---|
 | UI | React 18 |
 | Build | Vite 6 |
-| Styling | Tailwind CSS v3 + CSS custom properties |
+| Styling | Tailwind CSS v3 + CSS custom properties (dark-only) |
 | Animations | Framer Motion · CSS keyframes |
 | Smooth Scroll | Lenis |
 | 3D / Canvas | Three.js (hero particle system) |
-| Fonts / Icons | Google Fonts · Font Awesome CDN |
+| Fonts / Icons | Google Fonts (Inter + Playfair Display) · Font Awesome CDN |
 | Hosting | Netlify (auto-deploy from `main`) |
 
 ---
@@ -103,7 +103,7 @@ npm run preview  # Preview production build
 
 Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `dark`). CSS custom properties defined in `src/index.css` switch values between themes. The active theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent any flash.
 
-Tailwind dark mode uses the same attribute selector: `darkMode: ['attribute', '[data-theme="dark"]']`.
+The site is dark-only — no toggle. `data-theme="dark"` is hardcoded on `<html>` and CSS custom properties are defined under `:root`. Tailwind dark mode aligns via `darkMode: ['attribute', '[data-theme="dark"]']`.
 
 ---
 

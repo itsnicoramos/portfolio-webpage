@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
 
-export default function Navbar({ theme, toggle }) {
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -26,14 +26,6 @@ export default function Navbar({ theme, toggle }) {
         <li><a href="#travel" onClick={closeMenu}>Travel</a></li>
         <li><a href="#contact" onClick={closeMenu}>Connect</a></li>
       </ul>
-
-      <button
-        className="theme-toggle"
-        onClick={toggle}
-        aria-label="Toggle theme"
-      >
-        <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
-      </button>
 
       <button
         className="menu-toggle"

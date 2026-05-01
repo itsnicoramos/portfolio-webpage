@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import './App.css'
-import useTheme from './hooks/useTheme'
 import useScrollFade from './hooks/useScrollFade'
 import useInteractive from './hooks/useInteractive'
 import Navbar from './components/Navbar/Navbar'
@@ -15,7 +14,6 @@ import Contact from './components/Contact/Contact'
 import Footer from './components/Footer/Footer'
 
 export default function App() {
-  const { theme, toggle } = useTheme()
   useScrollFade()
   useInteractive()
 
@@ -44,7 +42,7 @@ export default function App() {
     <>
       <div className="cursor-glow" aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true" />
-      <Navbar theme={theme} toggle={toggle} />
+      <Navbar />
       <main>
         <Hero />
         <About />
