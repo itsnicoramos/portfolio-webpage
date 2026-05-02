@@ -11,6 +11,7 @@ import Certifications from './components/Certifications/Certifications'
 import Travel from './components/Travel/Travel'
 import Contact from './components/Contact/Contact'
 import Footer from './components/Footer/Footer'
+import CommandPalette from './components/CommandPalette/CommandPalette'
 
 export default function App() {
   useScrollFade()
@@ -38,6 +39,7 @@ export default function App() {
 
   return (
     <>
+      <CommandPalette />
       <Navbar />
       <main>
         <Hero />

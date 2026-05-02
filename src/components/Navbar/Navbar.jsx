@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -13,28 +14,45 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false)
 
+  const links = [
+    { href: '#home', label: 'Home' },
+    { href: '#about', label: 'About' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#certifications', label: 'Certifications' },
+    { href: '#travel', label: 'Travel' },
+    { href: '#contact', label: 'Connect' },
+  ]
+
   return (
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <a href="#home" className="nav-logo">Nico</a>
 
       <ul className={`nav-menu${menuOpen ? ' nav-menu--open' : ''}`}>
-        <li><a href="#home" onClick={closeMenu}>Home</a></li>
-        <li><a href="#about" onClick={closeMenu}>About</a></li>
-        <li><a href="#projects" onClick={closeMenu}>Projects</a></li>
-        <li><a href="#skills" onClick={closeMenu}>Skills</a></li>
-        <li><a href="#certifications" onClick={closeMenu}>Certifications</a></li>
-        <li><a href="#travel" onClick={closeMenu}>Travel</a></li>
-        <li><a href="#contact" onClick={closeMenu}>Connect</a></li>
+        {links.map((link) => (
+          <li key={link.href}>
+            <motion.a
+              href={link.href}
+              onClick={closeMenu}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.1 }}
+            >
+              {link.label}
+            </motion.a>
+          </li>
+        ))}
       </ul>
 
-      <button
+      <motion.button
         className="menu-toggle"
         onClick={() => setMenuOpen(o => !o)}
         aria-label="Toggle menu"
         aria-expanded={menuOpen}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       >
         <i className={menuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
-      </button>
+      </motion.button>
     </nav>
   )
 }

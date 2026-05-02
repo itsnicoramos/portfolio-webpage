@@ -1,4 +1,4 @@
-# Nico Ramos — Portfolio
+# Nico Ramos - Portfolio
 
 Personal portfolio site for [itsnico.dev](https://itsnico.dev), built with **React + Vite**, **Tailwind CSS**, and modern animation libraries. Inspired by [MAHESHPPAI/Portfolio-website](https://github.com/MAHESHPPAI/Portfolio-website).
 
@@ -13,10 +13,10 @@ Live site: [itsnico.dev](https://itsnico.dev)
 | UI | React 18 |
 | Build | Vite 6 |
 | Styling | Tailwind CSS v3 + CSS custom properties (dark-only) |
-| Animations | Framer Motion · CSS keyframes |
+| Animations | Framer Motion + CSS keyframes |
 | Smooth Scroll | Lenis |
 | 3D / Canvas | Three.js (hero particle system) |
-| Fonts / Icons | Google Fonts (Inter + Playfair Display) · Font Awesome CDN |
+| Fonts / Icons | Google Fonts (Inter + Playfair Display) + Font Awesome CDN |
 | Hosting | Netlify (auto-deploy from `main`) |
 
 ---
@@ -30,28 +30,38 @@ portfolio-webpage/
 ├── src/
 │   ├── components/
 │   │   ├── Navbar/              # Navbar.jsx + Navbar.css
-│   │   ├── Hero/                # Hero.jsx + Hero.css
-│   │   ├── About/               # About.jsx + About.css
+│   │   ├── Hero/                # Hero.jsx + Hero.css (Three.js particles + BlurImage)
+│   │   ├── About/               # About.jsx + About.css (BentoGrid layout)
 │   │   ├── Projects/            # Projects.jsx + Projects.css
 │   │   ├── Skills/              # Skills.jsx + Skills.css
 │   │   ├── Certifications/      # Certifications.jsx + Certifications.css
 │   │   ├── Travel/              # Travel.jsx + Travel.css
-│   │   ├── Contact/             # Contact.jsx + Contact.css
+│   │   ├── Contact/             # Contact.jsx + Contact.css (Pressable links)
 │   │   ├── Footer/              # Footer.jsx + Footer.css
 │   │   ├── ScrollVelocity/      # Framer Motion velocity-based parallax marquee
-│   │   └── StarBorder/          # CSS conic-gradient animated border for buttons
+│   │   ├── StarBorder/          # CSS conic-gradient animated border for buttons
+│   │   ├── CommandPalette/      # Cmd+K keyboard navigation palette
+│   │   ├── BentoGrid/           # Asymmetric responsive grid layout
+│   │   └── ui/                  # Atomic design primitives
+│   │       ├── Skeleton.jsx     # Shimmer loading placeholders
+│   │       ├── BlurImage.jsx    # Blur-up progressive image loading
+│   │       ├── Button.jsx       # primary / outline / ghost variants
+│   │       ├── Card.jsx         # Reusable card with hover and glass options
+│   │       ├── Badge.jsx        # Inline label (startup / featured / course)
+│   │       ├── MicroInteraction.jsx  # Pressable, FadeIn, SlideIn wrappers
+│   │       └── index.js         # Barrel re-export
 │   ├── hooks/
 │   │   ├── useTheme.js          # Light/dark toggle with localStorage persistence
 │   │   ├── useScrollFade.js     # IntersectionObserver scroll-reveal animations
 │   │   └── useInteractive.js    # Cursor glow, scroll progress, hero parallax, card tilt, magnetic buttons
-│   ├── App.jsx                  # Root component — mounts Lenis, composes all sections
+│   ├── App.jsx                  # Root component: Lenis + CommandPalette + all sections
 │   ├── App.css                  # Interactivity layer styles
 │   ├── main.jsx                 # React DOM entry point
 │   └── index.css                # Tailwind directives + global CSS custom properties
 ├── netlify/                     # Netlify serverless functions
 ├── index.html                   # Vite HTML entry
 ├── vite.config.js
-├── tailwind.config.js           # Tailwind — preflight disabled, scans src/**
+├── tailwind.config.js           # Tailwind config: preflight disabled, scans src/**
 ├── postcss.config.js
 ├── package.json
 └── netlify.toml                 # Build: npm run build to dist/
@@ -61,21 +71,50 @@ Each component owns its styles. One `.jsx` and one `.css` per folder.
 
 ---
 
+## UX Features
+
+### Perceived Speed
+- **Skeleton screens**: Shimmer placeholders for cards and images while content loads
+- **Blur-up images**: Profile photo and media fade from a blurred gradient to full clarity on load, eliminating layout shifts
+
+### Command Palette (Cmd+K)
+Press `Cmd+K` (Mac) or `Ctrl+K` (Windows) to open a keyboard-driven navigation palette. Supports fuzzy search over sections, projects, and actions (toggle theme, email, resume). Navigate with arrow keys, select with Enter.
+
+### Bento Box Grid
+The About section uses an asymmetric bento layout (4 columns on desktop, 2 on tablet, 1 on mobile). Featured cards span multiple columns for visual hierarchy and scannability.
+
+### Micro-Interactions
+All interactive elements use sub-200ms Framer Motion spring animations:
+- `Pressable`: whileTap scale-down + whileHover scale-up
+- `FadeIn`: opacity + translateY entrance (150ms)
+- `SlideIn`: opacity + translateX entrance (180ms)
+- Nav links shrink on tap, social cards respond to press
+
+### Atomic UI Primitives (`src/components/ui/`)
+Reusable composable components:
+- `Button` (primary, outline, ghost; sm, md, lg)
+- `Card` (hover lift, glassmorphism option)
+- `Badge` (startup, featured, course variants)
+- `Skeleton` (text, circle, card, image variants)
+- `BlurImage` (progressive image loading)
+
+---
+
 ## Animations
 
 ### ScrollVelocity
-Parallax marquee strip between the hero and About sections. Built with Framer Motion's `useScroll`, `useVelocity`, `useSpring`, and `useAnimationFrame` — the text speed responds to how fast you scroll. Two rows run in opposite directions.
+Parallax marquee strip between the hero and About sections. Built with Framer Motion's `useScroll`, `useVelocity`, `useSpring`, and `useAnimationFrame`. Text speed responds to scroll velocity. Two rows run in opposite directions.
 
 ### StarBorder
-CTA buttons on the hero use a rotating conic-gradient border (CSS `@keyframes` + `conic-gradient`). The border spins continuously and accelerates on hover.
+CTA buttons on the hero use a rotating conic-gradient border (`@keyframes` + `conic-gradient`). The border spins continuously and accelerates on hover.
 
 ### Lenis Smooth Scroll
-The whole page uses Lenis for physics-based smooth scrolling (1.2s duration, ease `1.001 - 2^(-10t)`). Disabled automatically when `prefers-reduced-motion` is set.
+The whole page uses Lenis for physics-based smooth scrolling (1.2s duration). Disabled automatically when `prefers-reduced-motion` is set.
 
 ### Framer Motion Entrance Animations
-About, Projects, and Skills sections use `motion.div` with `whileInView` and `staggerChildren` — cards cascade in from below with a custom ease (`[0.22, 1, 0.36, 1]`) as they enter the viewport. All animations trigger once and respect the viewport margin.
+About, Projects, and Skills sections use `motion.div` with `whileInView` and `staggerChildren`. Cards cascade in from below with a custom ease (`[0.22, 1, 0.36, 1]`) as they enter the viewport. All animations trigger once.
 
-### Animated underlines
+### Animated Underlines
 Nav and content links use a CSS `scaleX` underline that sweeps left-to-right on hover.
 
 ---
@@ -84,7 +123,8 @@ Nav and content links use a CSS `scaleX` underline that sweeps left-to-right on 
 
 ```bash
 npm install
-npm run dev      # Start dev server
+npm run dev      # Start dev server (http://localhost:5173)
+npm start        # Same as dev
 npm run build    # Build to dist/
 npm run preview  # Preview production build
 ```
@@ -93,9 +133,7 @@ npm run preview  # Preview production build
 
 ## Theming
 
-Light/dark mode is driven by a `data-theme` attribute on `<html>` (`light` | `dark`). CSS custom properties defined in `src/index.css` switch values between themes. The active theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent any flash.
-
-The site is dark-only — no toggle. `data-theme="dark"` is hardcoded on `<html>` and CSS custom properties are defined under `:root`. Tailwind dark mode aligns via `darkMode: ['attribute', '[data-theme="dark"]']`.
+Dark-only. `data-theme="dark"` is hardcoded on `<html>` and CSS custom properties are defined under `:root`. Tailwind dark mode aligns via `darkMode: ['attribute', '[data-theme="dark"]']`. The theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent flash.
 
 ---
 
@@ -103,14 +141,14 @@ The site is dark-only — no toggle. `data-theme="dark"` is hardcoded on `<html>
 
 | Section | Component | Description |
 |---|---|---|
-| Nav | `Navbar` | Fixed glassmorphism nav, smooth scroll links, theme toggle, hamburger menu |
-| Home | `Hero` | Three.js particle canvas, intro text, StarBorder CTA buttons, ScrollVelocity strip |
-| About | `About` | 4-card grid with Framer Motion stagger entrance animations |
-| Projects | `Projects` | Card grid of startup and course projects with staggered entrance |
+| Nav | `Navbar` | Fixed glassmorphism nav, smooth scroll links, hamburger menu, motion tap feedback |
+| Home | `Hero` | Three.js particle canvas, BlurImage profile, StarBorder CTAs, ScrollVelocity strip |
+| About | `About` | BentoGrid layout with Framer Motion stagger entrance |
+| Projects | `Projects` | Card grid with badges, skeleton loading state, staggered entrance |
 | Skills | `Skills` | Skill category cards with Framer Motion stagger |
-| Certifications | `Certifications` | Card grid of credentials and continued learning |
+| Certifications | `Certifications` | Credentials and continued learning cards |
 | Travel | `Travel` | Travel interest cards with Instagram link |
-| Contact | `Contact` | Social links grouped by Work/Build and Follow |
+| Contact | `Contact` | Pressable social links grouped by Work/Build and Follow |
 | Footer | `Footer` | Dynamic copyright year |
 
 ---

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import './About.css'
+import BentoGrid from '../BentoGrid/BentoGrid'
 
 const CARDS = [
   {
@@ -23,16 +24,6 @@ const CARDS = [
     text: "I'm building a life around tech, travel, and international opportunity. As an Italian passport holder still studying in North America, I have access to 192 destinations without a prior visa, and I see mobility as more than movement. It's access to new markets, cultures, and ideas.",
   },
 ]
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-}
 
 const titleVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -61,20 +52,7 @@ export default function About() {
         >
           CS student, builder, and aspiring founder focused on creating products people actually use.
         </motion.p>
-        <motion.div
-          className="about-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {CARDS.map((card) => (
-            <motion.div key={card.title} className="about-card" variants={cardVariants}>
-              <h3>{card.icon} {card.title}</h3>
-              <p>{card.text}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <BentoGrid cards={CARDS} />
       </div>
     </section>
   )

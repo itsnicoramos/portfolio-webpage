@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import './Hero.css'
 import StarBorder from '../StarBorder/StarBorder'
+import BlurImage from '../ui/BlurImage'
 
 export default function Hero() {
   const canvasRef = useRef(null)
@@ -255,7 +256,7 @@ export default function Hero() {
             <span className="hero-bracket">&lt;</span>
             <div className="hero-img-wrap">
               <div className="hero-image">
-                <img src="/img/profileNico.jpeg" alt="Nico Ramos" />
+                <BlurImage src="/img/profileNico.jpeg" alt="Nico Ramos" />
               </div>
             </div>
             <span className="hero-bracket">&gt;</span>
