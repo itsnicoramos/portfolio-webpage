@@ -1,29 +1,5 @@
 import { motion } from 'framer-motion'
 import './About.css'
-import BentoGrid from '../BentoGrid/BentoGrid'
-
-const CARDS = [
-  {
-    icon: '🎓',
-    title: 'Education',
-    text: 'Computer Science student at Vancouver Island University. I care most about user experience, trust, and long-term retention. I enjoy building systems where small design decisions compound over time, especially in social and AI-driven products.',
-  },
-  {
-    icon: '💻',
-    title: 'Expertise',
-    text: 'Full-stack web development with React, Next.js, and Firebase, with a focus on integrating AI models like OpenAI GPT and Claude into real products. Comfortable working across the entire stack, from designing responsive frontends to building serverless backends, managing databases, and deploying to production.',
-  },
-  {
-    icon: '🚀',
-    title: 'Entrepreneurship',
-    text: 'Founder of Looply, an AI-powered web app that helps creators and builders plan content strategies and scope MVP applications. Instead of generic chatbots, Looply uses structured workflows to guide users step by step, remembering their goals, niche, and progress across sessions.',
-  },
-  {
-    icon: '🌍',
-    title: 'Global Access',
-    text: "I'm building a life around tech, travel, and international opportunity. As an Italian passport holder still studying in North America, I have access to 192 destinations without a prior visa, and I see mobility as more than movement. It's access to new markets, cultures, and ideas.",
-  },
-]
 
 const titleVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -39,20 +15,28 @@ export default function About() {
           variants={titleVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, margin: '-60px' }}
         >
           About Me
         </motion.h2>
         <motion.p
-          className="section-subtitle"
+          className="about-text"
           variants={titleVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          CS student, builder, and aspiring founder focused on creating products people actually use.
+          I'm a Computer Science student at Vancouver Island University focused on building products people actually use. I work across the full stack with React, Next.js, Firebase, and AI APIs like Claude and GPT. I founded Looply, an AI-powered web app for content strategy and MVP scoping, and I'm always exploring new ways to ship faster and learn deeper.
         </motion.p>
-        <BentoGrid cards={CARDS} />
+        <motion.p
+          className="about-text"
+          variants={titleVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          As an Italian passport holder studying in North America, I see mobility as access to new markets, cultures, and ideas. I care about user experience, trust, and building systems where small design decisions compound over time.
+        </motion.p>
       </div>
     </section>
   )

@@ -3,43 +3,16 @@
   background: var(--bg-alt);
 }
 
-.about-section .section-subtitle {
-  margin-bottom: 48px;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 0;
-}
-
-.about-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px;
-  transition: all 0.2s;
-}
-
-.about-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--text-muted);
-}
-
-.about-card h3 {
-  color: var(--text);
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.about-card p {
-  line-height: 1.7;
+.about-text {
+  max-width: 720px;
+  line-height: 1.8;
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.about-text:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
@@ -47,7 +20,7 @@
     padding: 80px 20px;
   }
 
-  .about-grid {
-    grid-template-columns: 1fr;
+  .about-text {
+    font-size: 1rem;
   }
 }
