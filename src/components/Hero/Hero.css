@@ -9,17 +9,17 @@
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
   align-items: center;
-  max-width: 1100px;
+  justify-content: center;
+  max-width: 820px;
   width: 100%;
   position: relative;
 }
 
 .hero-text {
-  text-align: left;
+  text-align: center;
+  width: 100%;
 }
 
 .hero-hello {
@@ -58,37 +58,10 @@
   line-height: 1.1;
 }
 
-.hero-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeInUp 0.8s ease 0.3s backwards;
-}
-
-.hero-img-wrap {
-  position: relative;
-}
-
-.hero-image {
-  width: 280px;
-  height: 340px;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
 .cta-buttons {
   display: flex;
   gap: 14px;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   animation: fadeInUp 0.8s ease 0.45s backwards;
 }
@@ -110,22 +83,7 @@
   }
 
   .hero-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .hero-text {
-    text-align: center;
-    order: 2;
-  }
-
-  .hero-visual {
-    order: 1;
-  }
-
-  .hero-image {
-    width: 220px;
-    height: 270px;
+    max-width: 640px;
   }
 
   .cta-buttons {

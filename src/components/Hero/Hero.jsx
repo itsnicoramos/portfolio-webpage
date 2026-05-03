@@ -1,5 +1,4 @@
 import './Hero.css'
-import BlurImage from '../ui/BlurImage'
 
 export default function Hero() {
   return (
@@ -12,13 +11,6 @@ export default function Hero() {
           <div className="cta-buttons">
             <a href="#contact" className="btn btn-primary">Got a project?</a>
             <a href="https://www.linkedin.com/in/nico-ramos28" target="_blank" rel="noreferrer" className="btn btn-outline">My resume</a>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="hero-img-wrap">
-            <div className="hero-image">
-              <BlurImage src="/img/profileNico.jpeg" alt="Nico Ramos" />
-            </div>
           </div>
         </div>
       </div>

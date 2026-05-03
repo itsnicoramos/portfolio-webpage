@@ -3,8 +3,32 @@
   background: var(--bg-alt);
 }
 
+.about-content {
+  display: grid;
+  grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.about-copy {
+  min-width: 0;
+}
+
 .about-text {
-  max-width: 720px;
   line-height: 1.8;
   color: var(--text-secondary);
   font-size: 1.05rem;
@@ -18,6 +42,16 @@
 @media (max-width: 768px) {
   .about-section {
     padding: 80px 20px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-photo {
+    max-width: 340px;
+    margin: 0 auto;
   }
 
   .about-text {
