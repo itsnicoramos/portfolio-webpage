@@ -5,9 +5,9 @@ const PROJECTS = [
   {
     title: 'AgentAPI',
     badge: 'STARTUP',
-    role: 'Founder & Software Engineer',
+    role: 'Founding Product',
     date: '2026 · Remote',
-    desc: 'Build agents that actually work with company tools. AgentAPI is the bridge between AI agents and the software your business already runs on: Slack, Linear, GitHub, Notion, your CRM. Structured APIs, scoped permissions, audit logs, and approved actions by default.',
+    desc: 'The next trillion “users” will be AI agents, not humans. YC wants agent‑first software with machine‑readable interfaces (APIs, command‑line protocols) and thorough documentation so agents can discover and use tools autonomously.',
     bullets: [
       'Early-access landing site built with Vite 8 + React 19 + Tailwind CSS 3',
       'Claude-powered agent endpoint via Netlify Functions (ESM, Node 20)',
@@ -22,7 +22,7 @@ const PROJECTS = [
   {
     title: 'Looply',
     badge: 'STARTUP',
-    role: 'Founder & Software Engineer',
+    role: 'Founding Product',
     date: '2026 · Remote',
     desc: 'Full-stack AI web app to help users plan content strategies and scope MVP applications. Designed persistent memory to store user context (goals, niches, progress) across sessions.',
     bullets: [
@@ -34,35 +34,6 @@ const PROJECTS = [
     tech: ['React', 'Vite', 'Firebase', 'GPT by OpenAI', 'Claude by Anthropic', 'Vercel'],
     links: {},
     status: 'MVP in progress',
-  },
-  {
-    title: 'ApplyKit',
-    badge: 'FEATURED',
-    role: 'Built with Lovable.dev',
-    date: '2026 · Remote',
-    desc: 'An AI student application copilot MVP built to help students move faster through the internship and job search process with tailored application support.',
-    bullets: [
-      'Tailor resumes to specific opportunities',
-      'Turn job links into application-ready content',
-      'Prototype a smarter, student-first way to apply',
-    ],
-    tech: ['Lovable.dev', 'AI Agent', 'MVP'],
-    links: { live: 'https://applykit.lovable.app' },
-  },
-  {
-    title: 'ChainMind',
-    badge: 'STARTUP',
-    role: 'Founder & Software Engineer',
-    date: '2026 · Remote',
-    desc: 'A purpose-built blockchain with a conversational AI agent as its primary interface. Users manage wallets, send coins, and analyze on-chain data through natural language or voice.',
-    bullets: [
-      'Architected across three layers: static frontend on Netlify CDN, serverless AI functions, and a Python/FastAPI blockchain backend',
-      'Implemented proof-of-work consensus, UTXO transaction model, and automatic peer-to-peer chain sync',
-      'Built a modular skills system. New agent capabilities are added by dropping a folder.',
-      'Integrated voice input and output via the Web Speech API with zero external dependencies',
-    ],
-    tech: ['Python', 'FastAPI', 'Claude Sonnet 4.6', 'Netlify Functions', 'SQLite', 'Vanilla JS'],
-    links: { github: 'https://github.com/itsnicoramos/ChainMind' },
   },
   {
     title: 'CyberBank',
