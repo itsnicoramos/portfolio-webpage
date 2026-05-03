@@ -68,6 +68,13 @@
   color: var(--text-secondary);
 }
 
+.project-screenshot {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+
 .project-card h3 {
   color: var(--text);
   font-size: 1.15rem;

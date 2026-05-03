@@ -3,14 +3,14 @@
   "configurations": [
     {
       "name": "Vite Dev Server",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /Users/nikkoramos/Desktop/portfolio-webpage && npm run dev"],
       "port": 5173
     },
     {
       "name": "Vite Preview (production build)",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /Users/nikkoramos/Desktop/portfolio-webpage && npm run preview"],
       "port": 4173
     }
   ]

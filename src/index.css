@@ -100,9 +100,8 @@ body {
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: var(--shadow-md);
-  background: var(--secondary);
+  opacity: 0.85;
 }
-
 
 .btn-outline {
   background: transparent;
@@ -111,10 +110,10 @@ body {
 }
 
 .btn-outline:hover {
-  background: var(--text);
-  color: var(--bg);
   transform: translateY(-2px) scale(1.02);
   box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .btn-orange {
@@ -124,8 +123,8 @@ body {
 }
 
 .btn-orange:hover {
-  background: #d14b2f;
-  border-color: #d14b2f;
+  background: var(--accent-light);
+  border-color: var(--accent-light);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(232, 87, 59, 0.35);
 }

@@ -3,6 +3,23 @@ import './Projects.css'
 
 const PROJECTS = [
   {
+    title: 'AgentAPI',
+    badge: 'STARTUP',
+    role: 'Founder & Software Engineer',
+    date: '2026 · Remote',
+    desc: 'Build agents that actually work with company tools. AgentAPI is the bridge between AI agents and the software your business already runs on: Slack, Linear, GitHub, Notion, your CRM. Structured APIs, scoped permissions, audit logs, and approved actions by default.',
+    bullets: [
+      'Early-access landing site built with Vite 8 + React 19 + Tailwind CSS 3',
+      'Claude-powered agent endpoint via Netlify Functions (ESM, Node 20)',
+      'AI runtime using @anthropic-ai/sdk calling Claude Opus 4.7 with adaptive thinking',
+      'Supabase-backed waitlist endpoint (Postgres + service-role key)',
+    ],
+    tech: ['React 19', 'Vite 8', 'Tailwind CSS', 'Claude Opus 4.7', 'Supabase', 'Netlify Functions'],
+    links: { live: 'https://agentapi.netlify.app' },
+    image: '/img/agentapi.png',
+    status: 'Now in private beta',
+  },
+  {
     title: 'Looply',
     badge: 'STARTUP',
     role: 'Founder & Software Engineer',
@@ -189,6 +206,7 @@ export default function Projects() {
               className={`project-card${p.badge === 'STARTUP' ? ' project-card--startup' : ''}${p.badge === 'FEATURED' ? ' project-card--featured' : ''}`}
               variants={cardVariants}
             >
+              {p.image && <img src={p.image} alt={p.title} className="project-screenshot" loading="lazy" />}
               <span className={`project-badge ${BADGE_CLASS[p.badge] || ''}`}>{p.badge}</span>
               <h3>{p.title}</h3>
               <div className="project-meta">
