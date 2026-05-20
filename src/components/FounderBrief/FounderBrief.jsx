@@ -14,7 +14,7 @@ export default function FounderBrief() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          The high velocity "The Zuckerberg" Archetype
+          The high velocity Execution Archetype
         </motion.h2>
         <motion.p
           className="founder-updated"
