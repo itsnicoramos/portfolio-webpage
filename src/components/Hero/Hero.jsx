@@ -1,10 +1,8 @@
-import ParticleField from './ParticleField'
 import './Hero.css'
 
 export default function Hero() {
   return (
     <section id="home" className="hero">
-      <ParticleField />
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-hello">Hello<span className="hero-dot">.</span></h1>
