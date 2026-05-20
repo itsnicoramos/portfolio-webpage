@@ -8,6 +8,18 @@
   grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
   gap: 48px;
   align-items: start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.about-content:hover {
+  border-color: rgba(232, 87, 59, 0.3);
+  box-shadow: 0 8px 32px rgba(232, 87, 59, 0.06);
 }
 
 .about-photo {
