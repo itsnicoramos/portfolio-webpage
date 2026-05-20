@@ -16,7 +16,6 @@ const PROJECTS = [
     ],
     tech: ['React 19', 'Vite 8', 'Tailwind CSS', 'Claude Opus 4.7', 'Supabase', 'Netlify Functions'],
     links: { live: 'https://sentinel-ochre-five.vercel.app' },
-    image: '/img/agentapi.png',
     status: 'Now in private beta',
   },
   {
