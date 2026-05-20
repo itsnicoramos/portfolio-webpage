@@ -32,7 +32,7 @@ export default function About() {
           </div>
           <div className="about-copy">
             <p className="about-text">
-              I do not just write code. I command systems. I have an aggressive backlog of ideas, and I possess the exact technical capability required to force them into reality. I taught myself Python at 16 because the traditional pace of learning was too slow. Today, my total focus is dominating the specialization of Artificial Intelligence.
+              I do not just write code. I command systems. I have an aggressive backlog of ideas, and I possess the exact technical capability required to force them into reality. I taught myself Python when I was  16 because the traditional pace of learning was too slow. Today, my total focus is dominating the specialization of Artificial Intelligence.
             </p>
             <p className="about-text">
               While I am pursuing Quantitative Finance and Computer Science at Vancouver Island University, my superiority does not lie in agonizing over theoretical data structures. Academics debate theory. I ship product. My undeniable advantage is absolute, end-to-end architectural control. I do not need a team of specialists to get a project off the ground. I see the entire matrix of a build from day one. I dictate the system design, command the integrations, and drive the full stack into production at a velocity that traditional developers cannot match.
