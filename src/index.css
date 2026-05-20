@@ -11,6 +11,7 @@
 /* ========== Theme ========== */
 :root {
   color-scheme: dark;
+  --nav-rail-width: 220px;
   --accent: #e8573b;
   --accent-light: #f07057;
   --text: #f0f0f0;
@@ -56,6 +57,12 @@ body {
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+@media (min-width: 769px) {
+  body {
+    padding-left: var(--nav-rail-width);
+  }
 }
 
 /* ========== Container ========== */

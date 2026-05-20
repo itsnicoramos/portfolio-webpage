@@ -15,14 +15,14 @@ export default function Navbar() {
   const closeMenu = () => setMenuOpen(false)
 
   const links = [
-    { href: '#home', label: 'Home' },
-    { href: '#about', label: 'About' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#founder-brief', label: 'Founder Brief' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#certifications', label: 'Certifications' },
-    { href: '#travel', label: 'Travel' },
-    { href: '#contact', label: 'Connect' },
+    { href: '#home', label: 'Home', icon: 'fa-house' },
+    { href: '#about', label: 'About', icon: 'fa-user' },
+    { href: '#projects', label: 'Projects', icon: 'fa-folder-open' },
+    { href: '#founder-brief', label: 'Founder Brief', icon: 'fa-rocket' },
+    { href: '#skills', label: 'Skills', icon: 'fa-code' },
+    { href: '#certifications', label: 'Certifications', icon: 'fa-certificate' },
+    { href: '#travel', label: 'Travel', icon: 'fa-plane' },
+    { href: '#contact', label: 'Connect', icon: 'fa-envelope' },
   ]
 
   return (
@@ -38,7 +38,8 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.1 }}
             >
-              {link.label}
+              <i className={`fas ${link.icon} nav-icon`} aria-hidden="true"></i>
+              <span>{link.label}</span>
             </motion.a>
           </li>
         ))}

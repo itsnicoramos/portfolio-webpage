@@ -2,83 +2,111 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  bottom: 0;
+  width: var(--nav-rail-width, 220px);
   z-index: 1000;
   background: rgba(10, 10, 10, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0 40px;
-  height: 64px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 28px 16px 24px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.4), inset -1px 0 0 rgba(255, 255, 255, 0.04);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar--scrolled {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6), inset -1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 [data-theme="light"] .navbar {
   background: rgba(255, 255, 255, 0.7);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.06), inset -1px 0 0 rgba(255, 255, 255, 0.6);
 }
 
 [data-theme="light"] .navbar--scrolled {
   background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.10), inset -1px 0 0 rgba(255, 255, 255, 0.6);
 }
 
 .nav-logo {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.02em;
-  margin-right: 36px;
+  padding: 4px 14px 8px;
+  margin-bottom: 28px;
   flex-shrink: 0;
 }
 
 .nav-menu {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
   list-style: none;
-  gap: 36px;
-  align-items: center;
   flex: 1;
+  width: 100%;
 }
 
 .nav-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s;
   position: relative;
+  padding: 10px 14px;
+  border-radius: 8px;
 }
 
-.nav-menu a::after {
+.nav-menu .nav-icon {
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-menu a::before {
   content: '';
   position: absolute;
-  bottom: -4px;
   left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--text);
-  transition: width 0.25s ease;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 0;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: height 0.25s ease;
 }
 
 .nav-menu a:hover {
   color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.nav-menu a:hover::after {
-  width: 100%;
+[data-theme="light"] .nav-menu a:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-menu a:hover .nav-icon {
+  color: var(--accent);
+}
+
+.nav-menu a:hover::before {
+  height: 60%;
 }
 
 .menu-toggle {
@@ -94,7 +122,40 @@
 
 @media (max-width: 768px) {
   .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 64px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     padding: 0 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .navbar--scrolled {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  [data-theme="light"] .navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  [data-theme="light"] .navbar--scrolled {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .nav-logo {
+    font-size: 1.3rem;
+    padding: 0;
+    margin-bottom: 0;
+    margin-right: 36px;
   }
 
   .nav-menu {
@@ -113,6 +174,19 @@
 
   .nav-menu--open {
     display: flex;
+  }
+
+  .nav-menu a {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .nav-menu a:hover {
+    background: transparent;
+  }
+
+  .nav-menu a::before {
+    display: none;
   }
 
   .menu-toggle {
