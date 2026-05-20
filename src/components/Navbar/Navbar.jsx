@@ -18,6 +18,7 @@ export default function Navbar() {
     { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
     { href: '#projects', label: 'Projects' },
+    { href: '#founder-brief', label: 'Founder Brief' },
     { href: '#skills', label: 'Skills' },
     { href: '#certifications', label: 'Certifications' },
     { href: '#travel', label: 'Travel' },

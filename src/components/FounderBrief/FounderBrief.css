@@ -1,0 +1,67 @@
+.founder-section {
+  padding: 120px 24px;
+  background: var(--bg-alt);
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.founder-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.founder-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.founder-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.founder-card-icon {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.founder-card-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.founder-card-body {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 1rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .founder-section {
+    padding: 80px 20px;
+  }
+
+  .founder-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .founder-card {
+    padding: 22px;
+  }
+}

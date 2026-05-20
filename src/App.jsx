@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar'
 import Hero from './components/Hero/Hero'
 import About from './components/About/About'
 import Projects from './components/Projects/Projects'
+import FounderBrief from './components/FounderBrief/FounderBrief'
 import Skills from './components/Skills/Skills'
 import Certifications from './components/Certifications/Certifications'
 import Travel from './components/Travel/Travel'
@@ -45,6 +46,7 @@ export default function App() {
         <Hero />
         <About />
         <Projects />
+        <FounderBrief />
         <Skills />
         <Certifications />
         <Travel />

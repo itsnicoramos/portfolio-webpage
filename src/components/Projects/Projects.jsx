@@ -3,7 +3,7 @@ import './Projects.css'
 
 const PROJECTS = [
   {
-    title: 'AgentAPI',
+    title: 'Sentinel',
     badge: 'STARTUP',
     role: 'Founding Product',
     date: '2026 · Remote',
@@ -15,7 +15,7 @@ const PROJECTS = [
       'Supabase-backed waitlist endpoint (Postgres + service-role key)',
     ],
     tech: ['React 19', 'Vite 8', 'Tailwind CSS', 'Claude Opus 4.7', 'Supabase', 'Netlify Functions'],
-    links: { live: 'https://agentapi.netlify.app' },
+    links: { live: 'https://sentinel-ochre-five.vercel.app' },
     image: '/img/agentapi.png',
     status: 'Now in private beta',
   },

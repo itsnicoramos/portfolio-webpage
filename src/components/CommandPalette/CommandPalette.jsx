@@ -6,6 +6,7 @@ const ITEMS = [
   { id: 'home', type: 'section', label: 'Home', icon: 'fas fa-house', href: '#home' },
   { id: 'about', type: 'section', label: 'About', icon: 'fas fa-user', href: '#about' },
   { id: 'projects', type: 'section', label: 'Projects', icon: 'fas fa-code', href: '#projects' },
+  { id: 'founder-brief', type: 'section', label: 'Founder Brief', icon: 'fas fa-bullseye', href: '#founder-brief' },
   { id: 'skills', type: 'section', label: 'Skills', icon: 'fas fa-toolbox', href: '#skills' },
   { id: 'certifications', type: 'section', label: 'Certifications', icon: 'fas fa-certificate', href: '#certifications' },
   { id: 'travel', type: 'section', label: 'Travel', icon: 'fas fa-plane', href: '#travel' },
