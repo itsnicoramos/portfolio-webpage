@@ -105,6 +105,22 @@ export default function Contact() {
             </div>
           </div>
         </div>
+
+        <div className="contact-form-cta scroll-fade">
+          <p className="contact-form-label">Prefer a quick intro?</p>
+          <Pressable>
+            <a
+              href="https://forms.gle/yuKdUE5XMxgZ2nG98"
+              target="_blank"
+              rel="noreferrer"
+              className="contact-form-link"
+            >
+              <i className="fas fa-pen-to-square"></i>
+              <span>Fill out my contact form</span>
+              <i className="fas fa-arrow-right"></i>
+            </a>
+          </Pressable>
+        </div>
       </div>
     </section>
   )
