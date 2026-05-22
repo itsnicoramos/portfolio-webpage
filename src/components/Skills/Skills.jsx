@@ -20,7 +20,7 @@ const SKILL_CATEGORIES = [
   {
     icon: 'fas fa-book-open',
     title: 'Currently Learning',
-    skills: ['MongoDB', 'Prisma', 'Redux Toolkit', 'LLM Integration', 'Prompt Engineering'],
+    skills: ['MongoDB', 'Prisma', 'Redux Toolkit', 'LLM Integration', 'Prompt Engineering', 'Context Engineering'],
   },
 ]
 
