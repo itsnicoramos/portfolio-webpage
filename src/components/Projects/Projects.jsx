@@ -7,15 +7,17 @@ const PROJECTS = [
     badge: 'STARTUP',
     role: 'Founding Product',
     date: '2026 · Remote',
-    desc: 'The next trillion “users” will be AI agents, not humans. YC wants agent‑first software with machine‑readable interfaces (APIs, command‑line protocols) and thorough documentation so agents can discover and use tools autonomously.',
+    desc: 'A chat-first personal cybersecurity AI — the security expert in your pocket. Sentinel analyzes suspicious messages, links, emails, and app permissions, returning a standardized risk score and clear next steps, plus a free-form chat backed by live security tools the model calls autonomously.',
     bullets: [
-      'Early-access landing site built with Vite 8 + React 19 + Tailwind CSS 3',
-      'Claude-powered agent endpoint via Netlify Functions (ESM, Node 20)',
-      'AI runtime using @anthropic-ai/sdk calling Claude Opus 4.7 with adaptive thinking',
-      'Supabase-backed waitlist endpoint (Postgres + service-role key)',
+      'Single-page app on React 19 + Vite 8 + Tailwind CSS 3, deployed on Vercel',
+      'Eight callable security tools: CVE/NVD lookup, HIBP breach check, URL phishing heuristics, OWASP code review, log analysis, MITRE ATT&CK, port info, and a decoder',
+      'Standardized /api/analyze endpoint returns a risk score (0–100), verdict, and next steps via JSON-schema-enforced structured output',
+      'AI runtime on Claude Opus 4.7 with adaptive thinking and tool-calling via @anthropic-ai/sdk',
+      'Supabase Postgres for accounts, sessions, and audit logging; Vercel Serverless Functions (ESM, Node 20)',
     ],
-    tech: ['React 19', 'Vite 8', 'Tailwind CSS', 'Claude Opus 4.7', 'Supabase', 'Netlify Functions'],
+    tech: ['React 19', 'Vite 8', 'Tailwind CSS', 'Claude Opus 4.7', 'Supabase', 'Vercel'],
     links: { live: 'https://sentinel-ochre-five.vercel.app' },
+    
     status: 'Now in private beta',
   },
   {
