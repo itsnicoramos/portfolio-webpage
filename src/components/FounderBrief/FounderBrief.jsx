@@ -23,10 +23,10 @@ const BRIEFS = [
     bullets: [
       "Proof of Capacity > Proof of Compliance: Look at my transcript. I took a C in Calculus I. Then, I turned around and dropped an A- in Calculus II — universally recognized as the hardest weed-out class in the sequence. I don't lack the compute to get an A; I just refuse to allocate it unless the underlying mechanics actually matter to what I'm building. Calc II math scales to the LLMs I work with. Calc I syllabus quizzes do not. That A- proves I can dominate complex mechanics when the ROI is there. Grinding for baseline A's is just wasted bandwidth to me.",
       "The Market Has No Syllabus: Academia rewards me for staying inside the sandbox. I know startups reward me for breaking it. Prototyping my AI product demands product-first logic, rapid iteration, and ruthless execution. A classroom cannot test for my agency.",
-      "Asymmetric Leverage: While the rest of my cohort is memorizing syntax for a final exam, I am living inside Claude Code. I am wiring up custom agent skills, testing local-first architectures, and pushing the boundaries of what AI can execute in my real-world codebase. I don't memorize code; I direct it. I am building infrastructure while they are building study guides.",
+      "Asymmetric Leverage: While the rest is memorizing syntax for a final exam, I am living inside Claude Code. I am wiring up custom agent skills, testing local-first architectures, and pushing the boundaries of what AI can execute in my real-world codebase. I don't memorize code; I direct it. I am building infrastructure while they are building study guides.",
     ],
     outro: [
-      'The valedictorian of my class is going to graduate with a framed piece of paper, a flawless transcript, and a resume begging for permission to build. I am graduating with a portfolio of shipped software, a network of builders, and an intuition for the tools that will render their future job obsolete.',
+      'The valedictorian they are going to graduate with a framed piece of paper, a flawless transcript, and a resume begging for permission to build. I am graduating with a portfolio of shipped software, a network of builders, and an intuition for the tools that will render their future job obsolete.',
       'My degree is just a hedge. My shipped product is the thesis.',
       'Day 1 of building a $1B company using Claude Code without writing a single line of code.'
     ],

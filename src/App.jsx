@@ -7,6 +7,7 @@ import Hero from './components/Hero/Hero'
 import About from './components/About/About'
 import Projects from './components/Projects/Projects'
 import FounderBrief from './components/FounderBrief/FounderBrief'
+import Vibecoding from './components/Vibecoding/Vibecoding'
 import Skills from './components/Skills/Skills'
 import Certifications from './components/Certifications/Certifications'
 import Travel from './components/Travel/Travel'
@@ -47,6 +48,7 @@ export default function App() {
         <About />
         <Projects />
         <FounderBrief />
+        <Vibecoding />
         <Skills />
         <Certifications />
         <Travel />
