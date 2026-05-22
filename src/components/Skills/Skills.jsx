@@ -13,6 +13,11 @@ const SKILL_CATEGORIES = [
     skills: ['C / C++', 'Python', 'SQL (SQLite)', 'Firebase', 'Node.js'],
   },
   {
+    icon: 'fas fa-wand-magic-sparkles',
+    title: 'Prompt & Context Engineering',
+    skills: ['Prompt Engineering', 'Context Engineering'],
+  },
+  {
     icon: 'fas fa-wrench',
     title: 'Tools',
     skills: ['Git & GitHub', 'Linux', 'NPM', 'VS Code', 'Vite', 'Vercel'],
@@ -20,7 +25,7 @@ const SKILL_CATEGORIES = [
   {
     icon: 'fas fa-book-open',
     title: 'Currently Learning',
-    skills: ['MongoDB', 'Prisma', 'Redux Toolkit', 'LLM Integration', 'Prompt Engineering', 'Context Engineering'],
+    skills: ['MongoDB', 'Prisma', 'Redux Toolkit', 'LLM Integration'],
   },
 ]
 
