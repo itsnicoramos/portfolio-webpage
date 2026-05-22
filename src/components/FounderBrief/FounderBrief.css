@@ -53,8 +53,31 @@
   color: var(--text);
 }
 
+.founder-subtitle {
+  margin: 8px 0 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
 .founder-body {
   margin: 18px 0 0;
+}
+
+.founder-bullets {
+  margin: 18px 0 0;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.founder-bullets li {
+  color: var(--text-secondary);
+  line-height: 1.85;
+  font-size: 1.1rem;
+}
+
+.founder-bullets li + li {
+  margin-top: 14px;
 }
 
 .founder-text {
@@ -86,7 +109,8 @@
     font-size: 1.35rem;
   }
 
-  .founder-text {
+  .founder-text,
+  .founder-bullets li {
     font-size: 1rem;
     line-height: 1.75;
   }
