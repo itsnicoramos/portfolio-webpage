@@ -28,6 +28,7 @@ const BRIEFS = [
     outro: [
       'The valedictorian of my class is going to graduate with a framed piece of paper, a flawless transcript, and a resume begging for permission to build. I am graduating with a portfolio of shipped software, a network of builders, and an intuition for the tools that will render their future job obsolete.',
       'My degree is just a hedge. My shipped product is the thesis.',
+      'Day 1 of building a $1B company using Claude Code without writing a single line of code.'
     ],
   },
 ]
