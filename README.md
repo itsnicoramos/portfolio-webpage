@@ -143,9 +143,11 @@ advisor that pressure-tests a plan before any code gets written:
 ```
 
 It challenges the premise, surfaces the 10-star version, runs six forcing
-questions, then commits to one of four scope modes (Expansion, Selective, Hold,
-Reduction). It is **advisory only** — it never edits code, and every scope change
-is an explicit opt-in.
+questions, commits to one of four scope modes (Expansion, Selective, Hold,
+Reduction), then walks an 11-section rigor pass (architecture, errors, security,
+edge cases, code quality, tests, performance, observability, deployment, long-term
+trajectory, design/UX). It is **advisory only** — it never edits code, and every
+scope change is an explicit opt-in.
 
 Inspired by [Garry Tan's gstack](https://github.com/garrytan/gstack)
 (`/plan-ceo-review` + `/office-hours`). Not forked — independently authored for

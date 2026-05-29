@@ -1,5 +1,5 @@
 ---
-description: CEO/founder-mode plan review — challenges scope, names the landmines, gates every change behind your approval.
+description: CEO/founder-mode plan review — challenges scope, runs an 11-section rigor pass, names the landmines, gates every change behind your approval.
 argument-hint: [plan, idea, or feature to review]
 allowed-tools: Read, Grep, Glob, Bash, WebSearch, AskUserQuestion
 ---
@@ -48,6 +48,12 @@ Do this first, every time. Short, sharp, no filler.
 3. **What already exists?** Search the repo (`Grep`/`Glob`/`Read`) for code,
    components, or patterns that already solve part of this. Refactor beats
    rebuild. Name what you found.
+4. **Alternatives.** Sketch 2-3 distinct approaches — at minimum a minimal-viable
+   version and an ideal-architecture version. Score each on completeness and
+   effort. Present them via `AskUserQuestion`.
+5. **Temporal interrogation.** What decisions must be resolved NOW, before code,
+   versus what can be figured out during implementation? Surface the now-only
+   ones.
 
 Then run the forcing questions and pick a mode.
 
@@ -84,6 +90,56 @@ Offer these four and commit fully to whichever I pick:
 
 ---
 
+## The 11-section review pass
+
+After the mode is chosen, walk all eleven sections **in order**. This is the heavy
+part — do not skip.
+
+**Anti-skip rule:** every section gets evaluated, even if the plan looks small. If
+a section turns up nothing, say "Section N — no issues, moving on" and continue.
+If it turns up something, that finding goes through the scope gate (below) before
+it becomes part of the plan. A section is never silently dropped.
+
+**Diagrams are mandatory** where the section calls for them: render ASCII for data
+flows, state machines, and request pipelines. A flow you can't draw is a flow you
+don't understand yet.
+
+1. **Architecture review** — System design, dependency direction, data flows (map
+   the happy path *and* nil/empty/error paths), state machines, coupling, single
+   points of failure, where it scales and where it breaks, rollback story.
+2. **Error & rescue map** — Name the specific error cases, what triggers each,
+   what catches it, and what the user actually sees. Flag any catch-all handler as
+   a smell.
+3. **Security & threat model** — Attack surface, input validation, authn/authz,
+   secrets handling, dependency risk, injection vectors (incl. prompt injection
+   for the AI paths), and what gets logged vs. what must never be logged.
+4. **Data flow & interaction edge cases** — ASCII-diagram the data paths, then
+   walk double-click, navigate-away mid-request, slow/flaky connection, zero
+   results, stale state, and back-button.
+5. **Code quality** — Organization, DRY violations, naming, error patterns, over-
+   and under-engineering. Reuse existing primitives (`src/components/ui/`, hooks)
+   before inventing new ones.
+6. **Test review** — Diagram the new flows, then state what to test at each level
+   (unit / integration / E2E) and which error paths must have coverage. Call out
+   the highest-risk untested path.
+7. **Performance** — N+1 / waterfall calls, bundle weight, image and asset cost,
+   animation jank (this repo leans on Framer Motion + Three.js + Lenis — watch
+   main-thread cost and `prefers-reduced-motion`), caching, latency.
+8. **Observability & debuggability** — When this breaks in production, how do I
+   find out and how do I diagnose it? Logging, error surfacing, and any signal I
+   need that doesn't exist yet.
+9. **Deployment & rollout** — Netlify auto-deploys from `main`. Migration/config
+   safety, CSP updates (`netlify.toml`) for any new external origin, env vars,
+   rollback, and a smoke check after deploy.
+10. **Long-term trajectory** — Technical debt incurred, what this locks me into,
+    how reversible it is, and whether it still makes sense in 12 months.
+11. **Design & UX** — Information hierarchy, every interaction state (loading /
+    empty / error / success), the user journey, AI-slop risk, responsive behavior
+    across the 4/2/1-col breakpoints, and accessibility basics (focus, contrast,
+    reduced-motion). Skip only if there is genuinely no UI in scope — and say so.
+
+---
+
 ## Prime directives (apply throughout)
 
 1. **Zero silent failures** — every failure mode is visible to the system and the
@@ -102,6 +158,24 @@ Offer these four and commit fully to whichever I pick:
 7. **Permission to scrap and rebuild** — if there's a materially better approach,
    put it on the table explicitly, even if it means throwing work away.
 
+## CEO instincts (apply throughout)
+
+Think the way a founder thinks, not the way a ticket-closer thinks:
+
+- **Reversibility × magnitude** — one-way doors get more scrutiny than two-way
+  doors. Move fast on the reversible, slow on the permanent.
+- **Inversion** — ask "what would make this fail?" and design against it.
+- **Focus is subtraction** — what we deliberately do NOT build matters as much as
+  what we ship.
+- **Speed calibration** — ~70% of the information is usually enough to decide;
+  don't stall for certainty that won't come.
+- **Proxy skepticism** — is the metric still serving the user, or just easy to
+  measure?
+- **Narrative coherence** — the *why* has to be legible. If I can't explain it in
+  a sentence, the plan isn't done.
+- **Leverage obsession** — prefer the small move with outsized output.
+- **Hierarchy as service** — what should the user see first, second, third?
+
 ## The scope gate
 
 For every finding or proposed change:
@@ -109,6 +183,15 @@ For every finding or proposed change:
 - If a section turns up nothing, say "No issues here, moving on."
 - If it turns up something, call `AskUserQuestion` and let me decide before it
   becomes part of the plan. You recommend. I decide.
+
+## Closing
+
+When the eleven sections are done, give me:
+
+- A one-paragraph verdict — ship it, ship it with the agreed changes, or rethink.
+- The agreed scope (what's in), and a written list of everything deferred (what's
+  out, so it isn't quietly forgotten).
+- The single highest-risk thing to watch when this goes live.
 
 ---
 
@@ -119,7 +202,8 @@ at the intersection of AI and product. Active work to keep in frame: **Looply**
 (AI content/strategy copilot), **ChainMind** (conversational-AI blockchain),
 **ApplyKit** (student application copilot), and **this portfolio** (React + Vite,
 Netlify, dark-only). Land reviews in that reality — a solo founder shipping fast,
-not a 40-person org with a release train.
+not a 40-person org with a release train. Scale the rigor to the stakes: a copy
+tweak does not need a threat model, a payments or auth change does.
 
 ---
 

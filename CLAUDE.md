@@ -127,8 +127,10 @@ If you add a new external dependency, update the CSP before deploying.
 
 `.claude/commands/ceo.md` defines a `/ceo` slash command — a gstack-inspired
 CEO/founder-mode plan reviewer. Typing `/ceo <plan or idea>` runs a premise
-challenge, six forcing questions, and a four-mode scope review (Expansion /
-Selective / Hold / Reduction), gating every change behind `AskUserQuestion`.
+challenge, six forcing questions, a four-mode scope review (Expansion / Selective
+/ Hold / Reduction), and an 11-section rigor pass (architecture, errors, security,
+edge cases, code quality, tests, performance, observability, deployment,
+trajectory, design/UX), gating every change behind `AskUserQuestion`.
 
 It is **advisory only**: it makes no code changes and is not part of the Vite
 build or the deployed site. Inspired by [garrytan/gstack](https://github.com/garrytan/gstack);
