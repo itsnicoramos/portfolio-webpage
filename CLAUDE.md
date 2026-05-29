@@ -123,6 +123,19 @@ If you add a new external dependency, update the CSP before deploying.
 
 ---
 
+## Claude Code tooling
+
+`.claude/commands/ceo.md` defines a `/ceo` slash command — a gstack-inspired
+CEO/founder-mode plan reviewer. Typing `/ceo <plan or idea>` runs a premise
+challenge, six forcing questions, and a four-mode scope review (Expansion /
+Selective / Hold / Reduction), gating every change behind `AskUserQuestion`.
+
+It is **advisory only**: it makes no code changes and is not part of the Vite
+build or the deployed site. Inspired by [garrytan/gstack](https://github.com/garrytan/gstack);
+independently authored, not forked.
+
+---
+
 ## Deployment
 
 Netlify auto-deploys from `main`.

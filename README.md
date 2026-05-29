@@ -131,6 +131,28 @@ npm run preview  # Preview production build
 
 ---
 
+## `/ceo` — founder-mode review command
+
+A project-local [Claude Code](https://claude.com/claude-code) slash command lives
+at `.claude/commands/ceo.md`. Type `/ceo` in Claude Code to invoke a CEO/founder
+advisor that pressure-tests a plan before any code gets written:
+
+```
+/ceo add a contact form with spam protection
+/ceo should I rebuild the chat assistant on Claude instead of OpenAI?
+```
+
+It challenges the premise, surfaces the 10-star version, runs six forcing
+questions, then commits to one of four scope modes (Expansion, Selective, Hold,
+Reduction). It is **advisory only** — it never edits code, and every scope change
+is an explicit opt-in.
+
+Inspired by [Garry Tan's gstack](https://github.com/garrytan/gstack)
+(`/plan-ceo-review` + `/office-hours`). Not forked — independently authored for
+this repo.
+
+---
+
 ## Theming
 
 Dark-only. `data-theme="dark"` is hardcoded on `<html>` and CSS custom properties are defined under `:root`. Tailwind dark mode aligns via `darkMode: ['attribute', '[data-theme="dark"]']`. The theme is saved to `localStorage` and applied before first paint (inline script in `index.html`) to prevent flash.
