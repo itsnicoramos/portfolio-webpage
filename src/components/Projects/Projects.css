@@ -75,6 +75,28 @@
   border: 1px solid var(--border);
 }
 
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.project-shot {
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  transition: transform 0.2s ease;
+}
+
+.project-shot:hover {
+  transform: translateY(-3px);
+}
+
 .project-card h3 {
   color: var(--text);
   font-size: 1.15rem;

@@ -3,6 +3,24 @@ import './Projects.css'
 
 const PROJECTS = [
   {
+    title: 'Aura',
+    badge: 'STARTUP',
+    role: 'Founder',
+    date: '2026 · iOS',
+    images: ['/img/aura-today.jpeg', '/img/aura-nutrition.jpeg', '/img/aura-coach.jpeg'],
+    desc: 'What if Strava and a personal trainer had a baby? Aura is the AI training partner that actually knows you. It reads every workout, meal, and habit you log, then builds your week, catches plateaus before you feel them, and wraps it all in a social feed and streaks that keep you showing up.',
+    bullets: [
+      'AI Coach (Beta): a personal agent that learns from your logged training and remembers your chats — generates your week ahead, runs 28-day plateau checks, and answers in Quick, Coach, or Research modes',
+      'Social by design: a Feed, daily coach briefs, and streak mechanics ("4 workouts to keep your streak") that turn consistency into a game',
+      'Nutrition that logs itself: calorie and macro targets (protein / carbs / fat), barcode scanning, and camera-based "Read label" OCR to log food in seconds',
+      'Guided programs: structured workout plans (5x/week starter and more) with per-exercise weight tracking and one-tap session start',
+      'Cross-platform mobile app built with React Native + Expo in TypeScript, backed by Supabase and an LLM-powered coaching agent',
+    ],
+    tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'LLM AI Agent', 'iOS'],
+    links: { live: 'https://myaurafit.app' },
+    status: 'In private beta',
+  },
+  {
     title: 'Sentinel',
     badge: 'STARTUP',
     role: 'Founding Product',
@@ -178,6 +196,19 @@ export default function Projects() {
               className={`project-card${p.badge === 'STARTUP' ? ' project-card--startup' : ''}${p.badge === 'FEATURED' ? ' project-card--featured' : ''}`}
               variants={cardVariants}
             >
+              {p.images && p.images.length > 0 && (
+                <div className="project-gallery">
+                  {p.images.map((src, i) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`${p.title} app screenshot ${i + 1}`}
+                      className="project-shot"
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+              )}
               {p.image && <img src={p.image} alt={p.title} className="project-screenshot" loading="lazy" />}
               <span className={`project-badge ${BADGE_CLASS[p.badge] || ''}`}>{p.badge}</span>
               <h3>{p.title}</h3>
