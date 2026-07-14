@@ -16,7 +16,8 @@ const PROJECTS = [
       'Guided programs: structured workout plans (5x/week starter and more) with per-exercise weight tracking and one-tap session start',
       'Cross-platform mobile app built with React Native + Expo in TypeScript, backed by Supabase and an LLM-powered coaching agent',
     ],
-    tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'LLM AI Agent', 'iOS'],
+    tech: ['React Native', 'Expo', 'TypeScript', 'Python', 'Supabase', 'PostgreSQL', 'Swift', 'LLM AI Agent', 'iOS'],
+    techImage: '/img/aura-languages.jpeg',
     links: { live: 'https://myaurafit.app' },
     status: 'In private beta',
   },
@@ -226,6 +227,14 @@ export default function Projects() {
               <div className="tech-tags">
                 {p.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
               </div>
+              {p.techImage && (
+                <img
+                  src={p.techImage}
+                  alt={`${p.title} language breakdown`}
+                  className="project-tech-image"
+                  loading="lazy"
+                />
+              )}
               <div className="project-links">
                 {p.links.github && (
                   <a href={p.links.github} target="_blank" rel="noreferrer">
