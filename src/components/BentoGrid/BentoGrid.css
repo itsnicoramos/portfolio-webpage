@@ -67,5 +67,16 @@
 @media (max-width: 640px) {
   .bento-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .bento-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bento-card {
+    padding: 1.25rem;
   }
 }
