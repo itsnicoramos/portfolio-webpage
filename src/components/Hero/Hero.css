@@ -90,3 +90,18 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 104px 16px 48px;
+  }
+
+  .hero-role {
+    margin-bottom: 32px;
+  }
+
+  .cta-buttons {
+    width: 100%;
+    gap: 12px;
+  }
+}

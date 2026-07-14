@@ -150,4 +150,22 @@
   .travel-grid {
     grid-template-columns: 1fr;
   }
+
+  .travel-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .travel-section {
+    padding: 56px 16px;
+  }
+
+  .travel-card {
+    padding: 18px;
+  }
+
+  .shorts-row {
+    gap: 16px;
+  }
 }

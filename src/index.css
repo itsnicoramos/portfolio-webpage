@@ -172,6 +172,26 @@ body {
   font-weight: 500;
 }
 
+/* ========== Mobile refinements ========== */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 14px 24px;
+    min-height: 48px;
+    width: 100%;
+    max-width: 340px;
+  }
+}
+
 /* ========== Scroll Fade Animations ========== */
 .scroll-fade {
   opacity: 0;

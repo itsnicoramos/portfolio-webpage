@@ -192,4 +192,22 @@
   .project-grid {
     grid-template-columns: 1fr;
   }
+
+  .project-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-section {
+    padding: 56px 16px;
+  }
+
+  .project-card {
+    padding: 18px;
+  }
+
+  .project-gallery {
+    gap: 6px;
+  }
 }

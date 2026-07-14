@@ -85,4 +85,18 @@
   .cert-grid {
     grid-template-columns: 1fr;
   }
+
+  .cert-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .certifications-section {
+    padding: 56px 16px;
+  }
+
+  .cert-card {
+    padding: 18px;
+  }
 }

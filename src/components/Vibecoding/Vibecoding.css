@@ -7,3 +7,9 @@
     padding: 80px 20px;
   }
 }
+
+@media (max-width: 480px) {
+  .vibecoding-section {
+    padding: 56px 16px;
+  }
+}
