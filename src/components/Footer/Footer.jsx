@@ -18,7 +18,7 @@ export default function Footer() {
         <i className={isDark ? 'fas fa-sun' : 'fas fa-moon'} aria-hidden="true"></i>
         <span>{isDark ? 'Light mode' : 'Dark mode'}</span>
       </button>
-      <p className="footer-copy">&copy; {year} Nico&#8482; &mdash; All rights reserved.</p>
+      <p className="footer-copy">&copy; {year} Nico&#8482;. All rights reserved.</p>
     </footer>
   )
 }

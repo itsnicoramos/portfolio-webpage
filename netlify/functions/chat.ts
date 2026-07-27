@@ -141,7 +141,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     'unknown';
 
   if (!checkRateLimit(ip)) {
-    return json(429, { error: 'Too many requests — please wait a minute.' }, origin);
+    return json(429, { error: 'Too many requests. Please wait a minute.' }, origin);
   }
 
   // Parse body
@@ -205,7 +205,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     });
 
     if (response.status === 429) {
-      return json(429, { error: 'AI service rate limited — try again shortly.' }, origin);
+      return json(429, { error: 'AI service rate limited. Try again shortly.' }, origin);
     }
 
     if (!response.ok) {
