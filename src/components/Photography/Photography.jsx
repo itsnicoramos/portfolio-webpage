@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import './Vibecoding.css'
+import './Photography.css'
 
-export default function Vibecoding() {
+export default function Photography() {
   return (
-    <section id="vibecoding" className="vibecoding-section">
+    <section id="photography" className="photography-section">
       <div className="container">
         <motion.h2
           className="section-title"
@@ -12,7 +12,7 @@ export default function Vibecoding() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          Vibecoding
+          Photography
         </motion.h2>
       </div>
     </section>

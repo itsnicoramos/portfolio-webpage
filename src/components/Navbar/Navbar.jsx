@@ -19,9 +19,9 @@ export default function Navbar() {
     { href: '#about', label: 'About', icon: 'fa-user' },
     { href: '#projects', label: 'Projects', icon: 'fa-folder-open' },
     { href: '#founder-brief', label: 'Founder Brief', icon: 'fa-rocket' },
-    { href: '#vibecoding', label: 'Vibecoding', icon: 'fa-wand-magic-sparkles' },
     { href: '#skills', label: 'Skills', icon: 'fa-code' },
     { href: '#certifications', label: 'Certifications', icon: 'fa-certificate' },
+    { href: '#photography', label: 'Photography', icon: 'fa-camera' },
     { href: '#travel', label: 'Travel', icon: 'fa-plane' },
     { href: '#contact', label: 'Connect', icon: 'fa-envelope' },
   ]

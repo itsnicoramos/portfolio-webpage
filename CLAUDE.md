@@ -50,6 +50,7 @@ src/
     Projects/          Project cards with skeleton loading state, badges, tech tags
     Skills/            Skill category cards with Framer Motion stagger
     Certifications/    Credential cards
+    Photography/       Hobby section (title only; gallery not yet added)
     Travel/            Travel interest cards
     Contact/           Pressable social link cards
     Footer/            Dynamic copyright year
