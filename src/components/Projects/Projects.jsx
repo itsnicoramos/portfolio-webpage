@@ -108,7 +108,7 @@ const gridVariants = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-const cardVariants = {
+const entryVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 }
@@ -136,69 +136,77 @@ export default function Projects() {
           Real products and course projects I've built and shipped.
         </motion.p>
         <motion.div
-          className="project-grid"
+          className="project-list"
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
           {PROJECTS.map((p) => (
-            <motion.div
-              key={p.title}
-              className={`project-card${p.badge === 'STARTUP' ? ' project-card--startup' : ''}${p.badge === 'FEATURED' ? ' project-card--featured' : ''}`}
-              variants={cardVariants}
-            >
-              {p.images && p.images.length > 0 && (
-                <div className="project-gallery">
-                  {p.images.map((src, i) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt={`${p.title} app screenshot ${i + 1}`}
-                      className="project-shot"
-                      loading="lazy"
-                    />
-                  ))}
-                </div>
-              )}
-              {p.image && <img src={p.image} alt={p.title} className="project-screenshot" loading="lazy" />}
-              <span className={`project-badge ${BADGE_CLASS[p.badge] || ''}`}>{p.badge}</span>
-              <h3>{p.title}</h3>
+            <motion.article key={p.title} className="project-entry" variants={entryVariants}>
               <div className="project-meta">
-                <span className="project-role">{p.role}</span>
+                <span className={`project-badge ${BADGE_CLASS[p.badge] || ''}`}>{p.badge}</span>
                 <span className="project-date">{p.date}</span>
+                {p.status && <span className="project-status">{p.status}</span>}
               </div>
-              {p.status && <span className="project-status">{p.status}</span>}
-              <p className="project-desc">{p.desc}</p>
-              {p.bullets.length > 0 && (
-                <ul className="project-bullets">
-                  {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                </ul>
-              )}
-              <div className="tech-tags">
-                {p.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
-              </div>
-              {p.techImage && (
-                <img
-                  src={p.techImage}
-                  alt={`${p.title} language breakdown`}
-                  className="project-tech-image"
-                  loading="lazy"
-                />
-              )}
-              <div className="project-links">
-                {p.links.github && (
-                  <a href={p.links.github} target="_blank" rel="noreferrer">
-                    View on GitHub →
-                  </a>
+
+              <h3 className="project-entry-title">{p.title}</h3>
+              <p className="project-role">{p.role}</p>
+
+              <div className="project-body">
+                <p className="project-text">{p.desc}</p>
+
+                {p.bullets.length > 0 && (
+                  <ul className="project-bullets">
+                    {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                  </ul>
                 )}
-                {p.links.live && (
-                  <a href={p.links.live} target="_blank" rel="noreferrer">
-                    View Live →
-                  </a>
+
+                {p.images && p.images.length > 0 && (
+                  <div className="project-gallery">
+                    {p.images.map((src, i) => (
+                      <img
+                        key={src}
+                        src={src}
+                        alt={`${p.title} app screenshot ${i + 1}`}
+                        className="project-shot"
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
                 )}
+
+                {p.image && (
+                  <img src={p.image} alt={p.title} className="project-screenshot" loading="lazy" />
+                )}
+
+                <div className="tech-tags">
+                  {p.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
+                </div>
+
+                {p.techImage && (
+                  <img
+                    src={p.techImage}
+                    alt={`${p.title} language breakdown`}
+                    className="project-tech-image"
+                    loading="lazy"
+                  />
+                )}
+
+                <div className="project-links">
+                  {p.links.github && (
+                    <a href={p.links.github} target="_blank" rel="noreferrer">
+                      View on GitHub →
+                    </a>
+                  )}
+                  {p.links.live && (
+                    <a href={p.links.live} target="_blank" rel="noreferrer">
+                      View Live →
+                    </a>
+                  )}
+                </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
       </div>
