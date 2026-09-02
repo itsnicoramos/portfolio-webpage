@@ -32,7 +32,7 @@ export default function About() {
           </div>
           <div className="about-copy">
             <p className="about-text">
-              I do not just write code. I command systems. I have an aggressive backlog of ideas, and I possess the exact technical capability required to force them into reality. I taught myself Python when I was  16 because the traditional pace of learning was too slow. Today, my total focus is dominating the specialization of Artificial Intelligence.
+              I do not just write code. I command systems. I have an aggressive backlog of ideas, and I possess the exact technical capability required to force them into reality. I taught myself Python when I was  16 because the traditional pace of learning was too slow.
             </p>
             <p className="about-text">
               I do not waste my time working for big tech companies. I build my own. My execution is ruthless and precise: architect the entire ecosystem, ship it before anyone else even understands the market, and scale it until it is undeniable.
