@@ -3,32 +3,6 @@ import './Projects.css'
 
 const PROJECTS = [
   {
-    title: 'Aura',
-    badge: 'STARTUP',
-    role: 'Founder',
-    date: '2026 · iOS',
-    images: [
-      '/img/aura-today.jpeg',
-      '/img/aura-progress.jpeg',
-      '/img/aura-nutrition.jpeg',
-      '/img/aura-feed.jpeg',
-      '/img/aura-you.jpeg',
-      '/img/aura-coach.jpeg',
-    ],
-    desc: 'What if Strava and a personal trainer had a baby? Aura is the AI training partner that actually knows you. It reads every workout, meal, and habit you log, then builds your week, catches plateaus before you feel them, and wraps it all in a social feed and streaks that keep you showing up.',
-    bullets: [
-      'AI Coach (Beta): a personal agent that learns from your logged training and remembers your chats. It generates your week ahead, runs 28-day plateau checks, and answers in Quick, Coach, or Research modes',
-      'Social by design: a Feed, daily coach briefs, and streak mechanics ("4 workouts to keep your streak") that turn consistency into a game',
-      'Nutrition that logs itself: calorie and macro targets (protein / carbs / fat), barcode scanning, and camera-based "Read label" OCR to log food in seconds',
-      'Guided programs: structured workout plans (5x/week starter and more) with per-exercise weight tracking and one-tap session start',
-      'Cross-platform mobile app built with React Native + Expo in TypeScript, backed by Supabase and an LLM-powered coaching agent',
-    ],
-    tech: ['React Native', 'Expo', 'TypeScript', 'Python', 'Supabase', 'PostgreSQL', 'Swift', 'LLM AI Agent', 'iOS'],
-    techImage: '/img/aura-languages.jpeg',
-    links: { live: 'https://myaurafit.app' },
-    status: 'In private beta',
-  },
-  {
     title: 'CyberBank',
     badge: 'FEATURED',
     role: 'Solo Project',
