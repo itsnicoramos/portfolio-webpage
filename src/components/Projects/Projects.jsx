@@ -55,7 +55,7 @@ const PROJECTS = [
     desc: 'Topics include OOP (encapsulation, inheritance, polymorphism), dynamic data structures (arrays, linked lists, trees), and abstract data types. All solutions are my own work, not my professor\u2019s.',
     bullets: [],
     tech: ['C++', 'OOP', 'Data Structures', 'Make', 'Recursion', 'Linked Lists', 'BST'],
-    links: { live: 'https://itsnicoramos.github.io/csci-161/' },
+    links: {},
     status: 'Completed',
   },
   {
@@ -66,7 +66,7 @@ const PROJECTS = [
     desc: 'Applied and theoretical topics: digital logic, programming paradigms, computer architecture, system software, and theory of computation. All solutions are my own work, not my professor\u2019s.',
     bullets: [],
     tech: ['C', 'MARIE Assembly', 'SQL', 'SQLite', 'GDB', 'Digital Logic', 'K-maps'],
-    links: { live: 'https://itsnicoramos.github.io/csci-162/' },
+    links: {},
     status: 'Completed',
   },
 ]
