@@ -304,6 +304,16 @@ export default function FounderBrief() {
         >
           Founder Briefs
         </motion.h2>
+        {/* Placeholder while the next brief is being written. */}
+        <motion.p
+          className="section-subtitle"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+        >
+          404 not found
+        </motion.p>
         <motion.div
           className="founder-list"
           variants={gridVariants}
