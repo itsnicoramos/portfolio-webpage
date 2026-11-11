@@ -259,3 +259,45 @@ export const portfolio: Project = {
     'portfolio-webpage/package.json',
   ],
 }
+
+// Not my project: an open-source curriculum by Rohit Ghumare (rohitg00),
+// MIT-licensed. itsnicoramos/AI-Engineering is an unmodified copy I study
+// from (no commits of mine as of 2026-11-10). Say so wherever it appears.
+export const aiEngineering: Project = {
+  id: 'ai-engineering-from-scratch',
+  name: 'AI Engineering from Scratch',
+  repo: 'https://github.com/rohitg00/ai-engineering-from-scratch',
+  tagline: 'The open-source curriculum I am learning AI engineering from.',
+  summary:
+    'A free, MIT-licensed course by Rohit Ghumare (rohitg00). I am working through it to learn how models, retrieval and agents are built from the inside. The course is his work; my GitHub copy tracks it.',
+  points: [
+    {
+      title: '542 lessons, 20 phases',
+      body: 'From setup and tooling through model internals, retrieval pipelines and agent runtimes.',
+    },
+    {
+      title: 'Build, test, inspect',
+      body: 'Each lesson implements the thing, tests it, inspects the failures, and keeps the code and the evaluation results.',
+    },
+    {
+      title: 'Five languages',
+      body: 'Python, TypeScript, Rust, Julia and Go, picked per lesson for the job at hand.',
+    },
+    {
+      title: 'Free and open source',
+      body: 'MIT-licensed. Learn on the course website, with a coding agent, or by running the code locally.',
+    },
+  ],
+  stack: ['Python', 'TypeScript', 'Rust', 'Julia', 'Go', 'LLMs', 'RAG', 'Agents'],
+  status: { label: 'Studying, ongoing', tone: 'active' },
+  license: 'MIT, by Rohit Ghumare',
+  links: [
+    { label: 'View the course', href: 'https://github.com/rohitg00/ai-engineering-from-scratch' },
+    { label: 'My copy', href: gh('AI-Engineering') },
+  ],
+  sources: [
+    'rohitg00/ai-engineering-from-scratch/README.md',
+    'GitHub API: rohitg00 (name, license MIT)',
+    'GitHub API: itsnicoramos/AI-Engineering commits (none by itsnicoramos)',
+  ],
+}

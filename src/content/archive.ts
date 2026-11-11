@@ -57,15 +57,6 @@ export const archive: readonly ArchiveEntry[] = [
     href: 'https://github.com/itsnicoramos/cpp-todo-list',
   },
   {
-    id: 'ai-engineering-from-scratch',
-    title: 'AI Engineering from Scratch',
-    context: 'Open-source curriculum by rohitg00',
-    period: '2026, ongoing',
-    body: 'Working through a free, MIT-licensed curriculum on model internals, retrieval pipelines and agent runtimes. My working copy lives on my GitHub; the course is not my work.',
-    tags: ['Python', 'LLMs', 'RAG', 'Agents'],
-    href: 'https://github.com/rohitg00/ai-engineering-from-scratch',
-  },
-  {
     id: 'course-claude-code',
     title: 'Master Claude Code, Plugins and Skills',
     context: 'Online course',

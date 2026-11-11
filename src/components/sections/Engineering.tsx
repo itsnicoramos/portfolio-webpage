@@ -1,4 +1,4 @@
-import { cyberbank, portfolio } from '@/content/projects'
+import { aiEngineering, cyberbank, portfolio } from '@/content/projects'
 import { ArrowLink, Section, SectionHeader, StatusPill, TagList } from '../ui'
 
 export function Engineering() {
@@ -8,12 +8,53 @@ export function Engineering() {
         id="engineering"
         eyebrow="Engineering & CS"
         title="Fundamentals, built by hand."
-        lead="A banking engine written from the standard library up, and the site you are reading, built and tested like a product."
+        lead="The open-source course I am learning AI engineering from, a banking engine written from the standard library up, and the site you are reading."
       />
 
       <article
-        aria-labelledby="cyberbank-title"
+        aria-labelledby="ai-engineering-title"
         className="reveal relative mt-16 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12 lg:mt-20"
+      >
+        <div
+          className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-[radial-gradient(circle,rgb(142_140_255/0.2),transparent_65%)]"
+          aria-hidden="true"
+        />
+        <div className="relative grid gap-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
+          <div className="flex flex-col">
+            <p className="text-sm font-semibold text-gradient-prooflab">Open source · by Rohit Ghumare</p>
+            <h3 id="ai-engineering-title" className="display-md mt-2">
+              {aiEngineering.name}
+            </h3>
+            <p className="mt-3 text-xl font-medium tracking-tight text-snow">{aiEngineering.tagline}</p>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-mist">{aiEngineering.summary}</p>
+            <div className="mt-auto space-y-6 pt-10">
+              <StatusPill status={aiEngineering.status} />
+              <TagList items={aiEngineering.stack} label="AI Engineering from Scratch topics" />
+              <p className="text-[0.875rem] text-mist">License: {aiEngineering.license}.</p>
+              <div className="flex flex-wrap gap-x-6">
+                {aiEngineering.links.map((link) => (
+                  <ArrowLink key={link.href} href={link.href} external>
+                    {link.label}
+                    <span className="sr-only">: AI Engineering from Scratch</span>
+                  </ArrowLink>
+                ))}
+              </div>
+            </div>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {aiEngineering.points.map((p) => (
+              <li key={p.title} className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/10">
+                <h4 className="text-lg font-semibold tracking-tight">{p.title}</h4>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-mist">{p.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+
+      <article
+        aria-labelledby="cyberbank-title"
+        className="reveal relative mt-6 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12"
       >
         <div
           className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-[radial-gradient(circle,rgb(48_209_88/0.18),transparent_65%)]"
