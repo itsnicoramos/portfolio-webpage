@@ -10,10 +10,9 @@ Personal portfolio for Nico Ramos, deployed on Netlify at [itsnico.dev](https://
 
 - Next.js 16 (App Router), React 19, TypeScript strict
 - Tailwind CSS v4 (`@import 'tailwindcss'` + `@theme` tokens in `src/app/globals.css`)
-- Motion (`motion/react`) only in `ProofLabReplay.tsx`, with features lazy-loaded
-- CSS scroll-driven animations (`.reveal`) for scroll reveals; no JS needed
+- No animation library: CSS scroll-driven animations (`.reveal`) for reveals, CSS transitions (`.replay-step`) for the ProofLab replay
 - `next/font` (Inter, JetBrains Mono), self-hosted; icons are inline SVG
-- Netlify hosting via its Next.js runtime (publish `.next`)
+- Netlify hosting via its Next.js runtime, declared in `netlify.toml` as `@netlify/plugin-nextjs` (publish `.next`)
 
 ---
 
@@ -24,8 +23,8 @@ Personal portfolio for Nico Ramos, deployed on Netlify at [itsnico.dev](https://
 - **Verify claims against the repo** before editing a project entry, and update its `sources` list. Do not invent features, stats, status or handles.
 - **Contacts come from the GitHub profile README** (`itsnicoramos/Itsnicoramos`). `tests/unit/content.test.ts` pins the exact list.
 - **No em dashes** in copy (a unit test enforces this for `src/content`).
-- **Respect `prefers-reduced-motion`.** New animations go behind `@media (prefers-reduced-motion: no-preference)` or `useReducedMotion`.
-- **No third-party runtime requests.** A new external origin needs a CSP change in `next.config.ts` and a reason.
+- **Respect `prefers-reduced-motion`.** New animations go behind `@media (prefers-reduced-motion: no-preference)`; the global reduced-motion rule in `globals.css` must keep covering them.
+- **No third-party runtime requests.** The one exception is Netlify's analytics collector in `connect-src`. A new external origin needs a CSP change in `next.config.ts` and a reason.
 - **Unit tests import with `.ts` extensions** (Node runs them with type stripping), so content modules must import each other with explicit `.ts` paths and use type-only imports for anything else.
 
 ---
@@ -59,10 +58,13 @@ independently authored, not forked.
 
 ## Deployment
 
-Netlify auto-deploys from `main`. Work on a feature branch and open a pull request for approval before merging.
+Netlify auto-deploys every push to `main`. Nico ships by running `npm run verify && npm run test:e2e && npm run check:links` locally, then pushing to `main`, then confirming itsnico.dev. Never push to `main` without being asked.
 
 | Setting | Value |
 |---|---|
 | Build command | `npm run build` |
 | Publish directory | `.next` |
 | Node | 24 (`netlify.toml`) |
+| Plugin | `@netlify/plugin-nextjs`, declared explicitly (the Netlify site was created for Vite, so Next.js is not auto-detected) |
+
+The repo lives in an iCloud-synced folder. If builds or `git` hang at 0% CPU, iCloud has offloaded files; see Troubleshooting in README.md.

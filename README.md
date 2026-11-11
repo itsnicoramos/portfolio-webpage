@@ -1,20 +1,49 @@
-# portfolio-webpage
+# itsnico.dev
 
-My personal site, live at [itsnico.dev](https://itsnico.dev). One page, nine sections, built with Next.js and deployed on Netlify.
+My personal site. One page, nine sections, built with Next.js and deployed on Netlify.
 
-## The problem
+**Live at [itsnico.dev](https://itsnico.dev)**
 
-The old site was a React + Vite single page with a theme toggle, a Three.js particle hero, orphaned serverless functions and project copy that had drifted away from what the repos actually say. It looked busy, and it was hard to tell which claims were still true.
+![A ten-second tour of itsnico.dev: the "Curiosity, engineered." hero, the ProofLab replay grading a derivative step by step, and the command palette jumping to Engineering & CS.](docs/site-tour.gif)
 
-## What this does instead
+## What's on it
 
-- **Every project claim is checked against its repository.** Copy lives in typed data files under `src/content/`, and each project lists the repo files it was verified from. Unit tests fail if contacts drift from my GitHub profile README, if a link is not https, or if an empty repo is described as anything but empty.
-- **Server Components by default.** The page is prerendered to static HTML. Only four small pieces run in the browser: the header, the command palette, the copy-email button and the ProofLab replay.
-- **Cinematic dark sections and deliberate light sections**, large type, and motion that respects `prefers-reduced-motion`. Scroll reveals are pure CSS (scroll-driven animations), so nothing is hidden waiting on JavaScript.
-- **Keyboard first.** <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> opens a command palette that jumps to any section, project or contact.
-- **No backend, no database, no auth.** Fonts are self-hosted by `next/font` and icons are inline SVG. The only third-party request is Netlify's own analytics beacon on the live site.
+I'm Nico Ramos, a Computer Engineering transfer student from Vancouver Island University. The site shows what I build, in this order:
 
-## Quick start
+1. **Curiosity, engineered.** The hero.
+2. **ProofLab.** My math learning project: the AI tutor teaches, a deterministic checker grades. A built-in replay shows a real check, step by step.
+3. **AI systems.** The ProofLab tutor harness and hardware-bringup, a Claude Code skill that stops agents from claiming hardware works when they have never seen it.
+4. **Hardware lab.** Bench cards, the bring-up loop on a 4-DOF Arduino arm, and the ArduinoUNO repo, labelled honestly as empty.
+5. **Engineering & CS.** AI Engineering from Scratch (open source, by Rohit Ghumare, which I am studying), CyberBank, and this site.
+6. **Photography.** Built and ready; photos are on their way.
+7. **About me.** How curiosity started it all, plus a little chemistry humor.
+8. **Learning archive.** VIU coursework (CSCI 162, 161, 159, 115) and other practice.
+9. **Contact.** Email, GitHub and LinkedIn first, socials after.
+
+Every project claim on the page is checked against its GitHub repository. If a repo is empty or a feature is not built yet, the site says so.
+
+Press <kbd>⌘K</kbd> (or <kbd>Ctrl K</kbd>) on the site to jump anywhere.
+
+## Built with
+
+| Layer | Choice | Why |
+|---|---|---|
+| Framework | Next.js 16, App Router, React 19 | Server Components by default and static prerendering, with built-in image, font and metadata handling |
+| Language | TypeScript, strict (plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) | Content is data, so the types catch a missing field before the page does |
+| Styling | Tailwind CSS v4 with CSS theme tokens | One token set, cinematic dark sections and deliberate light ones, no theme toggle |
+| Motion | CSS only: scroll-driven reveals and transitions | No animation library in the bundle; everything respects `prefers-reduced-motion` |
+| Fonts | Inter and JetBrains Mono via `next/font` | Self-hosted at build time, no layout shift, no request to Google |
+| Icons | Inline SVG (Simple Icons, CC0) | No icon font, no CDN |
+| Tests | Node test runner, Playwright, axe-core | Fast checks on content, real-browser checks on behaviour and accessibility |
+| Hosting | Netlify with its Next.js runtime | Deploys on every push to `main`; images go through Netlify's image CDN |
+
+No backend, no database, no auth, no contact form.
+
+---
+
+## Developer guide
+
+### Quick start
 
 Needs Node.js 20.9 or newer (Netlify builds with Node 24).
 
@@ -28,101 +57,124 @@ npm run dev
 
 Then open http://localhost:3000.
 
-Production build, served the way Netlify serves it:
+To run the production build the way Netlify serves it:
 
 ```bash
 npm run build && npm start
 ```
 
-## Checks
+### Checks
 
 | Command | What it does |
 |---|---|
 | `npm run typecheck` | Strict TypeScript, no emit |
 | `npm run lint` | ESLint with the Next.js core-web-vitals and TypeScript rules |
-| `npm test` | Unit tests (Node's built-in runner, TypeScript run directly): palette search, content integrity, contacts vs the profile README |
-| `npm run test:e2e` | Playwright on desktop and Pixel 7 against the production build: axe (WCAG 2.2 AA), keyboard and palette flows, security headers, SEO tags, in-page anchors, no horizontal scroll from 320px to 1440px, no console errors, no third-party requests |
-| `npm run check:links` | Fetches every external link in `src/content` and fails on anything broken |
-| `npm run verify` | typecheck, lint, unit tests and build in one go |
+| `npm test` | Unit tests on Node's built-in runner (TypeScript runs directly): palette search, content integrity, contacts against the GitHub profile README, no em dashes in copy |
+| `npm run test:e2e` | Playwright on desktop and a Pixel 7 against the production build: axe (WCAG 2.2 AA), keyboard and palette flows, the ProofLab replay, security headers, SEO tags, in-page anchors, the 404 page, no horizontal scroll from 320 to 1440px, no console errors |
+| `npm run check:links` | Fetches every external link in `src/content` and fails on anything broken (LinkedIn blocks bots with HTTP 999, so open that one by hand) |
+| `npm run verify` | Typecheck, lint, unit tests and build in one go |
 
-The first e2e run needs a browser: `npx playwright install chromium`.
+The first e2e run needs a browser:
 
-## How it works
+```bash
+npx playwright install chromium
+```
+
+### How it works
+
+The page is prerendered to static HTML. Only four components run in the browser:
+
+| Client component | Job |
+|---|---|
+| `SiteHeader.tsx` | Active-section highlight, mobile menu |
+| `CommandPalette.tsx` | <kbd>⌘K</kbd> palette on a native `<dialog>`, ARIA combobox and listbox, fuzzy search |
+| `ProofLabReplay.tsx` | Replays a real ProofLab `/check` response with CSS transitions. The server renders the finished state, so nothing is hidden without JavaScript |
+| `CopyEmailButton.tsx` | Copies the email address and announces it to screen readers |
+
+Everything else is a Server Component.
 
 ```
 src/
   app/
     layout.tsx           fonts, metadata, JSON-LD, skip link, header, palette, footer
     page.tsx             the nine sections, in order
-    globals.css          Tailwind v4 theme tokens, section themes, CSS scroll reveal, reduced motion
+    globals.css          Tailwind theme tokens, section themes, scroll reveal, replay transitions, reduced motion
     opengraph-image.tsx  social card, rendered to a static PNG at build time
     robots.ts, sitemap.ts, not-found.tsx
   components/
     sections/            Hero, ProofLab, AISystems, HardwareLab, Engineering,
-                         Photography, About, LearningArchive, Contact (all Server Components)
-    SiteHeader.tsx       client: active-section highlight, mobile menu
-    CommandPalette.tsx   client: native <dialog>, ARIA combobox + listbox, fuzzy search
-    ProofLabReplay.tsx   client: replays a real ProofLab /check response with Motion
-    CopyEmailButton.tsx  client: clipboard with a live-region announcement
+                         Photography, About, LearningArchive, Contact
+    SiteHeader.tsx, CommandPalette.tsx, ProofLabReplay.tsx, CopyEmailButton.tsx
     Icon.tsx, ui.tsx     inline SVG icons, Section, SectionHeader, links, tags, status pills
-  content/               all copy and links as typed data (the only place to edit content)
+  content/               every piece of copy and every link, as typed data
   lib/fuzzy.ts           the palette's matcher, dependency-free and unit tested
   assets/                images imported through next/image
 tests/
   unit/                  node --test
   e2e/                   Playwright + axe
 scripts/check-links.ts
+docs/site-tour.gif       the recording at the top of this README
 ```
-
-Content hierarchy, top to bottom:
-
-| # | Section | Theme | Source of truth |
-|---|---|---|---|
-| 1 | Hero: "Curiosity, engineered." | dark | |
-| 2 | ProofLab | light | [ProofLab](https://github.com/itsnicoramos/ProofLab) README |
-| 3 | AI systems: ProofLab tutor harness, hardware-bringup | dark | ProofLab and [Spec-to-ship](https://github.com/itsnicoramos/Spec-to-ship) READMEs |
-| 4 | Hardware lab: bench cards, the 4-DOF arm loop, ArduinoUNO | light | Spec-to-ship README, [ArduinoUNO](https://github.com/itsnicoramos/ArduinoUNO) (empty so far) |
-| 5 | Engineering & CS: AI Engineering from Scratch (open source, by Rohit Ghumare), CyberBank, this website | dark | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) README; [CyberBank](https://github.com/itsnicoramos/CyberBank) source and README; this repository |
-| 6 | Photography | dark | `src/content/photos.ts` |
-| 7 | About me | light | my own copy, `src/content/about.ts` |
-| 8 | Learning archive: CSCI 162, 161, 159 (Fall 2025, VIU), 115 and more | light | course repos and READMEs |
-| 9 | Contact | dark | my [GitHub profile README](https://github.com/itsnicoramos/Itsnicoramos) |
 
 ### Editing content
 
-- **Projects:** `src/content/projects.ts`. Re-read the repo before changing a claim, and update the `sources` list.
-- **Contacts:** `src/content/site.ts`, and the expected list in `tests/unit/content.test.ts`. Both must match the GitHub profile README.
-- **Photos:** drop the file in `public/photography/`, then add `{ src, alt, width, height }` to `src/content/photos.ts`. Until the list has entries the section shows an honest "in progress" state.
-- **Section order:** `src/app/page.tsx` and `nav` in `src/content/site.ts`.
+All copy lives in `src/content/`. Components only lay it out.
 
-## Tech stack
-
-| Layer | Choice | Why |
+| To change | Edit | Rule |
 |---|---|---|
-| Framework | Next.js 16, App Router | Server Components by default, static prerendering, built-in image, font and metadata handling |
-| Language | TypeScript, strict (plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) | Content is data, so the types catch a missing field before the page does |
-| Styling | Tailwind CSS v4 with CSS theme tokens | One token set, two section themes, no runtime theme toggle |
-| Motion | CSS scroll-driven animations, plus Motion for one replay | CSS covers reveals for free; Motion only where sequencing matters, with its engine lazy-loaded |
-| Fonts | Inter and JetBrains Mono via `next/font` | Self-hosted at build time, no layout shift, no request to Google |
-| Icons | Inline SVG (Simple Icons, CC0) | No icon font, no CDN, nothing to allow in the CSP |
-| Tests | Node test runner, Playwright, axe-core | Fast unit checks on content, real-browser checks on behaviour and accessibility |
-| Hosting | Netlify, Next.js runtime | Auto-deploys from `main`; `next/image` goes through Netlify's image CDN |
+| A project | `projects.ts` | Re-read the repo first and update the entry's `sources` list. Never invent features, stats or status |
+| Contacts | `site.ts` and the expected list in `tests/unit/content.test.ts` | Both must match my [GitHub profile README](https://github.com/itsnicoramos/Itsnicoramos) |
+| About me | `about.ts` | |
+| Learning archive | `archive.ts` | Newest first. CSCI 161 and 162 stay unlinked on purpose |
+| Photos | Add the file to `public/photography/`, then `{ src, alt, width, height }` to `photos.ts` | Real pixel sizes and descriptive alt text. While the list is empty the section shows an "in progress" state |
+| Section order | `src/app/page.tsx` and `nav` in `site.ts` | Keep them in the same order |
 
-## Security
+Copy uses no em dashes; a unit test enforces it.
 
-Headers are set in `next.config.ts` so they behave the same locally and on Netlify: a CSP that allows only this origin (plus Netlify's analytics collector in `connect-src`, so Netlify's real-user monitoring works), `frame-ancestors 'none'`, HSTS, `nosniff`, a strict referrer policy and a locked-down permissions policy. `script-src` keeps `'unsafe-inline'` because Next.js hydrates with small inline scripts; removing it would mean per-request nonces and giving up static rendering. Every external link opens in a new tab with `rel="noopener noreferrer"`.
+### Security
 
-## Deployment
+Headers are set in `next.config.ts`, so they behave the same locally and on Netlify:
 
-Netlify auto-deploys from `main`. Settings live in `netlify.toml`:
+- A Content Security Policy that allows only this origin, plus Netlify's analytics collector in `connect-src` so Netlify's real-user monitoring can report.
+- `frame-ancestors 'none'`, HSTS, `nosniff`, a strict referrer policy and a locked-down permissions policy.
+- `script-src` keeps `'unsafe-inline'` because Next.js hydrates with small inline scripts. Removing it would mean per-request nonces and giving up static rendering.
+
+Every external link opens in a new tab with `rel="noopener noreferrer"`. A new external origin needs a CSP change and a reason.
+
+### Deployment
+
+Every push to `main` deploys to production. I run the checks locally, then push:
+
+```bash
+npm run verify && npm run test:e2e && npm run check:links
+```
+
+```bash
+git push origin main
+```
+
+Then confirm https://itsnico.dev loads the change. Netlify settings live in `netlify.toml`:
 
 | Setting | Value |
 |---|---|
 | Build command | `npm run build` |
 | Publish directory | `.next` |
 | Node | 24 |
+| Plugin | `@netlify/plugin-nextjs` |
 
-Netlify detects Next.js and adds its runtime on its own. Changes go through a pull request first.
+The plugin is declared on purpose. This Netlify site was created for the old Vite version, so Netlify does not auto-detect Next.js. Without the plugin it publishes the raw `.next` folder and every page returns 404.
+
+### Troubleshooting
+
+**Builds or `git` hang with 0% CPU.** The repo lives in an iCloud-synced Desktop folder, and when the disk runs low iCloud offloads files, so every read waits on a download. Generated folders are marked so iCloud ignores them. After a fresh clone or a deleted `node_modules`, mark them again:
+
+```bash
+mkdir -p node_modules .next && xattr -w 'com.apple.fileprovider.ignore#P' 1 node_modules .next
+```
+
+Then run `npm install` again. Keeping more free disk space helps too.
+
+---
 
 ## Status
 
@@ -130,4 +182,4 @@ Live and maintained. The photography gallery is built but empty until I add phot
 
 ## License
 
-No license chosen yet. The code is mine and default copyright applies; ask before reusing it. Project descriptions quote my own repositories.
+All rights reserved. The code is public to read, but please ask before reusing it. The copy, the portrait and project descriptions are mine; AI Engineering from Scratch is Rohit Ghumare's MIT-licensed work, credited on the site.
