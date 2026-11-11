@@ -82,7 +82,7 @@ Content hierarchy, top to bottom:
 | 2 | ProofLab | light | [ProofLab](https://github.com/itsnicoramos/ProofLab) README |
 | 3 | AI systems: ProofLab tutor harness, hardware-bringup | dark | ProofLab and [Spec-to-ship](https://github.com/itsnicoramos/Spec-to-ship) READMEs |
 | 4 | Hardware lab: bench cards, the 4-DOF arm loop, ArduinoUNO | light | Spec-to-ship README, [ArduinoUNO](https://github.com/itsnicoramos/ArduinoUNO) (empty so far) |
-| 5 | Engineering & CS: CyberBank | dark | [CyberBank](https://github.com/itsnicoramos/CyberBank) source and README |
+| 5 | Engineering & CS: CyberBank, this website | dark | [CyberBank](https://github.com/itsnicoramos/CyberBank) source and README; this repository |
 | 6 | Photography | dark | `src/content/photos.ts` |
 | 7 | About me | light | my own copy, `src/content/about.ts` |
 | 8 | Learning archive: CSCI 162, 161, 159 (Fall 2025, VIU), 115 and more | light | course repos and READMEs |

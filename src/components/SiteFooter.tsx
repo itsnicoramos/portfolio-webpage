@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { site } from '@/content/site'
-import { ExternalLink } from './ui'
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
@@ -10,17 +9,9 @@ export function SiteFooter() {
         <p>
           © {year} {site.name}. All rights reserved.
         </p>
-        <div className="flex items-center gap-6">
-          <ExternalLink
-            href="https://github.com/itsnicoramos/portfolio-webpage"
-            className="inline-flex min-h-11 items-center hover:text-snow"
-          >
-            Source
-          </ExternalLink>
-          <Link href="/#home" className="inline-flex min-h-11 items-center hover:text-snow">
-            Back to top
-          </Link>
-        </div>
+        <Link href="/#home" className="inline-flex min-h-11 items-center hover:text-snow">
+          Back to top
+        </Link>
       </div>
     </footer>
   )

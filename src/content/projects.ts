@@ -219,3 +219,43 @@ export const cyberbank: Project = {
   links: [{ label: 'View on GitHub', href: gh('CyberBank') }],
   sources: ['CyberBank/README.md', 'CyberBank/Crypto.cpp', 'CyberBank/Storage.h', 'CyberBank/server.js', 'CyberBank/LICENSE'],
 }
+
+// This site. Claims are about this repository and were checked against it.
+export const portfolio: Project = {
+  id: 'portfolio',
+  name: 'itsnico.dev',
+  repo: gh('portfolio-webpage'),
+  tagline: 'The site you are reading, built like a product.',
+  summary:
+    'A single-page portfolio in Next.js and strict TypeScript. Every project claim on it is checked against its repository, and the checks are tests, not promises.',
+  points: [
+    {
+      title: 'Server Components by default',
+      body: 'The page is prerendered to static HTML. Only four small pieces run in the browser: the header, the command palette, the copy-email button and the ProofLab replay.',
+    },
+    {
+      title: 'Claims with sources',
+      body: 'Copy lives in typed data files, each project lists the repo files it was verified from, and unit tests pin the contacts to my GitHub profile README.',
+    },
+    {
+      title: 'Keyboard first',
+      body: 'A ⌘K / Ctrl K command palette on a native dialog with an ARIA combobox, a skip link, and a visible focus ring on every dark and light section.',
+    },
+    {
+      title: 'Tested in a real browser',
+      body: 'Playwright on desktop and a Pixel 7 runs axe accessibility checks, keyboard flows and security-header checks, and fails on horizontal scroll from 320 to 1440px.',
+    },
+  ],
+  stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Playwright', 'axe-core', 'Netlify'],
+  status: { label: 'Live at itsnico.dev', tone: 'live' },
+  license: 'None chosen yet',
+  links: [
+    { label: 'View on GitHub', href: gh('portfolio-webpage') },
+  ],
+  sources: [
+    'portfolio-webpage/src/app/',
+    'portfolio-webpage/src/content/',
+    'portfolio-webpage/tests/',
+    'portfolio-webpage/package.json',
+  ],
+}
