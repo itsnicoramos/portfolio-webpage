@@ -10,7 +10,7 @@ const stats = [
 ]
 
 export function ProofLab() {
-  const [site, repo, api] = prooflab.links
+  const [site, repo] = prooflab.links
   return (
     <Section id="prooflab" theme="white">
       <SectionHeader
@@ -69,12 +69,6 @@ export function ProofLab() {
           {repo ? (
             <ArrowLink href={repo.href} tone="light" external>
               {repo.label}
-              <span className="sr-only">: ProofLab</span>
-            </ArrowLink>
-          ) : null}
-          {api ? (
-            <ArrowLink href={api.href} tone="light" external>
-              {api.label}
               <span className="sr-only">: ProofLab</span>
             </ArrowLink>
           ) : null}

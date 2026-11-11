@@ -8,7 +8,6 @@ export function Hero() {
       tabIndex={-1}
       className="theme-dark relative isolate flex min-h-[100svh] items-center overflow-hidden pb-20 pt-28 outline-none"
     >
-      <div className="hero-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
       <div className="hero-glow pointer-events-none absolute -inset-[10%] -z-10" aria-hidden="true" />
 
       <div className="container-page">
@@ -20,7 +19,7 @@ export function Hero() {
           I build AI learning tools, agent skills and hardware experiments, and I test what I claim before I say it works.
         </p>
         <div className="rise-in mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:220ms]">
-          <PillLink href="#prooflab">Explore ProofLab</PillLink>
+          <PillLink href="#prooflab">Explore projects</PillLink>
           <ArrowLink href="#contact">Get in touch</ArrowLink>
         </div>
       </div>

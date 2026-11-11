@@ -247,14 +247,6 @@
   }
 }
 
-.hero-grid {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
-}
-
 /* ── ProofLab replay ─────────────────────────────────────────────────────────
    Steps are always in the DOM (and in the server HTML); data-show only
    changes how they look. The reduced-motion rule below removes the motion. */

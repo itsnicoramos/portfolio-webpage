@@ -60,7 +60,6 @@ export const prooflab: Project = {
   links: [
     { label: 'Visit the site', href: 'https://prooflab-ruby.vercel.app' },
     { label: 'View on GitHub', href: gh('ProofLab') },
-    { label: 'Checker API health', href: 'https://prooflab-api.vercel.app/health' },
   ],
   sources: ['ProofLab/README.md', 'ProofLab/LICENSE', 'ProofLab/frontend/package.json', 'ProofLab/backend/pyproject.toml'],
 }
