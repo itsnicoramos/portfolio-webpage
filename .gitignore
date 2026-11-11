@@ -1,16 +1,29 @@
-# macOS system file
+# macOS
 .DS_Store
 
-# VS Code settings
+# Editors
 .vscode/
 
-# Node modules
+# Dependencies
 node_modules/
 
-# Log files
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Netlify local state
+.netlify/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Logs
 *.log
 
-# Environment variables 
+# Environment variables
 .env
 .env.local
 .env.*.local

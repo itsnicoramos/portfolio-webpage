@@ -1,0 +1,329 @@
+@import 'tailwindcss';
+
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   One palette, two section themes. Dark sections are cinematic black; light
+   sections are paper and white. Text colors were picked for WCAG AA on the
+   backgrounds they sit on (muted text is at least 4.5:1 everywhere). */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-code), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --color-night: #000000;
+  --color-graphite: #111112;
+  --color-graphite-2: #1c1c1e;
+  --color-line-dark: #2c2c2e;
+  --color-snow: #f5f5f7;
+  --color-mist: #a1a1a6;
+
+  --color-paper: #f5f5f7;
+  --color-ink: #1d1d1f;
+  --color-slate: #6e6e73;
+  --color-line-light: #d2d2d7;
+
+  --color-sky: #2997ff;
+  --color-cobalt: #0066cc;
+  --color-amber: #ffb340;
+  --color-rust: #a34a00;
+  --color-mint: #30d158;
+  --color-forest: #1a7f37;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-night);
+    color: var(--color-snow);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-sky) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Sky fails 3:1 on white and paper, so light sections use cobalt. Dark
+     cards inside a light section (.on-dark) switch back to sky. */
+  .theme-light :focus-visible,
+  .theme-white :focus-visible {
+    outline-color: var(--color-cobalt);
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-sky);
+  }
+
+  /* Grid items default to min-width: auto, so a long word, URL or image can
+     push a column past the viewport on narrow screens. Let them shrink. */
+  .grid > * {
+    min-width: 0;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .theme-dark {
+    background: var(--color-night);
+    color: var(--color-snow);
+    color-scheme: dark;
+  }
+
+  .theme-graphite {
+    background: var(--color-graphite);
+    color: var(--color-snow);
+    color-scheme: dark;
+  }
+
+  .theme-light {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    color-scheme: light;
+  }
+
+  .theme-white {
+    background: #ffffff;
+    color: var(--color-ink);
+    color-scheme: light;
+  }
+
+  .display-xl {
+    font-size: clamp(3.25rem, 11vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    font-weight: 650;
+  }
+
+  .display-lg {
+    font-size: clamp(2.5rem, 7vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 650;
+  }
+
+  .display-md {
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+
+  .lead {
+    font-size: clamp(1.125rem, 1.9vw, 1.375rem);
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  /* Used on dark backgrounds only; every stop clears 4.5:1 on graphite. */
+  .text-gradient-prooflab {
+    background: linear-gradient(100deg, #8e8cff 0%, #2997ff 45%, #64d2ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Every stop clears 4.5:1 on white, so small text stays readable. */
+  .text-gradient-prooflab-ink {
+    background: linear-gradient(100deg, #5b2fd1 0%, #0058b0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-hero {
+    background: linear-gradient(95deg, #f5f5f7 0%, #a1c4ff 40%, #2997ff 70%, #64d2ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────────────────────
+   Pure CSS, driven by the scroll timeline. Browsers without scroll-driven
+   animations, and anyone who prefers reduced motion, simply see the content.
+   Nothing is ever hidden waiting on JavaScript. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+/* ── Hero ambience ────────────────────────────────────────────────────────── */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.06);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-glow {
+  background:
+    radial-gradient(40% 50% at 70% 35%, rgb(41 151 255 / 0.28), transparent 70%),
+    radial-gradient(35% 45% at 25% 70%, rgb(94 92 230 / 0.22), transparent 70%),
+    radial-gradient(30% 40% at 55% 85%, rgb(100 210 255 / 0.12), transparent 70%);
+  filter: blur(20px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-glow {
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  .rise-in {
+    animation: rise-in 0.9s var(--ease-out-expo) both;
+  }
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+}
+
+/* ── ProofLab replay ─────────────────────────────────────────────────────────
+   Steps are always in the DOM (and in the server HTML); data-show only
+   changes how they look. The reduced-motion rule below removes the motion. */
+.replay-step,
+.replay-fade {
+  transition:
+    opacity 0.5s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo),
+    filter 0.5s var(--ease-out-expo);
+}
+
+.replay-step[data-show='false'] {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+}
+
+.replay-fade[data-show='false'] {
+  opacity: 0;
+}
+
+/* ── Command palette dialog ──────────────────────────────────────────────── */
+.palette-dialog {
+  margin: 12vh auto auto;
+  width: min(40rem, calc(100vw - 2rem));
+  max-height: min(32rem, 76vh);
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 1.25rem;
+  background: rgb(28 28 30 / 0.92);
+  color: var(--color-snow);
+  box-shadow:
+    0 30px 80px rgb(0 0 0 / 0.6),
+    0 0 0 1px rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  overflow: hidden;
+}
+
+.palette-dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .palette-dialog[open] {
+    animation: palette-in 0.18s var(--ease-out-expo);
+  }
+}
+
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Reduced motion: stop everything that moves on its own ───────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
