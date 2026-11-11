@@ -4,7 +4,7 @@ My personal site. One page, nine sections, built with Next.js and deployed on Ne
 
 **Live at [itsnico.dev](https://itsnico.dev)**
 
-![A ten-second tour of itsnico.dev: the "Curiosity, engineered." hero, the ProofLab replay grading a derivative step by step, and the command palette jumping to Engineering & CS.](docs/site-tour.gif)
+[![The itsnico.dev hero: "Curiosity, engineered." in large type over a dark gradient, with Explore projects and Get in touch buttons.](docs/hero.webp)](https://itsnico.dev)
 
 ## What's on it
 
@@ -113,7 +113,7 @@ tests/
   unit/                  node --test
   e2e/                   Playwright + axe
 scripts/check-links.ts
-docs/site-tour.gif       the recording at the top of this README
+docs/hero.webp           the screenshot at the top of this README
 ```
 
 ### Editing content
