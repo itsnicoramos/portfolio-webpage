@@ -12,7 +12,7 @@ The old site was a React + Vite single page with a theme toggle, a Three.js part
 - **Server Components by default.** The page is prerendered to static HTML. Only four small pieces run in the browser: the header, the command palette, the copy-email button and the ProofLab replay.
 - **Cinematic dark sections and deliberate light sections**, large type, and motion that respects `prefers-reduced-motion`. Scroll reveals are pure CSS (scroll-driven animations), so nothing is hidden waiting on JavaScript.
 - **Keyboard first.** <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> opens a command palette that jumps to any section, project or contact.
-- **No backend, no database, no auth, no third-party requests at runtime.** Fonts are self-hosted by `next/font`, icons are inline SVG.
+- **No backend, no database, no auth.** Fonts are self-hosted by `next/font` and icons are inline SVG. The only third-party request is Netlify's own analytics beacon on the live site.
 
 ## Quick start
 
@@ -110,7 +110,7 @@ Content hierarchy, top to bottom:
 
 ## Security
 
-Headers are set in `next.config.ts` so they behave the same locally and on Netlify: a CSP that allows only this origin, `frame-ancestors 'none'`, HSTS, `nosniff`, a strict referrer policy and a locked-down permissions policy. `script-src` keeps `'unsafe-inline'` because Next.js hydrates with small inline scripts; removing it would mean per-request nonces and giving up static rendering. Every external link opens in a new tab with `rel="noopener noreferrer"`.
+Headers are set in `next.config.ts` so they behave the same locally and on Netlify: a CSP that allows only this origin (plus Netlify's analytics collector in `connect-src`, so Netlify's real-user monitoring works), `frame-ancestors 'none'`, HSTS, `nosniff`, a strict referrer policy and a locked-down permissions policy. `script-src` keeps `'unsafe-inline'` because Next.js hydrates with small inline scripts; removing it would mean per-request nonces and giving up static rendering. Every external link opens in a new tab with `rel="noopener noreferrer"`.
 
 ## Deployment
 

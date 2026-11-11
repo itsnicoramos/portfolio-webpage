@@ -7,13 +7,19 @@ const isProd = process.env.NODE_ENV === 'production'
 // would force dynamic rendering for a fully static site). Everything else is
 // locked to this origin: fonts are self-hosted by next/font, icons are inline
 // SVG, and images go through the Netlify Image CDN on the same origin.
+//
+// The one exception: Netlify injects its real-user-monitoring script
+// (/.netlify/scripts/rum, same origin) and it posts page-performance data to
+// Netlify's collector. Allowed on purpose so Netlify analytics works.
+const NETLIFY_RUM = 'https://ingesteer.services-prod.nsvcs.net'
+
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  `connect-src 'self'${isProd ? '' : ' ws:'}`,
+  `connect-src 'self' ${NETLIFY_RUM}${isProd ? '' : ' ws:'}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

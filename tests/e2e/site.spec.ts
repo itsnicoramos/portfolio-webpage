@@ -56,6 +56,8 @@ test.describe('security', () => {
     expect(h['content-security-policy']).toContain("default-src 'self'")
     expect(h['content-security-policy']).toContain("frame-ancestors 'none'")
     expect(h['content-security-policy']).toContain("object-src 'none'")
+    // Only Netlify's analytics collector may be contacted besides this origin.
+    expect(h['content-security-policy']).toContain("connect-src 'self' https://ingesteer.services-prod.nsvcs.net;")
     expect(h['x-frame-options']).toBe('DENY')
     expect(h['x-content-type-options']).toBe('nosniff')
     expect(h['strict-transport-security']).toContain('max-age=31536000')
