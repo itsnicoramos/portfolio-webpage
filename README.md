@@ -6,6 +6,12 @@ My personal site. One page, nine sections, built with Next.js and deployed on Ne
 
 [![The itsnico.dev hero: "Curiosity, engineered." in large type over a dark gradient, with Explore projects and Get in touch buttons.](docs/hero.webp)](https://itsnico.dev)
 
+<p align="center">
+  <img src="docs/mobile-tour.webp" width="300" alt="A 35-second scroll through itsnico.dev on an iPhone: the hero, ProofLab, AI systems, the hardware lab, Engineering & CS, photography, About, the learning archive and contact.">
+  <br>
+  <sub>The same page on a phone, top to bottom.</sub>
+</p>
+
 ## What's on it
 
 I'm Nico Ramos, a Computer Engineering transfer student from Vancouver Island University. The site shows what I build, in this order:
@@ -113,7 +119,8 @@ tests/
   unit/                  node --test
   e2e/                   Playwright + axe
 scripts/check-links.ts
-docs/hero.webp           the screenshot at the top of this README
+docs/hero.webp           the desktop screenshot at the top of this README
+docs/mobile-tour.webp    the phone scroll-through under it
 ```
 
 ### Editing content
