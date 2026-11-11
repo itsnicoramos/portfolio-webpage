@@ -1,4 +1,5 @@
 import { aiEngineering, cyberbank, portfolio } from '@/content/projects'
+import { ProofLabCard } from './ProofLab'
 import { ArrowLink, Section, SectionHeader, StatusPill, TagList } from '../ui'
 
 export function Engineering() {
@@ -8,12 +9,14 @@ export function Engineering() {
         id="engineering"
         eyebrow="Engineering & CS"
         title="Fundamentals, built by hand."
-        lead="The open-source course I am learning AI engineering from, a banking engine written from the standard library up, and the site you are reading."
+        lead="ProofLab, the math learning tool I build, the open-source course I am learning AI engineering from, a banking engine written from the standard library up, and the site you are reading."
       />
+
+      <ProofLabCard />
 
       <article
         aria-labelledby="ai-engineering-title"
-        className="reveal relative mt-16 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12 lg:mt-20"
+        className="reveal relative mt-6 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12"
       >
         <div
           className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-[radial-gradient(circle,rgb(142_140_255/0.2),transparent_65%)]"

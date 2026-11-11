@@ -301,3 +301,13 @@ export const aiEngineering: Project = {
     'GitHub API: itsnicoramos/AI-Engineering commits (none by itsnicoramos)',
   ],
 }
+
+// The ML section. Nico's first machine learning project is still being built,
+// so this entry says only that. Replace it with a real Project (and `sources`)
+// once there is a repository to verify against.
+export const mlFirstProject = {
+  title: 'My first machine learning project is in the works.',
+  summary:
+    'I am building my first ML project now. It will show up here, with the code and what it can actually do, once there is something real to point at.',
+  status: { label: 'Work in progress', tone: 'early' } satisfies Status,
+} as const

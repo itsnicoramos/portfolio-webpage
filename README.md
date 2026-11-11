@@ -17,10 +17,10 @@ My personal site. One page, nine sections, built with Next.js and deployed on Ne
 I'm Nico Ramos, a Computer Engineering transfer student from Vancouver Island University. The site shows what I build, in this order:
 
 1. **Curiosity, engineered.** The hero.
-2. **ProofLab.** My math learning project: the AI tutor teaches, a deterministic checker grades. A built-in replay shows a real check, step by step.
+2. **ML.** A placeholder for my first machine learning project, marked work in progress until there is code to show.
 3. **AI systems.** The ProofLab tutor harness and hardware-bringup, a Claude Code skill that stops agents from claiming hardware works when they have never seen it.
 4. **Hardware lab.** Bench cards, the bring-up loop on a 4-DOF Arduino arm, and the ArduinoUNO repo, labelled honestly as empty.
-5. **Engineering & CS.** AI Engineering from Scratch (open source, by Rohit Ghumare, which I am studying), CyberBank, and this site.
+5. **Engineering & CS.** ProofLab, my math learning project (the AI tutor teaches, a deterministic checker grades, and a built-in replay shows a real check step by step), then AI Engineering from Scratch (open source, by Rohit Ghumare, which I am studying), CyberBank, and this site.
 6. **Photography.** Built and ready; photos are on their way.
 7. **About me.** How curiosity started it all, plus a little chemistry humor.
 8. **Learning archive.** VIU coursework (CSCI 162, 161, 159, 115) and other practice.
@@ -108,7 +108,7 @@ src/
     opengraph-image.tsx  social card, rendered to a static PNG at build time
     robots.ts, sitemap.ts, not-found.tsx
   components/
-    sections/            Hero, ProofLab, AISystems, HardwareLab, Engineering,
+    sections/            Hero, ML, ProofLab (card in Engineering), AISystems, HardwareLab, Engineering,
                          Photography, About, LearningArchive, Contact
     SiteHeader.tsx, CommandPalette.tsx, ProofLabReplay.tsx, CopyEmailButton.tsx
     Icon.tsx, ui.tsx     inline SVG icons, Section, SectionHeader, links, tags, status pills

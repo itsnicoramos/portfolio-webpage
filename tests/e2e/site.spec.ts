@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-const SECTIONS = ['home', 'prooflab', 'ai-systems', 'hardware', 'engineering', 'photography', 'about', 'archive', 'contact']
+const SECTIONS = ['home', 'ml', 'ai-systems', 'hardware', 'engineering', 'photography', 'about', 'archive', 'contact']
 
 test.describe('page structure and SEO', () => {
   test('renders sections in the content hierarchy order', async ({ page }) => {

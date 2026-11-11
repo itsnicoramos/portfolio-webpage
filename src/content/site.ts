@@ -102,7 +102,7 @@ export type NavItem = { id: string; label: string; short: string }
 
 // Order matches the page. `id` is the section's anchor.
 export const nav: readonly NavItem[] = [
-  { id: 'prooflab', label: 'ProofLab', short: 'ProofLab' },
+  { id: 'ml', label: 'ML', short: 'ML' },
   { id: 'ai-systems', label: 'AI systems', short: 'AI' },
   { id: 'hardware', label: 'Hardware lab', short: 'Hardware' },
   { id: 'engineering', label: 'Engineering & CS', short: 'Engineering' },

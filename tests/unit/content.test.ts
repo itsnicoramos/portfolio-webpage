@@ -50,7 +50,7 @@ describe('navigation and commands', () => {
   it('follows the content hierarchy', () => {
     assert.deepEqual(
       nav.map((n) => n.id),
-      ['prooflab', 'ai-systems', 'hardware', 'engineering', 'photography', 'about', 'archive', 'contact'],
+      ['ml', 'ai-systems', 'hardware', 'engineering', 'photography', 'about', 'archive', 'contact'],
     )
   })
 

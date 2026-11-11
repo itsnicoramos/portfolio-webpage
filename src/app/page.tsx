@@ -4,16 +4,16 @@ import { Contact } from '@/components/sections/Contact'
 import { Engineering } from '@/components/sections/Engineering'
 import { HardwareLab } from '@/components/sections/HardwareLab'
 import { Hero } from '@/components/sections/Hero'
+import { ML } from '@/components/sections/ML'
 import { LearningArchive } from '@/components/sections/LearningArchive'
 import { Photography } from '@/components/sections/Photography'
-import { ProofLab } from '@/components/sections/ProofLab'
 
 // Order is the content hierarchy: change it here and in content/site.ts `nav`.
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <ProofLab />
+      <ML />
       <AISystems />
       <HardwareLab />
       <Engineering />

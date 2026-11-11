@@ -1,6 +1,6 @@
 import { prooflab } from '@/content/projects'
 import { ProofLabReplay } from '../ProofLabReplay'
-import { ArrowLink, PillLink, Section, SectionHeader, StatusPill, TagList } from '../ui'
+import { ArrowLink, PillLink, StatusPill, TagList } from '../ui'
 
 const stats = [
   { value: '14', label: 'Book of Proof chapters taught' },
@@ -9,18 +9,24 @@ const stats = [
   { value: '0', label: 'verdicts written by AI' },
 ]
 
-export function ProofLab() {
+export function ProofLabCard() {
   const [site, repo] = prooflab.links
   return (
-    <Section id="prooflab" theme="white">
-      <SectionHeader
-        id="prooflab"
-        tone="light"
-        eyebrow="ProofLab · AI-assisted mathematics learning"
-        eyebrowClassName="text-gradient-prooflab-ink"
-        title={prooflab.tagline}
-        lead={prooflab.summary}
-      />
+    // A light card inside the dark Engineering & CS section. `theme-white`
+    // keeps cobalt focus rings and light text colours inside it.
+    <article
+      id="prooflab"
+      aria-labelledby="prooflab-title"
+      tabIndex={-1}
+      className="theme-white reveal mt-16 scroll-mt-24 rounded-[2rem] p-7 outline-none sm:p-12 lg:mt-20"
+    >
+      <header className="max-w-3xl">
+        <p className="text-sm font-semibold text-gradient-prooflab-ink">ProofLab · AI-assisted mathematics learning</p>
+        <h3 id="prooflab-title" className="display-md mt-2 text-balance">
+          {prooflab.tagline}
+        </h3>
+        <p className="mt-4 text-[1.0625rem] leading-relaxed text-slate">{prooflab.summary}</p>
+      </header>
 
       <div className="mt-16 grid items-start gap-12 lg:mt-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div className="reveal">
@@ -30,7 +36,7 @@ export function ProofLab() {
         <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1 lg:gap-9">
           {prooflab.points.map((p) => (
             <li key={p.title} className="reveal">
-              <h3 className="text-xl font-semibold tracking-tight">{p.title}</h3>
+              <h4 className="text-xl font-semibold tracking-tight">{p.title}</h4>
               <p className="mt-2 text-[1.0625rem] leading-relaxed text-slate">{p.body}</p>
             </li>
           ))}
@@ -74,6 +80,6 @@ export function ProofLab() {
           ) : null}
         </div>
       </div>
-    </Section>
+    </article>
   )
 }
