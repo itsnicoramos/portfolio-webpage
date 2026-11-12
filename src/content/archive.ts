@@ -1,4 +1,4 @@
-// Coursework and study, newest first. Checked against each repository's
+// Coursework and study, newest first (keep it that way when adding entries). Checked against each repository's
 // README on 2026-11-10. CSCI 161 and 162 intentionally carry no links: the
 // links were removed from the previous site on purpose (commit 6d08983).
 
@@ -13,6 +13,23 @@ export type ArchiveEntry = {
 }
 
 export const archive: readonly ArchiveEntry[] = [
+  {
+    id: 'course-claude-code',
+    title: 'Master Claude Code, Plugins and Skills',
+    context: 'Online course',
+    period: '2026',
+    body: 'Building Claude Code plugins and skills, automating workflows with Cowork and deploying autonomous agents.',
+    tags: ['Claude Code', 'Skills', 'Agents'],
+    href: 'https://anthropic.skilljar.com',
+  },
+  {
+    id: 'course-prompt-engineering',
+    title: 'Master Prompt Engineering',
+    context: 'Online course',
+    period: '2026',
+    body: 'Designing, structuring and testing prompts to get reliable output from large language models.',
+    tags: ['Prompt engineering', 'LLMs'],
+  },
   {
     id: 'csci-162',
     title: 'CSCI 162 · Topics in Computer Science',
@@ -55,21 +72,5 @@ export const archive: readonly ArchiveEntry[] = [
     body: 'A command-line to-do list built only from structs, arrays and loops: no classes, no vectors, no file I/O.',
     tags: ['C++', 'Structs', 'Arrays'],
     href: 'https://github.com/itsnicoramos/cpp-todo-list',
-  },
-  {
-    id: 'course-claude-code',
-    title: 'Master Claude Code, Plugins and Skills',
-    context: 'Online course',
-    period: '2026',
-    body: 'Building Claude Code plugins and skills, automating workflows with Cowork and deploying autonomous agents.',
-    tags: ['Claude Code', 'Skills', 'Agents'],
-  },
-  {
-    id: 'course-prompt-engineering',
-    title: 'Master Prompt Engineering',
-    context: 'Online course',
-    period: '2026',
-    body: 'Designing, structuring and testing prompts to get reliable output from large language models.',
-    tags: ['Prompt engineering', 'LLMs'],
   },
 ]

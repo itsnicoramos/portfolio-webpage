@@ -86,6 +86,18 @@ describe('content', () => {
     }
   })
 
+  it('lists the archive newest first', () => {
+    const years = archive.map((a) => Number(a.period.match(/\d{4}/)?.[0]))
+    years.forEach((y, i) => {
+      if (i > 0) assert.ok(y <= (years[i - 1] ?? Infinity), archive[i]?.id)
+    })
+    assert.equal(archive[0]?.id, 'course-claude-code')
+  })
+
+  it('links the Claude Code course to Anthropic Academy', () => {
+    assert.equal(archive.find((a) => a.id === 'course-claude-code')?.href, 'https://anthropic.skilljar.com')
+  })
+
   it('states the confirmed program and no minor', () => {
     const text = about.paragraphs.join(' ')
     assert.match(text, /Computer Engineering transfer student from Vancouver Island University/)
