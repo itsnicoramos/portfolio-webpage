@@ -26,6 +26,13 @@ export const commands: readonly Command[] = [
     }),
   ),
   {
+    id: 'paper-attention',
+    label: 'Attention Is All You Need (paper)',
+    group: 'Projects',
+    keywords: ['ml', 'transformer', 'arxiv', 'first build'],
+    action: { type: 'link', href: 'https://arxiv.org/pdf/1706.03762v7' },
+  },
+  {
     id: 'open-prooflab-site',
     label: 'ProofLab website',
     group: 'Projects',

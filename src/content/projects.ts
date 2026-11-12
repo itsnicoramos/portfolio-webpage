@@ -302,12 +302,23 @@ export const aiEngineering: Project = {
   ],
 }
 
-// The ML section. Nico's first machine learning project is still being built,
-// so this entry says only that. Replace it with a real Project (and `sources`)
-// once there is a repository to verify against.
+// The ML section. Nico's first machine learning project is implementing the
+// Transformer from "Attention Is All You Need". It is still being built, so the
+// entry says only that. The paper is linked on arXiv, not rehosted: its notice
+// only permits reproducing the tables and figures.
 export const mlFirstProject = {
-  title: 'My first machine learning project is in the works.',
+  title: 'First build: the Transformer, from the paper.',
   summary:
-    'I am building my first ML project now. It will show up here, with the code and what it can actually do, once there is something real to point at.',
+    'My first ML project is implementing the model from Attention Is All You Need. It is a work in progress, and the code will show up here once there is something real to point at.',
   status: { label: 'Work in progress', tone: 'early' } satisfies Status,
+  paper: {
+    title: 'Attention Is All You Need',
+    authors: 'Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser and Polosukhin',
+    venue: 'NIPS 2017 · arXiv:1706.03762',
+    links: [
+      { label: 'Read the paper (PDF)', href: 'https://arxiv.org/pdf/1706.03762v7' },
+      { label: 'arXiv abstract', href: 'https://arxiv.org/abs/1706.03762' },
+    ],
+  },
+  sources: ['AttentionIsAllYouNeed.pdf (arXiv:1706.03762v7, page 1)'],
 } as const
