@@ -1,6 +1,6 @@
 import { prooflab } from '@/content/projects'
 import { ProofLabReplay } from '../ProofLabReplay'
-import { ArrowLink, PillLink, StatusPill, TagList } from '../ui'
+import { ArrowLink, Card, CardEyebrow, PillLink, StatusPill, TagList } from '../ui'
 
 const stats = [
   { value: '14', label: 'Book of Proof chapters taught' },
@@ -13,43 +13,44 @@ export function ProofLabCard() {
   const [site, repo] = prooflab.links
   return (
     // A light card inside the dark Engineering & CS section. `theme-white`
-    // keeps cobalt focus rings and light text colours inside it.
-    <article
+    // keeps light-section focus rings and text colours inside it.
+    <Card
+      as="article"
+      surface="sheet"
+      pad="lg"
       id="prooflab"
       aria-labelledby="prooflab-title"
       tabIndex={-1}
-      className="theme-white reveal mt-16 scroll-mt-24 rounded-[2rem] p-7 outline-none sm:p-12 lg:mt-20"
+      className="theme-white reveal mt-16 scroll-mt-24 outline-none lg:mt-20"
     >
       <header className="max-w-3xl">
-        <p className="text-sm font-semibold text-gradient-prooflab-ink">ProofLab · AI-assisted mathematics learning</p>
-        <h3 id="prooflab-title" className="display-md mt-2 text-balance">
+        <CardEyebrow tone="light">ProofLab · AI-assisted mathematics learning</CardEyebrow>
+        <h3 id="prooflab-title" className="display-md mt-3">
           {prooflab.tagline}
         </h3>
-        <p className="mt-4 text-[1.0625rem] leading-relaxed text-slate">{prooflab.summary}</p>
+        <p className="mt-4 text-body text-ink-muted">{prooflab.summary}</p>
       </header>
 
       <div className="mt-16 grid items-start gap-12 lg:mt-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-        <div className="reveal">
-          <ProofLabReplay />
-        </div>
+        <ProofLabReplay />
 
         <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1 lg:gap-9">
           {prooflab.points.map((p) => (
-            <li key={p.title} className="reveal">
-              <h4 className="text-xl font-semibold tracking-tight">{p.title}</h4>
-              <p className="mt-2 text-[1.0625rem] leading-relaxed text-slate">{p.body}</p>
+            <li key={p.title}>
+              <h4 className="title-sm">{p.title}</h4>
+              <p className="mt-2 text-body text-ink-muted">{p.body}</p>
             </li>
           ))}
         </ul>
       </div>
 
-      <dl className="reveal mt-20 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line-light pt-12 lg:grid-cols-4">
+      <dl className="mt-20 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line-light pt-12 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label}>
             <dt className="sr-only">{s.label}</dt>
             <dd>
-              <span className="block text-5xl font-semibold tracking-tight sm:text-6xl">{s.value}</span>
-              <span className="mt-2 block text-[0.9375rem] text-slate" aria-hidden="true">
+              <span className="block font-mono text-5xl font-semibold tabular-nums sm:text-6xl">{s.value}</span>
+              <span className="mt-2 block text-ui text-ink-muted" aria-hidden="true">
                 {s.label}
               </span>
             </dd>
@@ -57,11 +58,11 @@ export function ProofLabCard() {
         ))}
       </dl>
 
-      <div className="reveal mt-16 flex flex-col gap-8 rounded-[1.75rem] bg-paper p-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between">
+      <Card surface="paper" className="mt-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-5">
           <StatusPill status={prooflab.status} tone="light" />
           <TagList items={prooflab.stack} tone="light" label="ProofLab tech stack" />
-          <p className="text-[0.875rem] text-slate">
+          <p className="font-mono text-meta text-ink-muted">
             License: {prooflab.license}. The earlier practice website was retired on 8 November 2026; the tutor and API carry on.
           </p>
         </div>
@@ -79,7 +80,7 @@ export function ProofLabCard() {
             </ArrowLink>
           ) : null}
         </div>
-      </div>
-    </article>
+      </Card>
+    </Card>
   )
 }

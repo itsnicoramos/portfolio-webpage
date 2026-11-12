@@ -1,6 +1,6 @@
 import { aiEngineering, cyberbank, portfolio } from '@/content/projects'
 import { ProofLabCard } from './ProofLab'
-import { ArrowLink, Section, SectionHeader, StatusPill, TagList } from '../ui'
+import { ArrowLink, Card, CardEyebrow, Section, SectionHeader, StatusPill, TagList } from '../ui'
 
 export function Engineering() {
   return (
@@ -14,26 +14,20 @@ export function Engineering() {
 
       <ProofLabCard />
 
-      <article
-        aria-labelledby="ai-engineering-title"
-        className="reveal relative mt-6 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12"
-      >
-        <div
-          className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-[radial-gradient(circle,rgb(142_140_255/0.2),transparent_65%)]"
-          aria-hidden="true"
-        />
+      <Card as="article" pad="lg" aria-labelledby="ai-engineering-title" className="reveal relative mt-6 overflow-hidden">
+        <div className="glow-corner pointer-events-none absolute -right-32 -top-32 size-96 rounded-full" aria-hidden="true" />
         <div className="relative grid gap-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
           <div className="flex flex-col">
-            <p className="text-sm font-semibold text-gradient-prooflab">Open source · by Rohit Ghumare</p>
-            <h3 id="ai-engineering-title" className="display-md mt-2">
+            <CardEyebrow>Open source · by Rohit Ghumare</CardEyebrow>
+            <h3 id="ai-engineering-title" className="display-md mt-3">
               {aiEngineering.name}
             </h3>
-            <p className="mt-3 text-xl font-medium tracking-tight text-snow">{aiEngineering.tagline}</p>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed text-mist">{aiEngineering.summary}</p>
+            <p className="subtitle mt-3 text-fg">{aiEngineering.tagline}</p>
+            <p className="mt-4 text-body text-fg-muted">{aiEngineering.summary}</p>
             <div className="mt-auto space-y-6 pt-10">
               <StatusPill status={aiEngineering.status} />
               <TagList items={aiEngineering.stack} label="AI Engineering from Scratch topics" />
-              <p className="text-[0.875rem] text-mist">License: {aiEngineering.license}.</p>
+              <p className="font-mono text-meta text-fg-muted">License: {aiEngineering.license}.</p>
               <div className="flex flex-wrap gap-x-6">
                 {aiEngineering.links.map((link) => (
                   <ArrowLink key={link.href} href={link.href} external>
@@ -46,35 +40,29 @@ export function Engineering() {
           </div>
           <ul className="grid gap-4 sm:grid-cols-2">
             {aiEngineering.points.map((p) => (
-              <li key={p.title} className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/10">
-                <h4 className="text-lg font-semibold tracking-tight">{p.title}</h4>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-mist">{p.body}</p>
-              </li>
+              <Card as="li" surface="tile" pad="sm" key={p.title}>
+                <h4 className="title-sm">{p.title}</h4>
+                <p className="mt-2 text-ui text-fg-muted">{p.body}</p>
+              </Card>
             ))}
           </ul>
         </div>
-      </article>
+      </Card>
 
-      <article
-        aria-labelledby="cyberbank-title"
-        className="reveal relative mt-6 overflow-hidden rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12"
-      >
-        <div
-          className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-[radial-gradient(circle,rgb(48_209_88/0.18),transparent_65%)]"
-          aria-hidden="true"
-        />
+      <Card as="article" pad="lg" aria-labelledby="cyberbank-title" className="reveal relative mt-6 overflow-hidden">
+        <div className="glow-corner pointer-events-none absolute -right-32 -top-32 size-96 rounded-full" aria-hidden="true" />
         <div className="relative grid gap-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
           <div className="flex flex-col">
-            <p className="text-sm font-semibold text-mint">Featured</p>
-            <h3 id="cyberbank-title" className="display-lg mt-2">
+            <CardEyebrow>Featured</CardEyebrow>
+            <h3 id="cyberbank-title" className="display-md mt-3">
               {cyberbank.name}
             </h3>
-            <p className="mt-3 text-xl font-medium tracking-tight text-snow">{cyberbank.tagline}</p>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed text-mist">{cyberbank.summary}</p>
+            <p className="subtitle mt-3 text-fg">{cyberbank.tagline}</p>
+            <p className="mt-4 text-body text-fg-muted">{cyberbank.summary}</p>
             <div className="mt-auto space-y-6 pt-10">
               <StatusPill status={cyberbank.status} />
               <TagList items={cyberbank.stack} label="CyberBank stack" />
-              <p className="text-[0.875rem] text-mist">License: {cyberbank.license}.</p>
+              <p className="font-mono text-meta text-fg-muted">License: {cyberbank.license}.</p>
               <ArrowLink href={cyberbank.repo} external>
                 View on GitHub
                 <span className="sr-only">: CyberBank</span>
@@ -83,30 +71,32 @@ export function Engineering() {
           </div>
           <ul className="grid gap-4 sm:grid-cols-2">
             {cyberbank.points.map((p) => (
-              <li key={p.title} className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/10">
-                <h4 className="text-lg font-semibold tracking-tight">{p.title}</h4>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-mist">{p.body}</p>
-              </li>
+              <Card as="li" surface="tile" pad="sm" key={p.title}>
+                <h4 className="title-sm">{p.title}</h4>
+                <p className="mt-2 text-ui text-fg-muted">{p.body}</p>
+              </Card>
             ))}
           </ul>
         </div>
-      </article>
+      </Card>
 
-      <article
+      <Card
+        as="article"
+        pad="lg"
         aria-labelledby="portfolio-title"
-        className="reveal mt-6 grid gap-10 rounded-[2rem] bg-graphite p-7 ring-1 ring-white/10 sm:p-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16"
+        className="reveal mt-6 grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:gap-16"
       >
         <div className="flex flex-col">
-          <p className="text-sm font-semibold text-sky">This website</p>
-          <h3 id="portfolio-title" className="display-md mt-2">
+          <CardEyebrow>This website</CardEyebrow>
+          <h3 id="portfolio-title" className="display-md mt-3">
             {portfolio.name}
           </h3>
-          <p className="mt-3 text-xl font-medium tracking-tight text-snow">{portfolio.tagline}</p>
-          <p className="mt-4 text-[1.0625rem] leading-relaxed text-mist">{portfolio.summary}</p>
+          <p className="subtitle mt-3 text-fg">{portfolio.tagline}</p>
+          <p className="mt-4 text-body text-fg-muted">{portfolio.summary}</p>
           <div className="mt-auto space-y-6 pt-10">
             <StatusPill status={portfolio.status} />
             <TagList items={portfolio.stack} label="itsnico.dev stack" />
-            <p className="text-[0.875rem] text-mist">License: {portfolio.license}.</p>
+            <p className="font-mono text-meta text-fg-muted">License: {portfolio.license}.</p>
             <ArrowLink href={portfolio.repo} external>
               View on GitHub
               <span className="sr-only">: itsnico.dev</span>
@@ -115,13 +105,13 @@ export function Engineering() {
         </div>
         <ul className="grid gap-4 sm:grid-cols-2">
           {portfolio.points.map((p) => (
-            <li key={p.title} className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/10">
-              <h4 className="text-lg font-semibold tracking-tight">{p.title}</h4>
-              <p className="mt-2 text-[0.9375rem] leading-relaxed text-mist">{p.body}</p>
-            </li>
+            <Card as="li" surface="tile" pad="sm" key={p.title}>
+              <h4 className="title-sm">{p.title}</h4>
+              <p className="mt-2 text-ui text-fg-muted">{p.body}</p>
+            </Card>
           ))}
         </ul>
-      </article>
+      </Card>
     </Section>
   )
 }

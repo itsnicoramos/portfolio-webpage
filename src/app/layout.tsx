@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Silkscreen } from 'next/font/google'
 import type { ReactNode } from 'react'
+import { BinaryRain } from '@/components/BinaryRain'
 import { CommandPalette } from '@/components/CommandPalette'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { primaryContacts, site, socialContacts } from '@/content/site'
+import { palette } from '@/lib/palette'
 import './globals.css'
 
 // Self-hosted at build time by next/font: no request to Google at runtime.
@@ -20,8 +22,15 @@ const mono = JetBrains_Mono({
   display: 'swap',
   variable: '--font-code',
   weight: ['400', '600'],
-  // Only used below the fold, so don't compete with the hero for bandwidth.
-  preload: false,
+  // The mono "evidence" voice starts in the hero eyebrow, so preload it.
+})
+
+// Bitmap display face for every heading.
+const pixel = Silkscreen({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-pixel',
+  weight: ['400', '700'],
 })
 
 export const metadata: Metadata = {
@@ -61,7 +70,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#000000',
+  themeColor: palette.bg,
   colorScheme: 'dark light',
 }
 
@@ -76,11 +85,12 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-CA" data-theme="dark" className={`${inter.variable} ${mono.variable}`}>
+    <html lang="en-CA" data-theme="dark" className={`${inter.variable} ${mono.variable} ${pixel.variable}`}>
       <body>
+        <BinaryRain />
         <a
           href="#content"
-          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-full bg-sky px-4 py-2 text-[0.9375rem] font-medium text-black"
+          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-full bg-accent px-4 py-2 text-ui font-medium text-bg"
         >
           Skip to content
         </a>

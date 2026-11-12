@@ -46,6 +46,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Hide the floating "N" dev indicator; production never shows it anyway.
+  devIndicators: false,
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 828, 1080, 1440, 1920],

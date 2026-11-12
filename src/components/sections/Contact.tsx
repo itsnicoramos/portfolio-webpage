@@ -1,20 +1,24 @@
 import { email, primaryContacts, socialContacts, type ContactLink } from '@/content/site'
 import { CopyEmailButton } from '../CopyEmailButton'
 import { Icon } from '../Icon'
-import { Section, SectionHeader } from '../ui'
+import { Card, Section, SectionHeader } from '../ui'
 
 function PrimaryCard({ contact }: { contact: ContactLink }) {
   const external = contact.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}
   return (
-    <li className="relative flex flex-col rounded-[1.75rem] bg-graphite p-7 ring-1 ring-white/10 transition-[background-color,box-shadow] duration-300 focus-within:ring-2 focus-within:ring-sky hover:bg-graphite-2 hover:ring-white/20">
-      <span className="flex size-12 items-center justify-center rounded-2xl bg-white/[0.08]">
+    <Card
+      as="li"
+      pad="snug"
+      className="relative flex flex-col transition-[background-color,box-shadow] duration-300 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-accent hover:bg-surface-2 hover:ring-line-strong"
+    >
+      <span className="flex size-12 items-center justify-center rounded-tile bg-fill-strong">
         <Icon name={contact.icon} className="size-6" />
       </span>
-      <h3 className="mt-8 text-[0.9375rem] font-medium text-mist">{contact.label}</h3>
+      <h3 className="eyebrow mt-8 text-fg-muted">{contact.label}</h3>
       <a
         href={contact.href}
         {...external}
-        className="mt-1 text-xl font-semibold tracking-tight text-snow [overflow-wrap:anywhere] after:absolute after:inset-0 after:rounded-[1.75rem] focus-visible:outline-none"
+        className="subtitle mt-1 font-semibold text-fg [overflow-wrap:anywhere] after:absolute after:inset-0 after:rounded-card focus-visible:outline-none"
       >
         {/* Let a long address wrap after the @ instead of mid-word. */}
         {contact.handle.includes('@') && !contact.handle.startsWith('@') ? (
@@ -27,7 +31,7 @@ function PrimaryCard({ contact }: { contact: ContactLink }) {
         )}
         {contact.external ? (
           <>
-            <Icon name="external" className="ml-1 inline size-5 align-[-2px] text-mist" />
+            <Icon name="external" className="ml-1 inline size-5 align-[-2px] text-fg-muted" />
             <span className="sr-only"> (opens in a new tab)</span>
           </>
         ) : null}
@@ -37,7 +41,7 @@ function PrimaryCard({ contact }: { contact: ContactLink }) {
           <CopyEmailButton email={email} />
         </div>
       ) : null}
-    </li>
+    </Card>
   )
 }
 
@@ -60,14 +64,14 @@ export function Contact() {
         }
       />
 
-      <ul className="reveal mx-auto mt-16 grid max-w-5xl gap-4 md:grid-cols-3 lg:mt-20">
+      <ul className="reveal mt-16 grid gap-4 md:grid-cols-3 lg:mt-20">
         {primaryContacts.map((c) => (
           <PrimaryCard key={c.id} contact={c} />
         ))}
       </ul>
 
-      <div className="reveal mx-auto mt-14 max-w-5xl">
-        <h3 className="text-center text-[0.9375rem] font-medium text-mist">Elsewhere</h3>
+      <div className="reveal mt-14">
+        <h3 className="eyebrow text-center text-fg-muted">Elsewhere</h3>
         <ul className="mt-5 flex flex-wrap justify-center gap-3">
           {socialContacts.map((c) => (
             <li key={c.id}>
@@ -75,9 +79,9 @@ export function Contact() {
                 href={c.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-11 items-center gap-2.5 rounded-full bg-white/[0.06] px-4 py-2 text-[0.9375rem] text-snow ring-1 ring-white/10 transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/[0.12]"
+                className="flex min-h-11 items-center gap-2.5 rounded-full bg-fill px-4 py-2 text-ui text-fg ring-1 ring-line transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-fill-strong active:translate-y-0"
               >
-                <Icon name={c.icon} className="size-[1.125rem]" />
+                <Icon name={c.icon} className="size-4.5" />
                 <span>
                   <span className="sr-only">{c.label} </span>
                   {c.handle}

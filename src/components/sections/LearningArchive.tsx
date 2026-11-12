@@ -1,6 +1,9 @@
 import { archive } from '@/content/archive'
 import { ExternalLink, Section, SectionHeader, TagList } from '../ui'
 
+// A dense mono ledger: the record, not the highlight reel.
+const columns = 'lg:grid-cols-[3rem_11rem_1fr_7rem] lg:gap-8'
+
 export function LearningArchive() {
   return (
     <Section id="archive" theme="light">
@@ -12,41 +15,56 @@ export function LearningArchive() {
         lead="Coursework, practice projects and the courses I am working through. Unpolished on purpose: this is the record, not the highlight reel."
       />
 
-      <ol className="mt-16 border-t border-line-light lg:mt-20">
-        {archive.map((entry) => (
-          <li key={entry.id} className="reveal border-b border-line-light">
-            <article
-              aria-labelledby={`${entry.id}-title`}
-              className="grid gap-4 py-8 sm:py-10 lg:grid-cols-[12rem_1fr_auto] lg:gap-10"
-            >
-              <div className="text-[0.875rem] text-slate">
-                <p className="font-medium text-ink">{entry.period}</p>
-                <p className="mt-0.5">{entry.context}</p>
-              </div>
-              <div className="max-w-2xl">
-                <h3 id={`${entry.id}-title`} className="text-xl font-semibold tracking-tight sm:text-2xl">
-                  {entry.title}
-                </h3>
-                <p className="mt-2 text-[1.0625rem] leading-relaxed text-slate">{entry.body}</p>
-                <div className="mt-4">
-                  <TagList items={entry.tags} tone="light" label={`${entry.title} topics`} />
+      <div className="reveal mt-16 lg:mt-20">
+        <p className="flex items-baseline justify-between border-b-2 border-ink pb-2 font-mono text-meta text-ink-muted">
+          <span>learning.log</span>
+          <span>
+            {archive.length} entries
+          </span>
+        </p>
+        <div className={`hidden py-2 font-mono text-xs uppercase tracking-wider text-ink-muted lg:grid ${columns}`} aria-hidden="true">
+          <span>#</span>
+          <span>Period</span>
+          <span>Entry</span>
+          <span className="text-right">Link</span>
+        </div>
+
+        <ol className="border-t border-line-light">
+          {archive.map((entry, i) => (
+            <li key={entry.id} className="border-b border-line-light">
+              <article aria-labelledby={`${entry.id}-title`} className={`grid gap-3 py-6 ${columns}`}>
+                <span className="hidden font-mono text-meta text-ink-muted lg:block" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="font-mono text-meta text-ink-muted">
+                  <p className="font-semibold text-ink">{entry.period}</p>
+                  <p className="mt-0.5">{entry.context}</p>
                 </div>
-              </div>
-              <div className="lg:pt-1">
-                {entry.href ? (
-                  <ExternalLink
-                    href={entry.href}
-                    className="inline-flex min-h-11 items-center gap-1 text-[0.9375rem] font-medium text-cobalt underline-offset-4 hover:underline"
-                  >
-                    {entry.href.includes('github.com/itsnicoramos') ? 'Repository' : 'Course'}
-                    <span className="sr-only">: {entry.title}</span>
-                  </ExternalLink>
-                ) : null}
-              </div>
-            </article>
-          </li>
-        ))}
-      </ol>
+                <div className="max-w-2xl">
+                  <h3 id={`${entry.id}-title`} className="title-sm">
+                    {entry.title}
+                  </h3>
+                  <p className="mt-2 text-ui text-ink-muted">{entry.body}</p>
+                  <div className="mt-3">
+                    <TagList items={entry.tags} tone="light" variant="inline" label={`${entry.title} topics`} />
+                  </div>
+                </div>
+                <div className="lg:text-right">
+                  {entry.href ? (
+                    <ExternalLink
+                      href={entry.href}
+                      className="inline-flex min-h-11 items-center gap-1 font-mono text-meta font-medium text-link-light underline-offset-4 hover:underline"
+                    >
+                      {entry.href.includes('github.com/itsnicoramos') ? 'Repository' : 'Course'}
+                      <span className="sr-only">: {entry.title}</span>
+                    </ExternalLink>
+                  ) : null}
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </div>
     </Section>
   )
 }

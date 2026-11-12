@@ -137,13 +137,15 @@ export const hardwareBringup: Project = {
 
 // What is and is not in the hardware-bringup repo today. The README describes
 // apps/console/ and skill/references/, but neither is committed yet.
-export const hardwareBringupProgress = [
-  { label: 'Skill and preflight', state: 'Written, in use' },
-  { label: 'Trigger and pressure evals', state: 'Written' },
-  { label: 'Bench console schema, RLS and database tests', state: 'Written' },
-  { label: 'Bench console phone app', state: 'Not in the repo yet' },
-  { label: 'Per-toolchain host harnesses and symptom tables', state: 'Being filled in' },
-] as const
+// `tone` only encodes the state words for colour: in use = live,
+// written = complete, being filled in = active, not in the repo = empty.
+export const hardwareBringupProgress: readonly { label: string; state: string; tone: Status['tone'] }[] = [
+  { label: 'Skill and preflight', state: 'Written, in use', tone: 'live' },
+  { label: 'Trigger and pressure evals', state: 'Written', tone: 'complete' },
+  { label: 'Bench console schema, RLS and database tests', state: 'Written', tone: 'complete' },
+  { label: 'Bench console phone app', state: 'Not in the repo yet', tone: 'empty' },
+  { label: 'Per-toolchain host harnesses and symptom tables', state: 'Being filled in', tone: 'active' },
+]
 
 // A real bench card step from the hardware-bringup README.
 export const benchCard = {

@@ -145,15 +145,15 @@ test.describe('accessibility', () => {
     await expect(page.locator('main#content')).toBeFocused()
   })
 
-  test('focus rings use cobalt on light sections and sky on dark ones', async ({ page }) => {
+  test('focus rings use link green on light sections and phosphor accent on dark ones', async ({ page }) => {
     await page.goto('/')
     const outline = (sel: string) =>
       page.locator(sel).first().evaluate((el) => {
         ;(el as HTMLElement).focus()
         return getComputedStyle(el).outlineColor
       })
-    expect(await outline('#prooflab a[href^="https://github.com"]')).toBe('rgb(0, 102, 204)')
-    expect(await outline('#ai-systems a[href^="https://github.com"]')).toBe('rgb(41, 151, 255)')
+    expect(await outline('#prooflab a[href^="https://github.com"]')).toBe('rgb(27, 110, 54)')
+    expect(await outline('#ai-systems a[href^="https://github.com"]')).toBe('rgb(92, 255, 138)')
   })
 
   test('reduced motion shows the ProofLab replay in its final state', async ({ page }) => {
@@ -173,6 +173,45 @@ test.describe('ProofLab replay', () => {
     await page.getByRole('button', { name: 'Replay' }).click()
     await expect(hints).toHaveAttribute('data-show', 'false')
     await expect(hints).toHaveAttribute('data-show', 'true', { timeout: 6000 })
+  })
+})
+
+test('Replay keeps keyboard focus while it plays', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'networkidle' })
+  await page.locator('#prooflab figure').scrollIntoViewIfNeeded()
+  const replay = page.locator('#prooflab figure button')
+  await expect(replay).toHaveText('Replay', { timeout: 6000 })
+  await replay.focus()
+  await page.keyboard.press('Enter')
+  await expect(replay).toHaveText('Playing…')
+  await expect(replay).toHaveAttribute('aria-disabled', 'true')
+  await expect(replay).toBeFocused()
+  await expect(replay).toHaveText('Replay', { timeout: 6000 })
+  await expect(replay).toBeFocused()
+})
+
+test.describe('binary rain background', () => {
+  test('is decorative: hidden from assistive tech and click-through', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' })
+    const canvas = page.locator('body > canvas')
+    await expect(canvas).toHaveAttribute('aria-hidden', 'true')
+    await expect(canvas).toHaveCSS('pointer-events', 'none')
+  })
+
+  test('moves with motion allowed and holds still with reduced motion', async ({ browser }) => {
+    const frames = async (reducedMotion: 'reduce' | 'no-preference') => {
+      const context = await browser.newContext({ reducedMotion })
+      const page = await context.newPage()
+      await page.goto('/', { waitUntil: 'networkidle' })
+      const grab = () => page.locator('body > canvas').evaluate((c) => (c as HTMLCanvasElement).toDataURL())
+      const first = await grab()
+      await page.waitForTimeout(600)
+      const second = await grab()
+      await context.close()
+      return first === second
+    }
+    expect(await frames('reduce')).toBe(true)
+    expect(await frames('no-preference')).toBe(false)
   })
 })
 
@@ -208,6 +247,35 @@ test.describe('command palette', () => {
     await expect(page.getByRole('dialog')).toBeHidden()
   })
 
+  test('copying from the palette shows visible feedback, then closes', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText: () => Promise.resolve() }, configurable: true })
+    })
+    await page.goto('/', { waitUntil: 'networkidle' })
+    await page.getByRole('button', { name: 'Search and jump' }).click()
+    await page.getByRole('combobox').fill('copy email')
+    await page.keyboard.press('Enter')
+    const dialog = page.getByRole('dialog', { name: 'Search and jump' })
+    await expect(dialog.getByRole('option', { name: /Copy email address/ })).toContainText('Copied')
+    await expect(dialog).toBeHidden({ timeout: 3000 })
+  })
+
+  test('a failed copy keeps the palette open with the address on screen', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: () => Promise.reject(new Error('denied')) },
+        configurable: true,
+      })
+    })
+    await page.goto('/', { waitUntil: 'networkidle' })
+    await page.getByRole('button', { name: 'Search and jump' }).click()
+    await page.getByRole('combobox').fill('copy email')
+    await page.keyboard.press('Enter')
+    const dialog = page.getByRole('dialog', { name: 'Search and jump' })
+    await expect(dialog.getByText('Copy failed. The address is')).toBeVisible()
+    await expect(dialog).toBeVisible()
+  })
+
   test('opens from the header button and shows a no-match state', async ({ page }) => {
     await page.goto('/', { waitUntil: 'networkidle' })
     await page.getByRole('button', { name: 'Search and jump' }).click()
@@ -238,6 +306,31 @@ test.describe('responsive', () => {
     await page.keyboard.press('Escape')
     await expect(page.locator('#mobile-menu')).toBeHidden()
     await expect(page.getByRole('button', { name: 'Open menu' })).toBeFocused()
+  })
+
+  test('mobile menu closes when keyboard focus leaves the header', async ({ page, isMobile }) => {
+    test.skip(!isMobile)
+    await page.goto('/')
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    await expect(page.locator('#mobile-menu')).toBeVisible()
+    await page.locator('#mobile-menu a').last().focus()
+    await page.keyboard.press('Tab')
+    await expect(page.locator('#mobile-menu')).toBeHidden()
+  })
+})
+
+test.describe('contact', () => {
+  test('a failed copy shows the address on screen', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: () => Promise.reject(new Error('denied')) },
+        configurable: true,
+      })
+    })
+    await page.goto('/#contact', { waitUntil: 'networkidle' })
+    await page.getByRole('button', { name: 'Copy address' }).click()
+    await expect(page.getByRole('button', { name: 'Copy failed, try again' })).toBeVisible()
+    await expect(page.getByText('Copy it by hand:')).toBeVisible()
   })
 })
 

@@ -4,10 +4,10 @@ My personal site. One page, nine sections, built with Next.js and deployed on Ne
 
 **Live at [itsnico.dev](https://itsnico.dev)**
 
-[![The itsnico.dev hero: "Curiosity, engineered." in large type over a dark gradient, with Explore projects and Get in touch buttons.](docs/hero.webp)](https://itsnico.dev)
+[![The itsnico.dev hero: "Curiosity, engineered." in green pixel type over a dark background of drifting 0s and 1s, under a floating glass navigation bar, with Explore projects and Get in touch buttons.](docs/hero.webp)](https://itsnico.dev)
 
 <p align="center">
-  <img src="docs/mobile-tour.webp" width="300" alt="A 35-second scroll through itsnico.dev on an iPhone: the hero, ProofLab, AI systems, the hardware lab, Engineering & CS, photography, About, the learning archive and contact.">
+  <img src="docs/mobile-tour.webp" width="300" alt="A 33-second scroll through itsnico.dev on a phone: the hero, the ML build log, AI systems, the hardware lab, Engineering & CS with ProofLab, photography, About, the learning archive and contact.">
   <br>
   <sub>The same page on a phone, top to bottom.</sub>
 </p>
@@ -110,7 +110,8 @@ src/
   components/
     sections/            Hero, ML, ProofLab (card in Engineering), AISystems, HardwareLab, Engineering,
                          Photography, About, LearningArchive, Contact
-    SiteHeader.tsx, CommandPalette.tsx, ProofLabReplay.tsx, CopyEmailButton.tsx
+    SiteHeader.tsx, CommandPalette.tsx, ProofLabReplay.tsx, CopyEmailButton.tsx,
+    BinaryRain.tsx       the client components; BinaryRain is the background canvas
     Icon.tsx, ui.tsx     inline SVG icons, Section, SectionHeader, links, tags, status pills
   content/               every piece of copy and every link, as typed data
   lib/fuzzy.ts           the palette's matcher, dependency-free and unit tested

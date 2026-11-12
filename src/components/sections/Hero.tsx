@@ -11,11 +11,16 @@ export function Hero() {
       <div className="hero-glow pointer-events-none absolute -inset-[10%] -z-10" aria-hidden="true" />
 
       <div className="container-page">
-        <p className="rise-in mb-6 text-base font-semibold text-mist sm:text-lg">Nico Ramos · Computer Engineering</p>
-        <h1 id="home-title" className="display-xl max-w-5xl text-balance">
-          Curiosity, <span className="text-gradient-hero">engineered.</span>
+        <p className="rise-in eyebrow mb-8 text-fg-muted">
+          <span className="text-accent" aria-hidden="true">
+            &gt;{' '}
+          </span>
+          Nico Ramos · Computer Engineering
+        </p>
+        <h1 id="home-title" className="display-xl max-w-5xl">
+          Curiosity, <span className="hero-caret text-accent">engineered.</span>
         </h1>
-        <p className="rise-in lead mt-8 max-w-2xl text-pretty text-mist [animation-delay:120ms]">
+        <p className="rise-in lead mt-8 max-w-2xl text-pretty text-fg-muted [animation-delay:120ms]">
           I build AI learning tools, agent skills and hardware experiments, and I test what I claim before I say it works.
         </p>
         <div className="rise-in mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:220ms]">

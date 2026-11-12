@@ -18,7 +18,7 @@ Personal portfolio for Nico Ramos, deployed on Netlify at [itsnico.dev](https://
 
 ## Rules for changes
 
-- **Server Components by default.** Only `SiteHeader`, `CommandPalette`, `ProofLabReplay` and `CopyEmailButton` are client components. Keep it that way unless interactivity requires otherwise.
+- **Server Components by default.** Only `SiteHeader`, `CommandPalette`, `ProofLabReplay`, `CopyEmailButton` and `BinaryRain` (the decorative background canvas) are client components. Keep it that way unless interactivity requires otherwise.
 - **Content lives in `src/content/`.** Never hard-code project claims in components.
 - **Verify claims against the repo** before editing a project entry, and update its `sources` list. Do not invent features, stats, status or handles.
 - **Contacts come from the GitHub profile README** (`itsnicoramos/Itsnicoramos`). `tests/unit/content.test.ts` pins the exact list.
