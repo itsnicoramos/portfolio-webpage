@@ -16,10 +16,10 @@ export function About() {
           <Card surface="paper" pad="none" className="mt-10 overflow-hidden">
             <Image
               src={portrait}
-              alt="Nico Ramos outdoors on a sunny day, wearing tinted glasses, a pink linen shirt and a backpack."
+              alt="Black and white portrait of Nico Ramos in a dark suit, white shirt and tie, wearing sunglasses and leaning against a stone wall."
               sizes="(min-width: 1024px) 40vw, 100vw"
               placeholder="blur"
-              className="h-auto w-full"
+              className="h-auto w-full outline outline-1 -outline-offset-1 outline-line-light"
             />
           </Card>
         </div>
